@@ -1,2 +1,6 @@
 rootProject.name = 'Final-Johnson-Manning-Hosler-Sobiech'
+include 'src:test:resources'
+findProject(':src:test:resources')?.name = 'resources'
+include 'src:test:java:resources'
+findProject(':src:test:java:resources')?.name = 'resources'
 
