@@ -8,8 +8,9 @@ public class Main {
         APIConnector connector = new APIConnector();
         RatesGetter ratesGetter = new RatesGetter();
 
-        HttpsURLConnection connection = connector.getConnected();
-        String allRates = ratesGetter.getRates(connection);
+        HttpsURLConnection connectionWithTimestamp = connector.getConnectedWithTimestamp();
+        HttpsURLConnection connectionNoTimestamp = connector.getConnectedNoTimestamp();
+        String allRates = ratesGetter.getRatesNoTimestamp(connectionWithTimestamp);
         System.out.println(allRates);
     }
 }

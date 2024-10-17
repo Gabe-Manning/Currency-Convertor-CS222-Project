@@ -11,7 +11,7 @@ public class APIConnectorTest {
     @Test
     public void getConnectedTest() {
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnected();
+        HttpsURLConnection connection = connector.getConnectedNoTimestamp();
         Assertions.assertNotNull(connection);
     }
 
