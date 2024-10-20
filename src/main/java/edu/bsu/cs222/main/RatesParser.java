@@ -4,23 +4,32 @@ import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RatesParser {
 
     RatesGetter ratesGetter = new RatesGetter();
     APIConnector apiConnector = new APIConnector();
-    Converter converter = new Converter();
 
-    public Integer parseThroughRatesForExchangeRate(String userInputCurrency, String userOutputCurrency) throws IOException {
+    public ArrayList<JSONArray> parseThroughRatesForExchangeRate(String userInputCurrency, String userOutputCurrency) throws IOException {
         HttpsURLConnection connection = apiConnector.connectNoTimestamp();
         String allRates = ratesGetter.getCurrentRates(connection);
 
         JSONArray startingExchangeRate = JsonPath.read(allRates, "$.." + userInputCurrency);
         JSONArray finalExchangeRate = JsonPath.read(allRates, "$.." + userOutputCurrency);
-        int startingExchangeRateOut = Integer.parseInt(startingExchangeRate.get(0).toString());
-        int finalExchangeRateOut = Integer.parseInt(finalExchangeRate.get(0).toString());
+        float first = Float.parseFloat((String) startingExchangeRate.getFirst());
+        float second = Float.parseFloat((String) finalExchangeRate.getFirst());
+        float [] floatList = new float[];
 
-        return converter.convertUsingCurrencies(startingExchangeRateOut, finalExchangeRateOut);
+        return rateList.;
+    }
+
+    public float convertUsingCurrencies(JSONArray startingExchangeRate, JSONArray finalExchangeRate) {
+        float firstValue = (float)startingExchangeRate.get(0);
+        float secondValue = (float)finalExchangeRate.get(1);
+        return (secondValue / firstValue);
     }
 
 }
