@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 
 public class RatesGetter {
 
-    public String getRatesNoTimestamp(HttpsURLConnection API_connection) throws IOException {
+    public String getCurrentRates(HttpsURLConnection API_connection) throws IOException {
         return new String(API_connection.getInputStream().readAllBytes(), Charset.defaultCharset());
     }
 

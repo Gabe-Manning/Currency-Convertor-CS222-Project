@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
+    public RatesParser parser = new RatesParser();
     public void displayMenu() throws IOException {
         while (true) {
             String menuSelection;
@@ -38,11 +39,11 @@ public class Menu {
         RatesGetter ratesGetter = new RatesGetter();
 
         HttpsURLConnection connectionNoTimestamp = connector.getConnectedNoTimestamp();
-        String allRates = ratesGetter.getRatesNoTimestamp(connectionNoTimestamp);
+        String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
         System.out.println(allRates);
     }
 
-    public void convertCurrency(){
+    public void convertCurrency() throws IOException {
         String convertSelection = "";
         String startingCurrency, finalCurrency;
         System.out.println("Enter starting currency (ex. USD): ");
@@ -60,7 +61,7 @@ public class Menu {
             startingAmount = scanner.nextLine();
 
         } else if (convertSelection.equals("2")) {
-
+            parser.parseThroughRates(startingCurrency, finalCurrency);
         }
     }
 
