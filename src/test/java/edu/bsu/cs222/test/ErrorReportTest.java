@@ -6,6 +6,7 @@ import edu.bsu.cs222.main.RatesParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -30,10 +31,11 @@ public void checkEmptyInputConsoleTest() {
     }
 
     @Test
-    public void checkValidInputTest() {
-        String testInput = "AAA";
+    public void checkValidInputTest() throws IOException {
+        String testInputCurrency = "AAA";
+        String testOutputCurrency = "BBD";
         RatesParser ratesParser = new RatesParser();
-        String testOutput = ratesParser.parseThroughRates(testInput);
+        String testOutput = ratesParser.parseThroughRates(testInputCurrency, testOutputCurrency);
         Assertions.assertEquals(testOutput, "");
     }
 
