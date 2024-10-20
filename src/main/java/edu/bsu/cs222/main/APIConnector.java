@@ -32,15 +32,14 @@ public class APIConnector {
             }
         }
     }
-    public HttpsURLConnection connectWithTimestamp()
+    public HttpsURLConnection connectWithTimestamp(String inputtedDate)
     {
-        Scanner scanner = new Scanner(System.in);
-        String input = "2013-03-16";
+
         URL API_URL;
 
         {
             try {
-                API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(input, Charset.defaultCharset()) + "?access_key=20d06127f90b41956b66466007af69d1&format=1");
+                API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) + "?access_key=20d06127f90b41956b66466007af69d1&format=1");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -61,8 +60,8 @@ public class APIConnector {
         HttpsURLConnection connectionNoTimestamp = connectNoTimestamp();
         return connectionNoTimestamp;
     }
-    public HttpsURLConnection getConnectedWithTimestamp() {
-        HttpsURLConnection connectionWithTimestamp = connectWithTimestamp();
+    public HttpsURLConnection getConnectedWithTimestamp(String inputtedDate) {
+        HttpsURLConnection connectionWithTimestamp = connectWithTimestamp(inputtedDate);
         return connectionWithTimestamp;
     }}
 

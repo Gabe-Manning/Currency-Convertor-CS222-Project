@@ -16,9 +16,9 @@ public class RatesGetterTest {
     public void getRatesTest() throws IOException {
         RatesGetter testRates = new RatesGetter();
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnectedWithTimestamp();
+        HttpsURLConnection connection = connector.getConnectedWithTimestamp("2013-03-16");
         String testResult = testRates.getRatesWithTimestamp(connection);
-        String testAgainst = readSampleToString();
+        //String testAgainst = readSampleToString();
         Assertions.assertEquals(testResult, """
                 {
                   "success":true,
@@ -195,7 +195,7 @@ public class RatesGetterTest {
     public void testRatesNotEmpty() throws IOException {
         RatesGetter testRates = new RatesGetter();
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnectedWithTimestamp();
+        HttpsURLConnection connection = connector.getConnectedNoTimestamp();
         String testResult = testRates.getRatesNoTimestamp(connection);
         Assertions.assertNotNull(testResult);
     }
