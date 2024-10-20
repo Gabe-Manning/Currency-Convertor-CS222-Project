@@ -35,7 +35,7 @@ public void checkEmptyInputConsoleTest() {
         String testInputCurrency = "AAA";
         String testOutputCurrency = "BBD";
         RatesParser ratesParser = new RatesParser();
-        String testOutput = ratesParser.parseThroughRates(testInputCurrency, testOutputCurrency);
+        String testOutput = ratesParser.parseThroughRatesForExchangeRate(testInputCurrency, testOutputCurrency);
         Assertions.assertEquals(testOutput, "");
     }
 
