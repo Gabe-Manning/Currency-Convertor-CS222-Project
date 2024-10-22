@@ -57,19 +57,19 @@ public class Menu {
         startingCurrency = scanner.nextLine();
         System.out.println("Enter final currency (ex. USD): ");
         finalCurrency = scanner.nextLine();
-        System.out.println("Please make a selection:\n" +
+        System.out.println("Please make a selection:" +
                 "1) Convert Currencies With A Starting Amount\n" +
                 "2) View Specific Exchange Rate Between Inputted Currencies\n");
         convertSelection = scanner.nextLine();
+        List<Float> rateList = parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
 
         if(convertSelection.equals("1")){
-            String startingAmount;
             System.out.println("Enter Starting Amount (ex. 50): ");
-            startingAmount = scanner.nextLine();
+            float startingAmount = Float.valueOf(scanner.nextLine());
+            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmount + " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmount));
 
         } else if (convertSelection.equals("2")) {
-            List<Float> rateList = parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
-            System.out.println(converter.convertUsingCurrencies(rateList));
+            System.out.println(converter.convertUsingOnlyCurrencies(rateList));
         }
     }
 
