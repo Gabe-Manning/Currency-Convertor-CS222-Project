@@ -5,6 +5,8 @@ import net.minidev.json.JSONArray;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -66,8 +68,8 @@ public class Menu {
             startingAmount = scanner.nextLine();
 
         } else if (convertSelection.equals("2")) {
-            parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
-            System.out.println(parser.convertUsingCurrencies(startingCurrency, finalCurrency));
+            List<Float> rateList = parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
+            System.out.println(converter.convertUsingCurrencies(rateList));
         }
     }
 

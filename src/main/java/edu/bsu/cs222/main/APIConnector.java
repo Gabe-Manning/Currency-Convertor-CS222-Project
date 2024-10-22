@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Scanner;
 import java.nio.charset.Charset;
 
 public class APIConnector {
@@ -63,5 +62,6 @@ public class APIConnector {
     public HttpsURLConnection getConnectedWithTimestamp(String inputtedDate) {
         HttpsURLConnection connectionWithTimestamp = connectWithTimestamp(inputtedDate);
         return connectionWithTimestamp;
-    }}
+    }
+}
 
