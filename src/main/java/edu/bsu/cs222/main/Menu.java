@@ -14,6 +14,8 @@ public class Menu {
     public RatesGetter ratesGetter = new RatesGetter();
     public ErrorReport errors = new ErrorReport();
     public boolean emptyCheck;
+    public boolean supportedCurrencyCheck;
+    public boolean supportedAmountCheck;
 
     public void displayMenu() throws IOException {
         while (true) {
@@ -56,10 +58,18 @@ public class Menu {
         if (emptyCheck) {
             return;
         }
+        supportedCurrencyCheck = errors.checkSupportedCurrency(startingCurrency);
+        if (supportedCurrencyCheck) {
+            return;
+        }
         System.out.println("Enter final currency (ex. USD): ");
         finalCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(finalCurrency);
         if (emptyCheck) {
+            return;
+        }
+        supportedCurrencyCheck = errors.checkSupportedCurrency(finalCurrency);
+        if (supportedCurrencyCheck) {
             return;
         }
         List<Float> rateList = parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
@@ -81,6 +91,10 @@ public class Menu {
             if (emptyCheck) {
                 return;
             }
+            supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingAmountString);
+            if (supportedAmountCheck) {
+                return;
+            }
             float startingAmountFloat = Float.parseFloat(startingAmountString);
             System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmountFloat + " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + finalCurrency);
         } else if (convertSelection.equals("2")) {
@@ -88,13 +102,17 @@ public class Menu {
         }
     }
 
-    public void historyData(){
+    public void historyData() throws IOException {
         String historyCurrency;
         String historyDate;
         System.out.println("Input Currency (ex. USD): ");
         historyCurrency = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
+            return;
+        }
+        supportedCurrencyCheck = errors.checkSupportedCurrency(historyCurrency);
+        if (supportedCurrencyCheck) {
             return;
         }
         System.out.println("Input Date (ex. 2024-03-18): ");
