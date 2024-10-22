@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+
     private final Scanner scanner = new Scanner(System.in);
     public RatesParser parser = new RatesParser();
     public Converter converter = new Converter();
+    public APIConnector connector = new APIConnector();
+    public RatesGetter ratesGetter = new RatesGetter();
+
     public void displayMenu() throws IOException {
         while (true) {
             String menuSelection;
@@ -37,15 +41,6 @@ public class Menu {
                 System.out.println("Invalid Input");
             }
         }
-    }
-
-    public void displayAllRates() throws IOException {
-        APIConnector connector = new APIConnector();
-        RatesGetter ratesGetter = new RatesGetter();
-
-        HttpsURLConnection connectionNoTimestamp = connector.connectNoTimestamp();
-        String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
-        System.out.println(allRates);
     }
 
     public void convertCurrency() throws IOException {
@@ -79,5 +74,11 @@ public class Menu {
         historyCurrency = scanner.nextLine();
         System.out.println("Input Date (ex. 2024-03-18): ");
         historyDate = scanner.nextLine();
+    }
+
+    public void displayAllRates() throws IOException {
+        HttpsURLConnection connectionNoTimestamp = connector.connectNoTimestamp();
+        String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
+        System.out.println(allRates);
     }
 }
