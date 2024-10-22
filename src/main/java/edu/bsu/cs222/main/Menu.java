@@ -19,7 +19,7 @@ public class Menu {
                     Please make a selection:
                     1) Convert Currency
                     2) Get Historical Records
-                    3) View All Exchange Rates Compared to EUR
+                    3) View All Current Exchange Rates Compared to EUR
                     4) Exit"""
             );
             menuSelection = scanner.nextLine();
@@ -43,7 +43,7 @@ public class Menu {
         APIConnector connector = new APIConnector();
         RatesGetter ratesGetter = new RatesGetter();
 
-        HttpsURLConnection connectionNoTimestamp = connector.getConnectedNoTimestamp();
+        HttpsURLConnection connectionNoTimestamp = connector.connectNoTimestamp();
         String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
         System.out.println(allRates);
     }

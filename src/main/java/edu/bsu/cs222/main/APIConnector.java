@@ -55,13 +55,5 @@ public class APIConnector {
             }
         }
     }
-    public HttpsURLConnection getConnectedNoTimestamp() {
-        HttpsURLConnection connectionNoTimestamp = connectNoTimestamp();
-        return connectionNoTimestamp;
-    }
-    public HttpsURLConnection getConnectedWithTimestamp(String inputtedDate) {
-        HttpsURLConnection connectionWithTimestamp = connectWithTimestamp(inputtedDate);
-        return connectionWithTimestamp;
-    }
 }
 

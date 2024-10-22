@@ -1,6 +1,5 @@
 package edu.bsu.cs222.main;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 
 public class Main {
