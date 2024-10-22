@@ -1,14 +1,14 @@
 package edu.bsu.cs222.main;
 
-import net.minidev.json.JSONArray;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class Converter {
-    public float convertUsingCurrencies(ArrayList<JSONArray> rateList) {
-        float firstValue = Float.parseFloat(String.valueOf(rateList.get(0)));
-        float secondValue = Float.parseFloat(String.valueOf(rateList.get(1)));
-
-        return (secondValue / firstValue);
+    public float convertUsingOnlyCurrencies(List<Float> rateList) {
+        return (rateList.get(1) / rateList.get(0));
+    }
+    public float convertUsingCurrenciesAndAmount(List<Float> rateList, float startingAmount) {
+        float rate = convertUsingOnlyCurrencies(rateList);
+        float endingAmount = (startingAmount * rate);
+        return endingAmount%.2f;
     }
 }

@@ -4,6 +4,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+
 public class RatesGetter {
 
     public String getCurrentRates(HttpsURLConnection API_connection) throws IOException {
