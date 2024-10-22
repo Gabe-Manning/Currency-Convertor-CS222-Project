@@ -13,7 +13,7 @@ public class RatesParser {
     RatesGetter ratesGetter = new RatesGetter();
     APIConnector apiConnector = new APIConnector();
 
-    public List<Float> parseThroughRatesForExchangeRate(String userInputCurrency, String userOutputCurrency) throws IOException {
+    public List<Float> parseThroughRatesForExchangeRateList(String userInputCurrency, String userOutputCurrency) throws IOException {
         HttpsURLConnection connection = apiConnector.connectNoTimestamp();
         String allRates = ratesGetter.getCurrentRates(connection);
 
