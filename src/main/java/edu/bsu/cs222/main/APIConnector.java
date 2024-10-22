@@ -8,6 +8,9 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 public class APIConnector {
+
+    ErrorReport errors = new ErrorReport();
+
     public HttpsURLConnection connectNoTimestamp()
     {
         URL API_URL;
@@ -21,6 +24,7 @@ public class APIConnector {
         }
 
         HttpsURLConnection API_connection;
+        errors.checkConnectionStatus(API_URL);
 
         {
             try {
@@ -45,6 +49,7 @@ public class APIConnector {
         }
 
         HttpsURLConnection API_connection;
+        errors.checkConnectionStatus(API_URL);
 
         {
             try {
