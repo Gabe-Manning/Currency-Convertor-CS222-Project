@@ -11,7 +11,7 @@ public class APIConnector {
 
     ErrorReport errors = new ErrorReport();
 
-    public HttpsURLConnection connectNoTimestamp()
+    public HttpsURLConnection connectNoDate()
     {
         URL API_URL;
 
@@ -35,14 +35,15 @@ public class APIConnector {
             }
         }
     }
-    public HttpsURLConnection connectWithTimestamp(String inputtedDate)
+    public HttpsURLConnection connectWithDate(String inputtedDate)
     {
 
         URL API_URL;
 
         {
             try {
-                API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) + "?access_key=20d06127f90b41956b66466007af69d1&format=1");
+                API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) +
+                        "?access_key=20d06127f90b41956b66466007af69d1&format=1");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }

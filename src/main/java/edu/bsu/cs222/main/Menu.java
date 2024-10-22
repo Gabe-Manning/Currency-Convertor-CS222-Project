@@ -134,12 +134,15 @@ public class Menu {
         System.out.println("Input Date (ex. 2024-03-18): ");
         historyDate = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyDate);
+
+        float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);
+        System.out.println("The exchange rate compared to EUR on " + historyDate + " for " + historyCurrency + " was " + rateOnDate);
     }
 
     private void displayAllRates() throws IOException {
 
-        HttpsURLConnection connectionNoTimestamp = connector.connectNoTimestamp();
-        String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
+        HttpsURLConnection connectionNoDate = connector.connectNoDate();
+        String allRates = ratesGetter.getRates(connectionNoDate);
         System.out.println(allRates);
     }
 }

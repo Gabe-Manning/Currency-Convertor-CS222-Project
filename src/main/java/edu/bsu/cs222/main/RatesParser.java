@@ -14,8 +14,9 @@ public class RatesParser {
     APIConnector apiConnector = new APIConnector();
 
     public List<Float> parseThroughRatesForExchangeRateList(String userInputCurrency, String userOutputCurrency) throws IOException {
-        HttpsURLConnection connection = apiConnector.connectNoTimestamp();
-        String allRates = ratesGetter.getCurrentRates(connection);
+
+        HttpsURLConnection connection = apiConnector.connectNoDate();
+        String allRates = ratesGetter.getRates(connection);
 
         JSONArray startingExchangeRate = JsonPath.read(allRates, "$.." + userInputCurrency);
         JSONArray finalExchangeRate = JsonPath.read(allRates, "$.." + userOutputCurrency);
@@ -28,7 +29,18 @@ public class RatesParser {
         return rateList;
     }
 
+    public float parseThroughRatesForRateAtSpecificDate(String userInputCurrency, String userInputDate) throws IOException {
+
+        HttpsURLConnection connection = apiConnector.connectWithDate(userInputDate);
+        String allRates = ratesGetter.getRates(connection);
+
+        JSONArray exchangeRate = JsonPath.read(allRates, "$.." + userInputCurrency);
+
+        return jsonArrayToFloat(exchangeRate);
+    }
+
     private Float jsonArrayToFloat(JSONArray array) {
+
         String arrayString = String.valueOf(array);
         String formattedString = arrayString.substring(1, arrayString.length()-1);
         return Float.parseFloat(formattedString);

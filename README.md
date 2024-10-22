@@ -17,6 +17,7 @@ console and is run using Gradle.
 Needed build/run instructions:
 This program uses Gradle and accordingly must be run through Gradle.
 
-Warnings:
+Warnings/Errors:
+Warning in line 95 of Menu class does not matter.
 Currently our tests do not work due to dependency issues. We don't know why, they were working
 2 days ago and now do not.

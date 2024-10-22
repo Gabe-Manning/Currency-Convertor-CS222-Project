@@ -27,9 +27,9 @@ public class ErrorReport {
 
     public boolean checkSupportedCurrency(String currency) throws IOException {
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.connectNoTimestamp();
+        HttpsURLConnection connection = connector.connectNoDate();
         RatesGetter ratesGetter = new RatesGetter();
-        String allCurrentRates = ratesGetter.getCurrentRates(connection);
+        String allCurrentRates = ratesGetter.getRates(connection);
         JSONArray checkForSupportedCurrency = JsonPath.read(allCurrentRates, "$.." + currency);
         if (checkForSupportedCurrency.isEmpty()) {
             System.out.println("That currency is either not supported by this program, or does not exist.");
