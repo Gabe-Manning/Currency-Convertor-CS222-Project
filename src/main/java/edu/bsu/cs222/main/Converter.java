@@ -1,6 +1,5 @@
 package edu.bsu.cs222.main;
 
-import java.util.Dictionary;
 import java.util.List;
 
 public class Converter {
@@ -9,6 +8,7 @@ public class Converter {
     }
     public float convertUsingCurrenciesAndAmount(List<Float> rateList, float startingAmount) {
         float rate = convertUsingOnlyCurrencies(rateList);
-        return (startingAmount * rate)%.2f;
+        float endingAmount = (startingAmount * rate);
+        return endingAmount%.2f;
     }
 }
