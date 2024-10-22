@@ -196,7 +196,7 @@ public class RatesGetterTest {
         RatesGetter testRates = new RatesGetter();
         APIConnector connector = new APIConnector();
         HttpsURLConnection connection = connector.getConnectedNoTimestamp();
-        String testResult = testRates.getRatesNoTimestamp(connection);
+        String testResult = testRates.getCurrentRates(connection);
         Assertions.assertNotNull(testResult);
     }
 

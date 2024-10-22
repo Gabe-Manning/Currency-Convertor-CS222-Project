@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Scanner;
 import java.nio.charset.Charset;
 
 public class APIConnector {
+
+    ErrorReport errors = new ErrorReport();
+
     public HttpsURLConnection connectNoTimestamp()
     {
         URL API_URL;
@@ -22,6 +24,7 @@ public class APIConnector {
         }
 
         HttpsURLConnection API_connection;
+        errors.checkConnectionStatus(API_URL);
 
         {
             try {
@@ -46,6 +49,7 @@ public class APIConnector {
         }
 
         HttpsURLConnection API_connection;
+        errors.checkConnectionStatus(API_URL);
 
         {
             try {
@@ -56,12 +60,5 @@ public class APIConnector {
             }
         }
     }
-    public HttpsURLConnection getConnectedNoTimestamp() {
-        HttpsURLConnection connectionNoTimestamp = connectNoTimestamp();
-        return connectionNoTimestamp;
-    }
-    public HttpsURLConnection getConnectedWithTimestamp(String inputtedDate) {
-        HttpsURLConnection connectionWithTimestamp = connectWithTimestamp(inputtedDate);
-        return connectionWithTimestamp;
-    }}
+}
 

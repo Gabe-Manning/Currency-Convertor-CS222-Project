@@ -1,7 +1,6 @@
 package edu.bsu.cs222.main;
 
 import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
 
 public class ErrorReport {
 
@@ -13,10 +12,12 @@ public class ErrorReport {
         }
     }
 
-    public void checkEmptyInput(String input) {
+    public boolean checkEmptyInput(String input) {
         if (input.isEmpty()) {
             System.err.print("You did not provide an input\n");
+            return true;
         }
+        return false;
     }
 
 
