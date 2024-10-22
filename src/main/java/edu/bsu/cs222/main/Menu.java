@@ -3,6 +3,7 @@ package edu.bsu.cs222.main;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
@@ -48,9 +49,9 @@ public class Menu {
         String startingCurrency;
         String finalCurrency;
         System.out.println("Enter starting currency (ex. USD): ");
-        startingCurrency = scanner.nextLine();
+        startingCurrency = scanner.nextLine().toUpperCase();
         System.out.println("Enter final currency (ex. USD): ");
-        finalCurrency = scanner.nextLine();
+        finalCurrency = scanner.nextLine().toUpperCase();
         List<Float> rateList = parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
 
         System.out.println("Please make a selection:\n" +
@@ -61,7 +62,7 @@ public class Menu {
         if(convertSelection.equals("1")){
             System.out.println("Enter Starting Amount (ex. 50): ");
             float startingAmount = Float.parseFloat(scanner.nextLine());
-            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmount + " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmount));
+            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmount + " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmount) + " in " + finalCurrency);
         } else if (convertSelection.equals("2")) {
             System.out.println("The exchange rate between " + startingCurrency + " and " + finalCurrency + " is " + converter.convertUsingOnlyCurrencies(rateList));
         }
