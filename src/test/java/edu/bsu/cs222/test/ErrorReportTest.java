@@ -8,7 +8,6 @@ import edu.bsu.cs222.main.RatesParser;
 import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -35,15 +34,11 @@ public void checkEmptyInputConsoleTest() {
         Assertions.assertNotNull(urlActual);
     }
 
-    /*@Test
+    @Test
     public void checkValidInputTest() throws IOException {
         RatesParser ratesParser = new RatesParser();
         String testInputCurrency = "USD";
         String testOutputCurrency = "CAD";
-        //Uses currencies that are valid inputs
-        ArrayList<JSONArray> testArrayList = ;
-        ArrayList<JSONArray> testArray = ratesParser.parseThroughRatesForExchangeRate(testInputCurrency, testOutputCurrency);
-        Assertions.assertNotEquals(testArray, testArrayList);
+        ratesParser.parse
     }
-    */
 }

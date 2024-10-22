@@ -20,5 +20,9 @@ public class ErrorReport {
         return false;
     }
 
+    public boolean checkSupporterCurrency(String input) {
+
+    }
+
 
 }
