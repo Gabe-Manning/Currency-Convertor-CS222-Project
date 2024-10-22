@@ -1,11 +1,16 @@
 package edu.bsu.cs222.main;
 
+import net.minidev.json.JSONArray;
+
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
     private Scanner scanner = new Scanner(System.in);
+    public RatesParser parser = new RatesParser();
+    public Converter converter = new Converter();
     public void displayMenu() throws IOException {
         while (true) {
             String menuSelection;
@@ -14,7 +19,7 @@ public class Menu {
                     "1) Convert Currency\n" +
                     "2) Get Historical Records\n" +
                     "3) View All Exchange Rates Compared to EUR\n" +
-                    "4) Exit\n"
+                    "4) Exit"
             );
             menuSelection = scanner.nextLine();
 
@@ -38,13 +43,14 @@ public class Menu {
         RatesGetter ratesGetter = new RatesGetter();
 
         HttpsURLConnection connectionNoTimestamp = connector.getConnectedNoTimestamp();
-        String allRates = ratesGetter.getRatesNoTimestamp(connectionNoTimestamp);
+        String allRates = ratesGetter.getCurrentRates(connectionNoTimestamp);
         System.out.println(allRates);
     }
 
-    public void convertCurrency(){
+    public void convertCurrency() throws IOException {
         String convertSelection = "";
-        String startingCurrency, finalCurrency;
+        String startingCurrency;
+        String finalCurrency;
         System.out.println("Enter starting currency (ex. USD): ");
         startingCurrency = scanner.nextLine();
         System.out.println("Enter final currency (ex. USD): ");
@@ -60,7 +66,8 @@ public class Menu {
             startingAmount = scanner.nextLine();
 
         } else if (convertSelection.equals("2")) {
-
+            parser.parseThroughRatesForExchangeRate(startingCurrency, finalCurrency);
+            System.out.println(parser.convertUsingCurrencies(startingCurrency, finalCurrency));
         }
     }
 
