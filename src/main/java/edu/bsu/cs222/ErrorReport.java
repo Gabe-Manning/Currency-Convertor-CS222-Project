@@ -58,4 +58,36 @@ public class ErrorReport {
         Matcher matcher = pattern.matcher(dateInput);
         return matcher.matches();
     }
+
+    public boolean checkDateIsValidForAPI(String dateInput){
+        CurrentDateGetter dateGetter = new CurrentDateGetter();
+        String currentDate = dateGetter.getCurrentDate();
+        String [] currentDateArray = currentDate.split("-");
+        int yearCurrent = Integer.parseInt(currentDateArray[0]);
+        int monthCurrent = Integer.parseInt(currentDateArray[1]);
+        int dayCurrent = Integer.parseInt(currentDateArray[2]);
+        String [] dateInputArray = dateInput.split("-");
+        int yearInput = Integer.parseInt(dateInputArray[0]);
+        int monthInput = Integer.parseInt(dateInputArray[1]);
+        int dayInput = Integer.parseInt(dateInputArray[2]);
+        if(yearInput < 1999 || yearInput > yearCurrent) {
+            return true;
+        } else if (monthInput > 12 || monthInput < 1 || (yearInput == yearCurrent && monthInput > monthCurrent)) {
+            return true;
+        } else if (dayInput < 1 || dayInput > 31 || (yearInput == yearCurrent && monthInput == monthCurrent && dayInput > dayCurrent)) {
+            return true;
+        } else if (monthInput == 2 && dayInput > 28) {
+            return true;
+        } else if (monthInput == 4 && dayInput > 30) {
+            return true;
+        } else if (monthInput == 6 && dayInput > 30) {
+            return true;
+        } else if (monthInput == 9 && dayInput > 30) {
+            return true;
+        } else if (monthInput == 11 && dayInput > 30) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -18,6 +18,7 @@ public class Menu {
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
     public boolean supportedDateCheck;
+    public boolean doesDateHaveData;
 
     public void displayMenu() throws IOException {
 
@@ -142,6 +143,11 @@ public class Menu {
         }
         supportedDateCheck = errors.checkDateInputIsCorrectFormat(historyDate);
         if (!supportedDateCheck) {
+            System.out.println("That input is not supported.");
+            return;
+        }
+        doesDateHaveData = errors.checkDateIsValidForAPI(historyDate);
+        if (doesDateHaveData) {
             System.out.println("That input is not supported.");
             return;
         }
