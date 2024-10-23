@@ -55,7 +55,7 @@ public class Menu {
         String startingCurrency;
         String finalCurrency;
 
-        System.out.println("Enter starting currency (ex. USD): ");
+        System.out.println("Enter the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD): ");
         startingCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(startingCurrency);
         if (emptyCheck) {
@@ -66,7 +66,7 @@ public class Menu {
             return;
         }
 
-        System.out.println("Enter final currency (ex. USD): ");
+        System.out.println("Enter the 3-Character Currency Abbreviation for the Currency you're Converting to (ex. USD): ");
         finalCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(finalCurrency);
         if (emptyCheck) {
@@ -93,7 +93,7 @@ public class Menu {
         }
 
         if (convertSelection.equals("1")){
-            System.out.println("Enter Starting Amount (ex. 50): ");
+            System.out.println("Enter Starting Monetary Amount (ex. 50): ");
             String startingAmountString = scanner.nextLine();
             emptyCheck = errors.checkEmptyInput(startingAmountString);
             if (emptyCheck) {
@@ -120,7 +120,7 @@ public class Menu {
         String historyCurrency;
         String historyDate;
 
-        System.out.println("Input Currency (ex. USD): ");
+        System.out.println("Input 3-Character Currency Abbreviation (ex. USD): ");
         historyCurrency = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
@@ -131,7 +131,7 @@ public class Menu {
             return;
         }
 
-        System.out.println("Input Date (ex. 2024-03-18): ");
+        System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18): ");
         historyDate = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyDate);
 
