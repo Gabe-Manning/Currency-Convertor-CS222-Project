@@ -17,6 +17,7 @@ public class Menu {
     public boolean emptyCheck;
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
+    public boolean supportedDateCheck;
 
     public void displayMenu() throws IOException {
 
@@ -137,6 +138,10 @@ public class Menu {
         historyDate = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyDate);
         if (emptyCheck) {
+            return;
+        }
+        supportedDateCheck = errors.checkDateInputIsUsable(historyDate);
+        if (supportedDateCheck) {
             return;
         }
         float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);

@@ -47,4 +47,14 @@ public class ErrorReport {
         }
         return false;
     }
+
+    public boolean checkDateInputIsUsable(String dateInput) {
+        try {
+            dateInput.formatted("yyyy-mm-dd");
+        } catch(IllegalArgumentException e) {
+            System.out.println("That input is not supported.");
+            return true;
+        }
+        return false;
+    }
 }
