@@ -1,4 +1,4 @@
-package edu.bsu.cs222.main;
+package edu.bsu.cs222;
 
 import java.util.List;
 

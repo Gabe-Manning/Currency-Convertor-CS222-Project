@@ -1,8 +1,9 @@
-package edu.bsu.cs222.test;
+package edu.bsu.cs222;
 
-import edu.bsu.cs222.main.APIConnector;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -11,7 +12,7 @@ public class APIConnectorTest {
     @Test
     public void getConnectedTest() {
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnectedNoTimestamp();
+        HttpsURLConnection connection = connector.connectNoDate();
         Assertions.assertNotNull(connection);
     }
 
