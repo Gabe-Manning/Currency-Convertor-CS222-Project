@@ -8,7 +8,6 @@ public class CurrentDateGetter {
     public String getCurrentDate() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDateTime currentDate = LocalDateTime.now();
-        String formatted = dateTimeFormatter.format(currentDate);
-        return formatted.replace("/", "-");
+        return dateTimeFormatter.format(currentDate).replace("/", "-");
     }
 }

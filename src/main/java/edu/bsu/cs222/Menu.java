@@ -140,8 +140,9 @@ public class Menu {
         if (emptyCheck) {
             return;
         }
-        supportedDateCheck = errors.checkDateInputIsUsable(historyDate);
-        if (supportedDateCheck) {
+        supportedDateCheck = errors.checkDateInputIsCorrectFormat(historyDate);
+        if (!supportedDateCheck) {
+            System.out.println("That input is not supported.");
             return;
         }
         float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);
