@@ -11,17 +11,17 @@ import java.util.List;
 public class RatesParser {
 
     RatesGetter ratesGetter = new RatesGetter();
-    APIConnector apiConnector = new APIConnector();
+    APIConnector APIConnector = new APIConnector();
 
-    public List<Float> parseThroughRatesForExchangeRateList(String userInputCurrency, String userOutputCurrency) throws IOException {
+    public List<Float> parseThroughRatesForCurrentExchangeRateList(String userInputCurrency, String userOutputCurrency) throws IOException {
 
-        HttpsURLConnection connection = apiConnector.connectNoDate();
-        String allRates = ratesGetter.getRates(connection);
+        HttpsURLConnection API_connection = APIConnector.connectNoDate();
+        String allCurrentRates = ratesGetter.getRates(API_connection);
 
-        JSONArray startingExchangeRate = JsonPath.read(allRates, "$.." + userInputCurrency);
-        JSONArray finalExchangeRate = JsonPath.read(allRates, "$.." + userOutputCurrency);
-        Float startingRateFloat = jsonArrayToFloat(startingExchangeRate);
-        Float endingRateFloat = jsonArrayToFloat(finalExchangeRate);
+        JSONArray exchangeRateValueConvertingFrom = JsonPath.read(allCurrentRates, "$.." + userInputCurrency);
+        JSONArray exchangeRateConvertingTo = JsonPath.read(allCurrentRates, "$.." + userOutputCurrency);
+        Float startingRateFloat = jsonArrayToFloat(exchangeRateValueConvertingFrom);
+        Float endingRateFloat = jsonArrayToFloat(exchangeRateConvertingTo);
 
         List<Float> rateList = new ArrayList<>();
         rateList.add(startingRateFloat);
@@ -31,10 +31,10 @@ public class RatesParser {
 
     public float parseThroughRatesForRateAtSpecificDate(String userInputCurrency, String userInputDate) throws IOException {
 
-        HttpsURLConnection connection = apiConnector.connectWithDate(userInputDate);
-        String allRates = ratesGetter.getRates(connection);
+        HttpsURLConnection API_connection = APIConnector.connectWithDate(userInputDate);
+        String allRatesOnSpecificDate = ratesGetter.getRates(API_connection);
 
-        JSONArray exchangeRate = JsonPath.read(allRates, "$.." + userInputCurrency);
+        JSONArray exchangeRate = JsonPath.read(allRatesOnSpecificDate, "$.." + userInputCurrency);
 
         return jsonArrayToFloat(exchangeRate);
     }

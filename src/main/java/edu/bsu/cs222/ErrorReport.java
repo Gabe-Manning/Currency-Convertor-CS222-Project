@@ -2,7 +2,6 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +27,8 @@ public class ErrorReport {
     }
 
     public boolean checkSupportedCurrency(String currency) throws IOException {
-        APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.connectNoDate();
+        APIConnector APIConnector = new APIConnector();
+        HttpsURLConnection connection = APIConnector.connectNoDate();
 
         RatesGetter ratesGetter = new RatesGetter();
         String allCurrentRates = ratesGetter.getRates(connection);
@@ -53,8 +52,8 @@ public class ErrorReport {
     }
 
     public boolean checkDateInputIsCorrectFormat(String dateInput) {
-        String regex = "^\\d{4}-\\d{2}-\\d{2}$";
-        Pattern pattern = Pattern.compile(regex);
+        String format = "^\\d{4}-\\d{2}-\\d{2}$";
+        Pattern pattern = Pattern.compile(format);
         Matcher matcher = pattern.matcher(dateInput);
         return matcher.matches();
     }
@@ -66,10 +65,12 @@ public class ErrorReport {
         int yearCurrent = Integer.parseInt(currentDateArray[0]);
         int monthCurrent = Integer.parseInt(currentDateArray[1]);
         int dayCurrent = Integer.parseInt(currentDateArray[2]);
+
         String [] dateInputArray = dateInput.split("-");
         int yearInput = Integer.parseInt(dateInputArray[0]);
         int monthInput = Integer.parseInt(dateInputArray[1]);
         int dayInput = Integer.parseInt(dateInputArray[2]);
+
         if(yearInput < 1999 || yearInput > yearCurrent) {
             return true;
         } else if (monthInput > 12 || monthInput < 1 || (yearInput == yearCurrent && monthInput > monthCurrent)) {

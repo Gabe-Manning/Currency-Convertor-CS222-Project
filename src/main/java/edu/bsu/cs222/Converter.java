@@ -8,9 +8,9 @@ public class Converter {
     }
 
     public float convertUsingCurrenciesAndAmount(List<Float> rateList, float startingAmount) {
-        float rate = (rateList.get(1) / rateList.get(0));
-        float endingAmount = (startingAmount * rate);
-        String formatted = String.format("%.2f", endingAmount);
-        return Float.parseFloat(formatted);
+        float exchangeRate = (rateList.get(1) / rateList.get(0));
+        float endingAmount = (startingAmount * exchangeRate);
+        String formattedAmount = String.format("%.2f", endingAmount);
+        return Float.parseFloat(formattedAmount);
     }
 }

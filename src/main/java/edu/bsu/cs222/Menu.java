@@ -8,12 +8,12 @@ import java.util.Scanner;
 public class Menu {
 
     private final Scanner scanner = new Scanner(System.in);
-    public RatesParser parser = new RatesParser();
-    public Converter converter = new Converter();
-    public APIConnector connector = new APIConnector();
-    public RatesGetter ratesGetter = new RatesGetter();
-    public ErrorReport errors = new ErrorReport();
-    public CurrentDateGetter currentDateGetter = new CurrentDateGetter();
+    private final RatesParser ratesParser = new RatesParser();
+    private final Converter converter = new Converter();
+    private final APIConnector APIConnector = new APIConnector();
+    private final RatesGetter ratesGetter = new RatesGetter();
+    private final ErrorReport errors = new ErrorReport();
+    private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     public boolean emptyCheck;
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
@@ -23,22 +23,21 @@ public class Menu {
     public void displayMenu() throws IOException {
 
         while (true) {
-            String menuSelection;
             System.out.printf("\n%s MENU %s\n", "*".repeat(9), "*".repeat(9));
             System.out.println("""
-                    (When making selections, enter just the number)
+                    (When making selections, input just the number)
                     
                     Please make a selection:
                     1) Convert Currency
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
                     4) Exit""");
-            menuSelection = scanner.nextLine();
 
+            String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
                 convertCurrency();
             } else if (menuSelection.equals("2")) {
-                historyData();
+                getHistoryRatesData();
             } else if (menuSelection.equals("3")) {
                 displayAllRates();
             } else if (menuSelection.equals("4")) {
@@ -54,63 +53,59 @@ public class Menu {
 
     private void convertCurrency() throws IOException {
 
-        String convertSelection;
-        String startingCurrency;
-        String finalCurrency;
-
-        System.out.println("Enter the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD): ");
-        startingCurrency = scanner.nextLine().toUpperCase();
-        emptyCheck = errors.checkEmptyInput(startingCurrency);
+        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD): ");
+        String currencyConvertedFrom = scanner.nextLine().toUpperCase();
+        emptyCheck = errors.checkEmptyInput(currencyConvertedFrom);
         if (emptyCheck) {
             return;
         }
-        supportedCurrencyCheck = errors.checkSupportedCurrency(startingCurrency);
+        supportedCurrencyCheck = errors.checkSupportedCurrency(currencyConvertedFrom);
         if (supportedCurrencyCheck) {
             return;
         }
 
-        System.out.println("Enter the 3-Character Currency Abbreviation for the Currency you're Converting to (ex. USD): ");
-        finalCurrency = scanner.nextLine().toUpperCase();
-        emptyCheck = errors.checkEmptyInput(finalCurrency);
+        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting to (ex. USD): ");
+        String currencyConvertedTo = scanner.nextLine().toUpperCase();
+        emptyCheck = errors.checkEmptyInput(currencyConvertedTo);
         if (emptyCheck) {
             return;
         }
-        supportedCurrencyCheck = errors.checkSupportedCurrency(finalCurrency);
+        supportedCurrencyCheck = errors.checkSupportedCurrency(currencyConvertedTo);
         if (supportedCurrencyCheck) {
             return;
         }
 
-        List<Float> rateList = parser.parseThroughRatesForExchangeRateList(startingCurrency, finalCurrency);
+        List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(currencyConvertedFrom, currencyConvertedTo);
 
         System.out.println("""
-                (When making selections, enter just the number)
+                (When making selections, input just the number)
                 
                 Please make a selection:
                 1) Convert Currencies With A Starting Amount
                 2) View Specific Exchange Rate Between Inputted Currencies
                 3) Go Back To Main Menu""");
-        convertSelection = scanner.nextLine();
+
+        String convertSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(convertSelection);
         if (emptyCheck) {
             return;
         }
-
         if (convertSelection.equals("1")){
             System.out.println("Enter Starting Monetary Amount (ex. 50): ");
-            String startingAmountString = scanner.nextLine();
-            emptyCheck = errors.checkEmptyInput(startingAmountString);
+            String startingMonetaryAmountString = scanner.nextLine();
+            emptyCheck = errors.checkEmptyInput(startingMonetaryAmountString);
             if (emptyCheck) {
                 return;
             }
-            supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingAmountString);
+            supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingMonetaryAmountString);
             if (supportedAmountCheck) {
                 return;
             }
-            float startingAmountFloat = Float.parseFloat(startingAmountString);
-            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmountFloat +
-                    " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + finalCurrency);
+            float startingAmountFloat = Float.parseFloat(startingMonetaryAmountString);
+            System.out.println("Converting from " + currencyConvertedFrom + " to " + currencyConvertedTo + " with " + startingAmountFloat +
+                    " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + currencyConvertedTo);
         } else if (convertSelection.equals("2")) {
-            System.out.println("The exchange rate between " + startingCurrency + " and " + finalCurrency + " is " +
+            System.out.println("The exchange rate between " + currencyConvertedFrom + " and " + currencyConvertedTo + " is " +
                     converter.convertUsingOnlyCurrencies(rateList));
         } else if (convertSelection.equals("3")) {
             System.out.println("Going back...");
@@ -119,13 +114,9 @@ public class Menu {
         }
     }
 
-    private void historyData() throws IOException {
-
-        String historyCurrency;
-        String historyDate;
-
+    private void getHistoryRatesData() throws IOException {
         System.out.println("Input 3-Character Currency Abbreviation (ex. USD): ");
-        historyCurrency = scanner.nextLine().toUpperCase();
+        String historyCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
             return;
@@ -136,33 +127,32 @@ public class Menu {
         }
 
         System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18): ");
-        historyDate = scanner.nextLine();
-        emptyCheck = errors.checkEmptyInput(historyDate);
+        String dateInputted = scanner.nextLine();
+        emptyCheck = errors.checkEmptyInput(dateInputted);
         if (emptyCheck) {
             return;
         }
-        supportedDateCheck = errors.checkDateInputIsCorrectFormat(historyDate);
+        supportedDateCheck = errors.checkDateInputIsCorrectFormat(dateInputted);
         if (!supportedDateCheck) {
             System.out.println("That input is not supported.");
             return;
         }
-        doesDateHaveData = errors.checkDateIsValidForAPI(historyDate);
+        doesDateHaveData = errors.checkDateIsValidForAPI(dateInputted);
         if (doesDateHaveData) {
             System.out.println("That input is not supported.");
             return;
         }
-        float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);
-        System.out.println("The exchange rate to EUR on " + historyDate + " for " + historyCurrency + " was " + rateOnDate);
+        float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputted);
+        System.out.println("The exchange rate to EUR on " + dateInputted + " for " + historyCurrency + " was " + rateOnDateInputted);
 
         String currentDate = currentDateGetter.getCurrentDate();
-        float currentRate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
-        System.out.println("The exchange rate for " + historyCurrency + " to EUR has changed by " + (currentRate - rateOnDate) +
-                " since " + historyDate);
+        float currentRateOfHistoryCurrency = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
+        System.out.println("The exchange rate for " + historyCurrency + " to EUR has changed by " + (currentRateOfHistoryCurrency - rateOnDateInputted) +
+                " since " + dateInputted);
     }
 
     private void displayAllRates() throws IOException {
-
-        HttpsURLConnection connectionNoDate = connector.connectNoDate();
+        HttpsURLConnection connectionNoDate = APIConnector.connectNoDate();
         String allRates = ratesGetter.getRates(connectionNoDate);
         System.out.println(allRates);
     }
