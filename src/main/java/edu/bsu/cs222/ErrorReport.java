@@ -76,7 +76,9 @@ public class ErrorReport {
             return true;
         } else if (dayInput < 1 || dayInput > 31 || (yearInput == yearCurrent && monthInput == monthCurrent && dayInput > dayCurrent)) {
             return true;
-        } else if (monthInput == 2 && dayInput > 28) {
+        } else if (monthInput == 2 && yearInput % 4 == 0 && dayInput > 29) {
+            return true;
+        } else if (monthInput == 2 && yearInput % 4 != 0 && dayInput > 28) {
             return true;
         } else if (monthInput == 4 && dayInput > 30) {
             return true;
