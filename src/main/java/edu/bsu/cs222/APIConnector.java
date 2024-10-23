@@ -17,7 +17,7 @@ public class APIConnector {
 
         {
             try {
-                API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=20d06127f90b41956b66466007af69d1&format=1");
+                API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=16e2fdacaf80141e1a8df5b17873f95b&format=1");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
@@ -43,7 +43,7 @@ public class APIConnector {
         {
             try {
                 API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) +
-                        "?access_key=20d06127f90b41956b66466007af69d1&format=1");
+                        "?access_key=16e2fdacaf80141e1a8df5b17873f95b&format=1");
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }

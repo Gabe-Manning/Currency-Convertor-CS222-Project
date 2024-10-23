@@ -13,6 +13,7 @@ public class Menu {
     public APIConnector connector = new APIConnector();
     public RatesGetter ratesGetter = new RatesGetter();
     public ErrorReport errors = new ErrorReport();
+    public CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     public boolean emptyCheck;
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
@@ -121,7 +122,7 @@ public class Menu {
         String historyDate;
 
         System.out.println("Input 3-Character Currency Abbreviation (ex. USD): ");
-        historyCurrency = scanner.nextLine();
+        historyCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
             return;
@@ -134,9 +135,15 @@ public class Menu {
         System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18): ");
         historyDate = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(historyDate);
-
+        if (emptyCheck) {
+            return;
+        }
         float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);
         System.out.println("The exchange rate compared to EUR on " + historyDate + " for " + historyCurrency + " was " + rateOnDate);
+
+        String currentDate = currentDateGetter.getCurrentDate();
+        float currentRate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
+        System.out.println(historyCurrency + " has changed by " + (currentRate - rateOnDate) + " compared to EUR since " + historyDate);
     }
 
     private void displayAllRates() throws IOException {

@@ -18,6 +18,5 @@ Needed build/run instructions:
 This program uses Gradle and accordingly must be run through Gradle.
 
 Warnings/Errors:
-Warning in line 95 of Menu class does not matter.
-Currently our tests do not work due to dependency issues. We don't know why, they were working
-2 days ago and now do not.
+Warning in line 95 of Menu class is irrelevant.
+Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.
