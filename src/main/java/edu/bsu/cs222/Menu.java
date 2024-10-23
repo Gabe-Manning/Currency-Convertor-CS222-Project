@@ -105,10 +105,11 @@ public class Menu {
                 return;
             }
             float startingAmountFloat = Float.parseFloat(startingAmountString);
-            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmountFloat + " gives you "
-                    + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + finalCurrency);
+            System.out.println("Converting from " + startingCurrency + " to " + finalCurrency + " with " + startingAmountFloat +
+                    " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + finalCurrency);
         } else if (convertSelection.equals("2")) {
-            System.out.println("The exchange rate between " + startingCurrency + " and " + finalCurrency + " is " + converter.convertUsingOnlyCurrencies(rateList));
+            System.out.println("The exchange rate between " + startingCurrency + " and " + finalCurrency + " is " +
+                    converter.convertUsingOnlyCurrencies(rateList));
         } else if (convertSelection.equals("3")) {
             System.out.println("Going back...");
         } else {
@@ -139,11 +140,12 @@ public class Menu {
             return;
         }
         float rateOnDate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, historyDate);
-        System.out.println("The exchange rate compared to EUR on " + historyDate + " for " + historyCurrency + " was " + rateOnDate);
+        System.out.println("The exchange rate to EUR on " + historyDate + " for " + historyCurrency + " was " + rateOnDate);
 
         String currentDate = currentDateGetter.getCurrentDate();
         float currentRate = parser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
-        System.out.println(historyCurrency + " has changed by " + (currentRate - rateOnDate) + " compared to EUR since " + historyDate);
+        System.out.println("The exchange rate for " + historyCurrency + " to EUR has changed by " + (currentRate - rateOnDate) +
+                " since " + historyDate);
     }
 
     private void displayAllRates() throws IOException {
