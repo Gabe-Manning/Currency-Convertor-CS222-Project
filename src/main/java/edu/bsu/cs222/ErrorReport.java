@@ -86,10 +86,6 @@ public class ErrorReport {
             return true;
         } else if (monthInput == 9 && dayInput > 30) {
             return true;
-        } else if (monthInput == 11 && dayInput > 30) {
-            return true;
-        } else {
-            return false;
-        }
+        } else return (monthInput == 11 && dayInput > 30);
     }
 }
