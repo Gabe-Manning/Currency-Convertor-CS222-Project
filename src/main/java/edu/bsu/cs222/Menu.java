@@ -125,7 +125,7 @@ public class Menu {
                     " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + currencyConvertedTo);
         } else if (convertSelection.equals("2")) {
             System.out.println("The exchange rate between " + currencyConvertedFrom + " and " + currencyConvertedTo + " is " +
-                    converter.convertUsingOnlyCurrencies(rateList));
+                    converter.convertUsingOnlyCurrencies(rateList) + " " + currencyConvertedTo + " per " + currencyConvertedFrom);
         } else if (convertSelection.equals("3")) {
             System.out.println("Going back...");
         } else {
