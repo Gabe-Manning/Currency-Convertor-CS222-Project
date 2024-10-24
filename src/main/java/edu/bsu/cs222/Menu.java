@@ -15,6 +15,7 @@ public class Menu {
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     public boolean emptyCheck;
+    public boolean unparseableCheck;
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
     public boolean supportedDateCheck;
@@ -28,7 +29,7 @@ public class Menu {
                     (When making selections, input just the number)
                     
                     Please make a selection:
-                    1) Convert Currency
+                    1) Get Exchange Rate and/or Convert Currency Values
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
                     4) Exit""");
@@ -44,7 +45,7 @@ public class Menu {
                 System.out.println("Exiting...");
                 break;
             } else if (menuSelection.isEmpty()) {
-                emptyCheck = errors.checkEmptyInput(menuSelection);
+                System.err.print("You did not provide an input\n");
             } else {
                 System.out.println("Invalid Input");
             }
@@ -53,25 +54,39 @@ public class Menu {
 
     private void convertCurrency() throws IOException {
 
-        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD): ");
+        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD):");
         String currencyConvertedFrom = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(currencyConvertedFrom);
         if (emptyCheck) {
+            System.err.print("You did not provide an input\n");
+            return;
+        }
+        unparseableCheck = errors.checkForUnparseableCharacters(currencyConvertedFrom);
+        if (unparseableCheck) {
+            System.out.println("Your input cannot contain a space or *.");
             return;
         }
         supportedCurrencyCheck = errors.checkSupportedCurrency(currencyConvertedFrom);
         if (supportedCurrencyCheck) {
+            System.out.println("That currency is either not supported by this program, or does not exist.");
             return;
         }
 
-        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting to (ex. USD): ");
+        System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting to (ex. USD):");
         String currencyConvertedTo = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(currencyConvertedTo);
         if (emptyCheck) {
+            System.err.print("You did not provide an input\n");
+            return;
+        }
+        unparseableCheck = errors.checkForUnparseableCharacters(currencyConvertedTo);
+        if (unparseableCheck) {
+            System.out.println("Your input cannot contain a space or *.");
             return;
         }
         supportedCurrencyCheck = errors.checkSupportedCurrency(currencyConvertedTo);
         if (supportedCurrencyCheck) {
+            System.out.println("That currency is either not supported by this program, or does not exist.");
             return;
         }
 
@@ -88,17 +103,20 @@ public class Menu {
         String convertSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(convertSelection);
         if (emptyCheck) {
+            System.err.print("You did not provide an input\n");
             return;
         }
         if (convertSelection.equals("1")){
-            System.out.println("Enter Starting Monetary Amount (ex. 50): ");
+            System.out.println("Enter Starting Monetary Amount (ex. 50):");
             String startingMonetaryAmountString = scanner.nextLine();
             emptyCheck = errors.checkEmptyInput(startingMonetaryAmountString);
             if (emptyCheck) {
+                System.err.print("You did not provide an input\n");
                 return;
             }
             supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingMonetaryAmountString);
             if (supportedAmountCheck) {
+                System.out.println("That input is not supported.");
                 return;
             }
             float startingAmountFloat = Float.parseFloat(startingMonetaryAmountString);
@@ -115,21 +133,29 @@ public class Menu {
     }
 
     private void getHistoryRatesData() throws IOException {
-        System.out.println("Input 3-Character Currency Abbreviation (ex. USD): ");
+        System.out.println("Input 3-Character Currency Abbreviation (ex. USD):");
         String historyCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
+            System.err.print("You did not provide an input\n");
+            return;
+        }
+        unparseableCheck = errors.checkForUnparseableCharacters(historyCurrency);
+        if (unparseableCheck) {
+            System.out.println("Your input cannot contain a space or *.");
             return;
         }
         supportedCurrencyCheck = errors.checkSupportedCurrency(historyCurrency);
         if (supportedCurrencyCheck) {
+            System.out.println("That currency is either not supported by this program, or does not exist.");
             return;
         }
 
-        System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18): ");
+        System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18):");
         String dateInputted = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(dateInputted);
         if (emptyCheck) {
+            System.err.print("You did not provide an input\n");
             return;
         }
         supportedDateCheck = errors.checkDateInputIsCorrectFormat(dateInputted);

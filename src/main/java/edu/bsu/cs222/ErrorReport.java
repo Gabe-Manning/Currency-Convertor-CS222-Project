@@ -19,11 +19,7 @@ public class ErrorReport {
     }
 
     public boolean checkEmptyInput(String input) {
-        if (input.isEmpty()) {
-            System.err.print("You did not provide an input\n");
-            return true;
-        }
-        return false;
+        return input.isEmpty();
     }
 
     public boolean checkSupportedCurrency(String currency) throws IOException {
@@ -34,18 +30,17 @@ public class ErrorReport {
         String allCurrentRates = ratesGetter.getRates(connection);
 
         JSONArray checkForSupportedCurrency = JsonPath.read(allCurrentRates, "$.." + currency);
-        if (checkForSupportedCurrency.isEmpty()) {
-            System.out.println("That currency is either not supported by this program, or does not exist.");
-            return true;
-        }
-        return false;
+        return checkForSupportedCurrency.isEmpty();
+    }
+
+    public boolean checkForUnparseableCharacters(String input) {
+        return (input.contains(" ") || input.contains("*"));
     }
 
     public boolean checkInputAmountCanBeFloat(String inputAmount) {
         try {
             Float.parseFloat(inputAmount);
         } catch (IllegalArgumentException e) {
-            System.out.println("That input is not supported.");
             return true;
         }
         return false;
