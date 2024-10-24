@@ -1,7 +1,5 @@
-package edu.bsu.cs222.test;
+package edu.bsu.cs222;
 
-import edu.bsu.cs222.main.APIConnector;
-import edu.bsu.cs222.main.RatesGetter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +14,8 @@ public class RatesGetterTest {
     public void getRatesTest() throws IOException {
         RatesGetter testRates = new RatesGetter();
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnectedWithTimestamp("2013-03-16");
-        String testResult = testRates.getRatesWithTimestamp(connection);
+        HttpsURLConnection connection = connector.connectWithDate("2013-03-16");
+        String testResult = testRates.getRates(connection);
         //String testAgainst = readSampleToString();
         Assertions.assertEquals(testResult, """
                 {
@@ -195,8 +193,8 @@ public class RatesGetterTest {
     public void testRatesNotEmpty() throws IOException {
         RatesGetter testRates = new RatesGetter();
         APIConnector connector = new APIConnector();
-        HttpsURLConnection connection = connector.getConnectedNoTimestamp();
-        String testResult = testRates.getCurrentRates(connection);
+        HttpsURLConnection connection = connector.connectNoDate();
+        String testResult = testRates.getRates(connection);
         Assertions.assertNotNull(testResult);
     }
 

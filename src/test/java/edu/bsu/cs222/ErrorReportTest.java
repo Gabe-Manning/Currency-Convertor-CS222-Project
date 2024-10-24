@@ -1,18 +1,11 @@
-package edu.bsu.cs222.test;
+package edu.bsu.cs222;
 
-import com.jayway.jsonpath.JsonPath;
-import edu.bsu.cs222.main.APIConnector;
-import edu.bsu.cs222.main.ErrorReport;
-import edu.bsu.cs222.main.RatesGetter;
-import edu.bsu.cs222.main.RatesParser;
-import net.minidev.json.JSONArray;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import javax.net.ssl.HttpsURLConnection;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class ErrorReportTest {
 
@@ -39,6 +32,6 @@ public void checkEmptyInputConsoleTest() {
         RatesParser ratesParser = new RatesParser();
         String testInputCurrency = "USD";
         String testOutputCurrency = "CAD";
-        ratesParser.parse
+        //ratesParser.parse
     }
 }
