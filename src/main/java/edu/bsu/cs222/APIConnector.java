@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.util.Properties;
 
 public class APIConnector {
 
@@ -13,6 +14,7 @@ public class APIConnector {
     URL API_URL;
 
     public HttpsURLConnection connectNoDate() {
+        Properties properties = new Properties();
         try {
             API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=b89fa96b7b3d9b16682ee8695cf098af&format=1");
         } catch (MalformedURLException e) {
