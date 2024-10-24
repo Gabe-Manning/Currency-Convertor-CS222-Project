@@ -14,4 +14,10 @@ public class Converter {
         String formattedAmount = String.format("%.2f", endingAmount);
         return Float.parseFloat(formattedAmount);
     }
+
+    public String ratesGoneUpOrDown(float differenceInRate) {
+        if (differenceInRate >= 0) {
+            return "increases";
+        } else return "decreases";
+    }
 }

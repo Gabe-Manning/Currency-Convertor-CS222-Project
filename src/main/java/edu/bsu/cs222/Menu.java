@@ -19,7 +19,8 @@ public class Menu {
     public boolean unparseableCheck;
     public boolean supportedCurrencyCheck;
     public boolean supportedAmountCheck;
-    public boolean supportedDateCheck;
+    public boolean isDateFormatValid;
+    public boolean isDateUsable;
     public boolean doesDateHaveData;
 
     public void displayMenu() throws IOException {
@@ -159,22 +160,28 @@ public class Menu {
             System.err.print("You did not provide an input\n");
             return;
         }
-        supportedDateCheck = errors.checkDateInputIsCorrectFormat(dateInputted);
-        if (!supportedDateCheck) {
+        isDateFormatValid = errors.checkDateInputIsCorrectFormat(dateInputted);
+        if (!isDateFormatValid) {
             System.out.println("That input is not supported.");
             return;
         }
-        doesDateHaveData = errors.checkDateIsValidForAPI(dateInputted);
-        if (doesDateHaveData) {
+        isDateUsable = errors.checkDateIsValidForAPI(dateInputted);
+        if (isDateUsable) {
             System.out.println("That date is not supported by the program.");
             return;
+        }
+        doesDateHaveData = errors.doesValidDateContainData(dateInputted);
+        if (doesDateHaveData) {
+            System.out.println("The inputted currency does not have data on that date.");
         }
         float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputted);
         System.out.println("The exchange rate to EUR on " + dateInputted + " for " + historyCurrency + " was " + rateOnDateInputted);
 
         String currentDate = currentDateGetter.getCurrentDate();
         float currentRateOfHistoryCurrency = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
-        System.out.println("The exchange rate for " + historyCurrency + " to EUR has changed by " + (currentRateOfHistoryCurrency - rateOnDateInputted) +
+        float differenceInRates = currentRateOfHistoryCurrency - rateOnDateInputted;
+        String upOrDown = converter.ratesGoneUpOrDown(differenceInRates);
+        System.out.println("The exchange rate for " + historyCurrency + " to EUR has " + upOrDown + " by " + differenceInRates +
                 " since " + dateInputted);
     }
 

@@ -84,4 +84,15 @@ public class ErrorReport {
             return true;
         } else return (monthInput == 11 && dayInput > 30);
     }
+
+    public boolean doesValidDateContainData(String dateInputted) throws IOException {
+        APIConnector APIConnector = new APIConnector();
+        HttpsURLConnection connection = APIConnector.connectWithDate(dateInputted);
+
+        RatesGetter ratesGetter = new RatesGetter();
+        String allRatesOnDate = ratesGetter.getRates(connection);
+        if (allRatesOnDate.isEmpty()) {
+            return true;
+        } else return false;
+    }
 }
