@@ -39,9 +39,8 @@ public class RatesParser {
     }
 
     private Float jsonArrayToFloat(JSONArray array) {
-
         String arrayString = String.valueOf(array);
-        String formattedString = arrayString.substring(1, arrayString.length()-1);
+        String formattedString = arrayString.substring(1, arrayString.length() - 1);
         return Float.parseFloat(formattedString);
     }
 }
