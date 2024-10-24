@@ -91,8 +91,11 @@ public class ErrorReport {
 
         RatesGetter ratesGetter = new RatesGetter();
         String allRatesOnDate = ratesGetter.getRates(connection);
-        if (allRatesOnDate.isEmpty()) {
+        try {
+            Float.parseFloat(allRatesOnDate);
+        } catch (IllegalArgumentException e) {
             return true;
-        } else return false;
+        }
+        return false;
     }
 }

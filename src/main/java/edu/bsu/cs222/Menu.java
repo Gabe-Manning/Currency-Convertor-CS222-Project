@@ -173,6 +173,7 @@ public class Menu {
         doesDateHaveData = errors.doesValidDateContainData(dateInputted);
         if (doesDateHaveData) {
             System.out.println("The inputted currency does not have data on that date.");
+            return;
         }
         float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputted);
         System.out.println("The exchange rate to EUR on " + dateInputted + " for " + historyCurrency + " was " + rateOnDateInputted);
