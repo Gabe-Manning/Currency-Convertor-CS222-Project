@@ -152,8 +152,8 @@ public class Menu {
             return;
         }
 
-        System.out.println("Input Date in YYYY-MM-DD Format (ex. 2024-03-18):");
-        String dateInputted = scanner.nextLine();
+        System.out.println("Input Date in YYYY-MM-DD Format that you want Rate Record from (ex. 2024-03-18):");
+        String dateInputted = scanner.nextLine().replace("/", "-");
         emptyCheck = errors.checkEmptyInput(dateInputted);
         if (emptyCheck) {
             System.err.print("You did not provide an input\n");

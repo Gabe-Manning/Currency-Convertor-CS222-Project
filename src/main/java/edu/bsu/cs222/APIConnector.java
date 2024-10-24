@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -10,13 +11,16 @@ import java.util.Properties;
 
 public class APIConnector {
 
+    Properties properties = new Properties();
     ErrorReport errors = new ErrorReport();
+
+    String APIKey;
     URL API_URL;
 
     public HttpsURLConnection connectNoDate() {
-        Properties properties = new Properties();
+        APIKey = getAPIKey();
         try {
-            API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=b89fa96b7b3d9b16682ee8695cf098af&format=1");
+            API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=" + APIKey + "&format=1");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -30,9 +34,10 @@ public class APIConnector {
         }
     }
     public HttpsURLConnection connectWithDate(String inputtedDate) {
+        APIKey = getAPIKey();
         try {
             API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) +
-                        "?access_key=b89fa96b7b3d9b16682ee8695cf098af&format=1");
+                        "?access_key=" + APIKey + "&format=1");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -41,6 +46,15 @@ public class APIConnector {
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
             return API_connection;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getAPIKey() {
+        try (InputStream inputStream = APIConnector.class.getClassLoader().getResourceAsStream("config.properties")) {
+            properties.load(inputStream);
+            return properties.getProperty("apiKey");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

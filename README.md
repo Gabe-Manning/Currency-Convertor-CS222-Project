@@ -16,6 +16,9 @@ There are errors that check for valid connection status, empty input, and suppor
 
 Needed build/run instructions:
 This program uses Gradle and accordingly must be run through Gradle.
+To run tests, need to make sure to mark the "Java" folder under the test module as "test resources root".
+To run the program you must have a config.properties file in a resources folder under "main" in "src". In this 
+file you must have a variable called apiKey that is equal to the current in use apiKey in the team project document.
 
 Warnings/Errors:
 Warning involving if statement in Menu class is irrelevant (we don't need to make it a switch).
