@@ -166,7 +166,7 @@ public class Menu {
         }
         doesDateHaveData = errors.checkDateIsValidForAPI(dateInputted);
         if (doesDateHaveData) {
-            System.out.println("That input is not supported.");
+            System.out.println("That date is not supported by the program.");
             return;
         }
         float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputted);
