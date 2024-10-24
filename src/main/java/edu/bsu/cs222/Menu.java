@@ -14,6 +14,7 @@ public class Menu {
     private final RatesGetter ratesGetter = new RatesGetter();
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
+
     public boolean emptyCheck;
     public boolean unparseableCheck;
     public boolean supportedCurrencyCheck;

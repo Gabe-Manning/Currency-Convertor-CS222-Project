@@ -10,10 +10,9 @@ import java.nio.charset.Charset;
 public class APIConnector {
 
     ErrorReport errors = new ErrorReport();
+    URL API_URL;
 
-    public HttpsURLConnection connectNoDate()
-    {
-        URL API_URL;
+    public HttpsURLConnection connectNoDate() {
         try {
             API_URL = new URL("https://api.exchangeratesapi.io/v1/latest?access_key=16e2fdacaf80141e1a8df5b17873f95b&format=1");
         } catch (MalformedURLException e) {
@@ -28,9 +27,7 @@ public class APIConnector {
             throw new RuntimeException(e);
         }
     }
-    public HttpsURLConnection connectWithDate(String inputtedDate)
-    {
-        URL API_URL;
+    public HttpsURLConnection connectWithDate(String inputtedDate) {
         try {
             API_URL = new URL("https://api.exchangeratesapi.io/v1/" + URLEncoder.encode(inputtedDate, Charset.defaultCharset()) +
                         "?access_key=16e2fdacaf80141e1a8df5b17873f95b&format=1");
