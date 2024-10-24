@@ -170,7 +170,7 @@ public class Menu {
             System.out.println("That date is not supported by the program.");
             return;
         }
-        doesDateHaveData = errors.doesValidDateContainData(dateInputted);
+        doesDateHaveData = errors.doesValidDateContainData(historyCurrency, dateInputted);
         if (doesDateHaveData) {
             System.out.println("The inputted currency does not have data on that date.");
             return;

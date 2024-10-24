@@ -85,14 +85,10 @@ public class ErrorReport {
         } else return (monthInput == 11 && dayInput > 30);
     }
 
-    public boolean doesValidDateContainData(String dateInputted) throws IOException {
-        APIConnector APIConnector = new APIConnector();
-        HttpsURLConnection connection = APIConnector.connectWithDate(dateInputted);
-
-        RatesGetter ratesGetter = new RatesGetter();
-        String allRatesOnDate = ratesGetter.getRates(connection);
+    public boolean doesValidDateContainData(String inputCurrency, String dateInputted) throws IOException {
+        RatesParser ratesParser = new RatesParser();
         try {
-            Float.parseFloat(allRatesOnDate);
+            ratesParser.parseThroughRatesForRateAtSpecificDate(inputCurrency, dateInputted);
         } catch (IllegalArgumentException e) {
             return true;
         }
