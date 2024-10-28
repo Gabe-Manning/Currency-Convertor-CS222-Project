@@ -14,6 +14,7 @@ public class Menu {
     private final RatesGetter ratesGetter = new RatesGetter();
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
+    private final sortAlg sortAlg = new sortAlg();
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -35,6 +36,7 @@ public class Menu {
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
                     4) Exit""");
+            sortAlg.sort();
 
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
@@ -171,7 +173,7 @@ public class Menu {
             return;
         }
         doesDateHaveData = errors.doesValidDateContainData(historyCurrency, dateInputted);
-        if (doesDateHaveData) {
+        if (!doesDateHaveData) {
             System.out.println("The inputted currency does not have data on that date.");
             return;
         }
