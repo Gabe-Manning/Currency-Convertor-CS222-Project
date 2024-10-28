@@ -47,7 +47,7 @@ public class Menu {
                 System.out.println("Exiting...");
                 break;
             } else if (menuSelection.isEmpty()) {
-                System.err.print("You did not provide an input\n");
+                System.out.print("You did not provide an input\n");
             } else {
                 System.out.println("Invalid Input");
             }
@@ -60,7 +60,7 @@ public class Menu {
         String currencyConvertedFrom = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(currencyConvertedFrom);
         if (emptyCheck) {
-            System.err.print("You did not provide an input\n");
+            System.out.print("You did not provide an input\n");
             return;
         }
         unparseableCheck = errors.checkForUnparseableCharacters(currencyConvertedFrom);
@@ -78,7 +78,7 @@ public class Menu {
         String currencyConvertedTo = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(currencyConvertedTo);
         if (emptyCheck) {
-            System.err.print("You did not provide an input\n");
+            System.out.print("You did not provide an input\n");
             return;
         }
         unparseableCheck = errors.checkForUnparseableCharacters(currencyConvertedTo);
@@ -105,7 +105,7 @@ public class Menu {
         String convertSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(convertSelection);
         if (emptyCheck) {
-            System.err.print("You did not provide an input\n");
+            System.out.print("You did not provide an input\n");
             return;
         }
         if (convertSelection.equals("1")){
@@ -113,7 +113,7 @@ public class Menu {
             String startingMonetaryAmountString = scanner.nextLine();
             emptyCheck = errors.checkEmptyInput(startingMonetaryAmountString);
             if (emptyCheck) {
-                System.err.print("You did not provide an input\n");
+                System.out.print("You did not provide an input\n");
                 return;
             }
             supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingMonetaryAmountString);
@@ -139,7 +139,7 @@ public class Menu {
         String historyCurrency = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(historyCurrency);
         if (emptyCheck) {
-            System.err.print("You did not provide an input\n");
+            System.out.print("You did not provide an input\n");
             return;
         }
         unparseableCheck = errors.checkForUnparseableCharacters(historyCurrency);
@@ -157,7 +157,7 @@ public class Menu {
         String dateInputted = scanner.nextLine().replace("/", "-");
         emptyCheck = errors.checkEmptyInput(dateInputted);
         if (emptyCheck) {
-            System.err.print("You did not provide an input\n");
+            System.out.print("You did not provide an input\n");
             return;
         }
         isDateFormatValid = errors.checkDateInputIsCorrectFormat(dateInputted);
