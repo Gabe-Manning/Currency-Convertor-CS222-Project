@@ -36,7 +36,8 @@ public class Menu {
                     1) Get Exchange Rate and/or Convert Currency Values
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
-                    4) Exit""");
+                    4) View The Top/Bottom (#) Ranked Currencies
+                    5) Exit""");
 
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
@@ -46,6 +47,8 @@ public class Menu {
             } else if (menuSelection.equals("3")) {
                 displayAllRates();
             } else if (menuSelection.equals("4")) {
+                viewTopOrBottomCurrencyRankings();
+            } else if (menuSelection.equals("5")) {
                 System.out.println("Exiting...");
                 break;
             } else if (menuSelection.isEmpty()) {
@@ -193,5 +196,32 @@ public class Menu {
         HttpsURLConnection connectionNoDate = APIConnector.connectNoDate();
         String allRates = ratesGetter.getRates(connectionNoDate);
         System.out.println(allRates);
+    }
+
+    private void viewTopOrBottomCurrencyRankings() {
+        System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 50.");
+        int numberToBeRanked = scanner.nextInt();
+        System.out.println("""
+                (When making selections, input just the number)
+                
+                Please make a selection:
+                1) View Ranking Starting From The Bottom
+                2) View Ranking Starting From The Top
+                3) Go Back To Main Menu""");
+        String rankingSelection = scanner.nextLine();
+        emptyCheck = errors.checkEmptyInput(rankingSelection);
+        if (emptyCheck) {
+            System.out.print("You did not provide an input\n");
+            return;
+        }
+        if (rankingSelection.equals("1")){
+
+        } else if (rankingSelection.equals("2")) {
+
+        } else if (rankingSelection.equals("3")) {
+            System.out.println("Going back...");
+        } else {
+            System.out.println("Invalid Input");
+        }
     }
 }
