@@ -4,6 +4,7 @@ import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 
 public class Menu {
 
@@ -14,7 +15,7 @@ public class Menu {
     private final RatesGetter ratesGetter = new RatesGetter();
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
-    private final sortAlg sortAlg = new sortAlg();
+    private final DecimalFormat decimalFormat = new DecimalFormat("#");
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -36,7 +37,6 @@ public class Menu {
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
                     4) Exit""");
-            sortAlg.sort();
 
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
@@ -124,8 +124,9 @@ public class Menu {
                 return;
             }
             float startingAmountFloat = Float.parseFloat(startingMonetaryAmountString);
-            System.out.println("Converting from " + currencyConvertedFrom + " to " + currencyConvertedTo + " with " + startingAmountFloat +
-                    " gives you " + converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat) + " in " + currencyConvertedTo);
+            decimalFormat.setMaximumFractionDigits(2);
+            System.out.println("Converting from " + currencyConvertedFrom + " to " + currencyConvertedTo + " with " + decimalFormat.format(startingAmountFloat) +
+                    " gives you " + decimalFormat.format(converter.convertUsingCurrenciesAndAmount(rateList, startingAmountFloat)) + " in " + currencyConvertedTo);
         } else if (convertSelection.equals("2")) {
             System.out.println("The exchange rate between " + currencyConvertedFrom + " and " + currencyConvertedTo + " is " +
                     converter.convertUsingOnlyCurrencies(rateList) + " " + currencyConvertedTo + " per " + currencyConvertedFrom);
@@ -173,7 +174,7 @@ public class Menu {
             return;
         }
         doesDateHaveData = errors.doesValidDateContainData(historyCurrency, dateInputted);
-        if (!doesDateHaveData) {
+        if (doesDateHaveData) {
             System.out.println("The inputted currency does not have data on that date.");
             return;
         }
