@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class SortingTest {
     public String testMethod() {
-        String hello = "hello";
+        String hello = "help";
         return hello;
     }
 }
