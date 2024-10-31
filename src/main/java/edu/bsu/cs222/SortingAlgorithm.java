@@ -17,7 +17,7 @@ public class SortingAlgorithm {
         rateList.set(j, temp);
     }
 
-    public void insertionSort(List<Float> rateList) throws IOException {
+    public List<Float> insertionSort(List<Float> rateList) throws IOException {
         for (int i=0; i < rateList.size(); ++i){
             for (int j = i; j > 0; --j){
                 if (rateList.get(j) > rateList.get(j-1)){
@@ -27,6 +27,7 @@ public class SortingAlgorithm {
             }//Close inner loop
         }
         System.out.println(rateList);//Close outside loop
+        return rateList;
     }//Close insertion_Sort method
 
     private Float jsonObjectToFloat(Object array) {
