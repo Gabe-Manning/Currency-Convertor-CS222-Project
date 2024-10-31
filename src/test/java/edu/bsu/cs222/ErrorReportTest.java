@@ -65,4 +65,11 @@ public class ErrorReportTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void checkIfAmountCanBeIntTest() {
+        String input = "123";
+        boolean result = errorReport.checkInputAmountCanBeInt(input);
+        Assertions.assertFalse(result);
+    }
+
 }

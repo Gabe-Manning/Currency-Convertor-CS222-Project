@@ -21,10 +21,11 @@ public class Menu {
     public boolean emptyCheck;
     public boolean unparseableCheck;
     public boolean supportedCurrencyCheck;
-    public boolean supportedAmountCheck;
+    public boolean supportedAmountFloatCheck;
     public boolean isDateFormatValid;
     public boolean isDateUsable;
     public boolean doesDateHaveData;
+    public boolean supportedAmountIntCheck;
 
     public void displayMenu() throws IOException {
 
@@ -122,8 +123,8 @@ public class Menu {
                 System.out.print("You did not provide an input\n");
                 return;
             }
-            supportedAmountCheck = errors.checkInputAmountCanBeFloat(startingMonetaryAmountString);
-            if (supportedAmountCheck) {
+            supportedAmountFloatCheck = errors.checkInputAmountCanBeFloat(startingMonetaryAmountString);
+            if (supportedAmountFloatCheck) {
                 System.out.println("That input is not supported.");
                 return;
             }
@@ -202,6 +203,16 @@ public class Menu {
     private void viewTopOrBottomCurrencyRankings() throws IOException {
         System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 50.");
         String numberToBeRanked = scanner.nextLine();
+        emptyCheck = errors.checkEmptyInput(numberToBeRanked);
+        if (emptyCheck) {
+            System.out.print("You did not provide an input\n");
+            return;
+        }
+        supportedAmountIntCheck = errors.checkInputAmountCanBeInt(numberToBeRanked);
+        if (supportedAmountIntCheck) {
+            System.out.println("You must input an integer value\n");
+            return;
+        }
         System.out.println("""
                 (When making selections, input just the number)
                 
@@ -211,12 +222,12 @@ public class Menu {
                 3) Go Back To Main Menu""");
         String rankingSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(rankingSelection);
-//        if (emptyCheck) {
-//            System.out.print("You did not provide an input\n");
-//            return;
-//        }
+        if (emptyCheck) {
+            System.out.print("You did not provide an input\n");
+            return;
+        }
         if (rankingSelection.equals("1")){
-            sortingAlgorithm.insertion_sort(sortingAlgorithm.getRateList(Integer.parseInt(numberToBeRanked)));
+            sortingAlgorithm.insertionSort(sortingAlgorithm.createRateListForSorting());
         } else if (rankingSelection.equals("2")) {
 
         } else if (rankingSelection.equals("3")) {

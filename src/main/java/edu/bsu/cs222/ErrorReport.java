@@ -94,4 +94,13 @@ public class ErrorReport {
         }
         return false;
     }
+
+    public boolean checkInputAmountCanBeInt(String inputAmount) {
+        try {
+            Integer.parseInt(inputAmount);
+        } catch (IllegalArgumentException e) {
+            return true;
+        }
+        return false;
+    }
 }

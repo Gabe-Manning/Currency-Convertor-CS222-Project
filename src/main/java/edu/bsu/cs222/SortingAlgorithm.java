@@ -2,17 +2,13 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SortingAlgorithm {
     RatesGetter ratesGetter = new RatesGetter();
-    RatesParser ratesParser = new RatesParser();
     APIConnector APIConnector = new APIConnector();
 
     private void swap(List<Float> rateList, int i, int j) {
@@ -20,7 +16,8 @@ public class SortingAlgorithm {
         rateList.set(i, rateList.get(j));
         rateList.set(j, temp);
     }
-    public void insertion_sort(List<Float> rateList) throws IOException {
+
+    public void insertionSort(List<Float> rateList) throws IOException {
         for (int i=0; i < rateList.size(); ++i){
             for (int j = i; j > 0; --j){
                 if (rateList.get(j) > rateList.get(j-1)){
@@ -31,23 +28,21 @@ public class SortingAlgorithm {
         }
         System.out.println(rateList);//Close outside loop
     }//Close insertion_Sort method
-    private Float jsonArrayToFloat(Object array) {
+
+    private Float jsonObjectToFloat(Object array) {
         String arrayString = String.valueOf(array);
-//        String formattedString = arrayString.substring(1, arrayString.length() - 1);
         return Float.parseFloat(arrayString);
     }
-    public List<Float> getRateList(int userInput) throws IOException {
+    public List<Float> createRateListForSorting() throws IOException {
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         String allCurrentRates = ratesGetter.getRates(API_connection);
         List<Float> rateList = new ArrayList<>();
         JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$..rates.*" );
         Object[] JSonArray = exchangeRateValue.toArray();
-        for (int i = 0; i < exchangeRateValue.size(); ++i ) {
-            Float JSonFloat = jsonArrayToFloat(JSonArray[i]);
+        for (int i = 0; i <= exchangeRateValue.size(); ++i ) {
+            Float JSonFloat = jsonObjectToFloat(JSonArray[i]);
             rateList.add(JSonFloat);
         }
-
         return rateList;
-
     }
 }
