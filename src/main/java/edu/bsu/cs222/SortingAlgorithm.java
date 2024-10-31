@@ -40,7 +40,7 @@ public class SortingAlgorithm {
         List<Float> rateList = new ArrayList<>();
         JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$..rates.*" );
         Object[] JSonArray = exchangeRateValue.toArray();
-        for (int i = 0; i <= exchangeRateValue.size(); ++i ) {
+        for (int i = 0; i < exchangeRateValue.size(); ++i ) {
             Float JSonFloat = jsonObjectToFloat(JSonArray[i]);
             rateList.add(JSonFloat);
         }
