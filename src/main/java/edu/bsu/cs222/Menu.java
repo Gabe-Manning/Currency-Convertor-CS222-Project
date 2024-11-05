@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Scanner;
 import java.text.DecimalFormat;
@@ -17,6 +18,7 @@ public class Menu {
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
     private final SortingAlgorithm sortingAlgorithm =  new SortingAlgorithm();
+    private final ListManipulator listManipulator = new ListManipulator();
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -226,7 +228,7 @@ public class Menu {
             return;
         }
         if (rankingSelection.equals("1")){
-            sortingAlgorithm.insertionSort(sortingAlgorithm.createRateListForSorting());
+            sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
         } else if (rankingSelection.equals("2")) {
 
         } else if (rankingSelection.equals("3")) {

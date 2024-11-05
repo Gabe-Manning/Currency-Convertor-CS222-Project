@@ -25,9 +25,4 @@ public class SortingAlgorithmTest {
         Assertions.assertEquals(sortedList, testAgainstList);
     }
 
-    @Test
-    public void rateListForSortingNotEmpty() throws IOException {
-        List<Float> testList = algorithm.createRateListForSorting();
-        Assertions.assertNotNull(testList);
-    }
 }
