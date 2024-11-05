@@ -24,4 +24,5 @@ Warnings/Errors:
 If converting to a currency with a starting amount and the ending monetary value is larger than one billion, then the
 program will round the monetary amount to the nearest integer value when outputting to the console.
 Warning involving if statement in Menu class is irrelevant (we don't need to make it a switch).
+Warning involving the URL is irrelevant (the URL still works, even if "deprecated").
 Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.

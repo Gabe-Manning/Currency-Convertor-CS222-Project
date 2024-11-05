@@ -10,12 +10,13 @@ import java.util.regex.Pattern;
 
 public class ErrorReport {
 
-    public void checkConnectionStatus(URL url) {
+    public String checkConnectionStatus(URL url) {
         try {
             url.openConnection().connect();
         } catch (Exception NetworkError) {
-            System.err.print("There was a network error; could not connect to the internet.\n");
+            return "There was a network error; could not connect to the internet.\n";
         }
+        return "";
     }
 
     public boolean checkEmptyInput(String input) {

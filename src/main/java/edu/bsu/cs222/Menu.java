@@ -62,7 +62,6 @@ public class Menu {
     }
 
     private void convertCurrency() throws IOException {
-
         System.out.println("Input the 3-Character Currency Abbreviation for the Currency you're Converting from (ex. USD):");
         String currencyConvertedFrom = scanner.nextLine().toUpperCase();
         emptyCheck = errors.checkEmptyInput(currencyConvertedFrom);

@@ -12,10 +12,12 @@ import java.util.Properties;
 public class APIConnector {
 
     Properties properties = new Properties();
-    ErrorReport errors = new ErrorReport();
+    ErrorReport errorReport = new ErrorReport();
+    ErrorPrinter errorPrinter = new ErrorPrinter();
 
     String APIKey;
     URL API_URL;
+    String connectionStatusMessage;
 
     public HttpsURLConnection connectNoDate() {
         APIKey = getAPIKey();
@@ -24,7 +26,9 @@ public class APIConnector {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        errors.checkConnectionStatus(API_URL);
+        connectionStatusMessage = errorReport.checkConnectionStatus(API_URL);
+        errorPrinter.printConnectionMessageError(connectionStatusMessage);
+
         HttpsURLConnection API_connection;
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
@@ -41,7 +45,9 @@ public class APIConnector {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        errors.checkConnectionStatus(API_URL);
+        connectionStatusMessage = errorReport.checkConnectionStatus(API_URL);
+        errorPrinter.printConnectionMessageError(connectionStatusMessage);
+
         HttpsURLConnection API_connection;
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
