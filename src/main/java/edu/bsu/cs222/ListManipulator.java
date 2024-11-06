@@ -12,8 +12,6 @@ public class ListManipulator {
     RatesGetter ratesGetter = new RatesGetter();
     APIConnector APIConnector = new APIConnector();
 
-
-
     private Float jsonObjectToFloat(Object array) {
         String arrayString = String.valueOf(array);
         return Float.parseFloat(arrayString);
@@ -30,5 +28,22 @@ public class ListManipulator {
             rateList.add(JSonFloat);
         }
         return rateList;
+    }
+
+    public List<Float> createStrongestRankedList(List<Float> sortedList, int amountToBeRanked){
+        List<Float> bottomList = new ArrayList<>();
+        for(int i = 0; i < amountToBeRanked; i++){
+            bottomList.add(sortedList.get(i));
+        }
+        System.out.println(bottomList);
+        return bottomList;
+    }
+    public List<Float> createWeakestRankedList(List<Float> sortedList, int amountToBeRanked){
+        List<Float> topList = new ArrayList<>();
+        for(int i = 0; i < amountToBeRanked; i++){
+            topList.add(sortedList.get(sortedList.size()-1-i));
+        }
+        System.out.println(topList);
+        return topList;
     }
 }
