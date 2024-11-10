@@ -3,7 +3,9 @@ package edu.bsu.cs222;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -18,6 +20,9 @@ public class Menu {
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
     private final SortingAlgorithm sortingAlgorithm =  new SortingAlgorithm();
     private final ListManipulator listManipulator = new ListManipulator();
+    private final AbbreviationRateMatcher abbreviationRateMatcher = new AbbreviationRateMatcher();
+    private final HashMapSorter hashMapSorter = new HashMapSorter();
+    private final MapPrinter mapPrinter = new MapPrinter();
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -202,7 +207,7 @@ public class Menu {
 
     private void viewTopOrBottomCurrencyRankings() throws IOException {
         List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
-        System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 50.");
+        System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 25.");
         String numberToBeRanked = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(numberToBeRanked);
         if (emptyCheck) {
@@ -218,8 +223,8 @@ public class Menu {
                 (When making selections, input just the number)
                 
                 Please make a selection:
-                1) View Ranking Starting From Strongest Currency
-                2) View Ranking Starting From Weakest Currency
+                1) View Ranking Starting With Strongest Currency
+                2) View Ranking Starting With Weakest Currency
                 3) Go Back To Main Menu""");
         String rankingSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(rankingSelection);
@@ -228,9 +233,15 @@ public class Menu {
             return;
         }
         if (rankingSelection.equals("1")){
-            listManipulator.createStrongestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            HashMap<String, Float> strongMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(strongList);
+            Map<String, Float> sortedStrongMap = hashMapSorter.sortHashMapByValue(true, strongMap);
+            mapPrinter.printMap(sortedStrongMap);
         } else if (rankingSelection.equals("2")) {
-            listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            HashMap<String, Float> weakMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(weakList);
+            Map<String, Float> sortedWeakMap = hashMapSorter.sortHashMapByValue(false, weakMap);
+            mapPrinter.printMap(sortedWeakMap);
         } else if (rankingSelection.equals("3")) {
             System.out.println("Going back...");
         } else {
