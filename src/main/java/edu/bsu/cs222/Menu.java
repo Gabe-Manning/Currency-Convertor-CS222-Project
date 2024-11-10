@@ -56,7 +56,7 @@ public class Menu {
             } else if (menuSelection.equals("3")) {
                 displayAllRates();
             } else if (menuSelection.equals("4")) {
-                viewTopOrBottomCurrencyRankings();
+                viewStrongOrWeakCurrencyRankings();
             } else if (menuSelection.equals("5")) {
                 System.out.println("Exiting...");
                 break;
@@ -206,7 +206,7 @@ public class Menu {
         System.out.println(allRates);
     }
 
-    private void viewTopOrBottomCurrencyRankings() throws IOException {
+    private void viewStrongOrWeakCurrencyRankings() throws IOException {
         List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
         System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 25.");
         String numberToBeRanked = scanner.nextLine();

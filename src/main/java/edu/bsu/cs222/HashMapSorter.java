@@ -4,6 +4,7 @@ import java.util.*;
 
 public class HashMapSorter {
 
+    //order == true means ascending order, order == false means descending order
     public Map<String, Float> sortHashMapByValue(final boolean order, HashMap<String, Float> unsortedMap) {
         List<Map.Entry<String, Float>> list = new LinkedList<>(unsortedMap.entrySet());
         list.sort((o1, o2) -> {

@@ -31,19 +31,17 @@ public class ListManipulator {
     }
 
     public List<Float> createStrongestRankedList(List<Float> sortedList, int amountToBeRanked){
-        List<Float> bottomList = new ArrayList<>();
+        List<Float> strongList = new ArrayList<>();
         for(int i = 0; i < amountToBeRanked; i++){
-            bottomList.add(sortedList.get(i));
+            strongList.add(sortedList.get(i));
         }
-        System.out.println(bottomList);
-        return bottomList;
+        return strongList;
     }
     public List<Float> createWeakestRankedList(List<Float> sortedList, int amountToBeRanked){
-        List<Float> topList = new ArrayList<>();
+        List<Float> weakList = new ArrayList<>();
         for(int i = 0; i < amountToBeRanked; i++){
-            topList.add(sortedList.get(sortedList.size()-1-i));
+            weakList.add(sortedList.get(sortedList.size()-1-i));
         }
-        System.out.println(topList);
-        return topList;
+        return weakList;
     }
 }

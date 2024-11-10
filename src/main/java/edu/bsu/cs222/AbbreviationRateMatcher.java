@@ -27,7 +27,6 @@ public class AbbreviationRateMatcher {
                 }
             }
         }
-        System.out.println(abbreviationsWithRates);
         return abbreviationsWithRates;
     }
 
