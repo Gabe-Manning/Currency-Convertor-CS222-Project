@@ -20,7 +20,7 @@ public class Menu {
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
     private final SortingAlgorithm sortingAlgorithm =  new SortingAlgorithm();
     private final ListManipulator listManipulator = new ListManipulator();
-    private final AbbreviationRateMatcher abbreviationRateMatcher = new AbbreviationRateMatcher();
+    private final AbbreviationRateHashMapCreator abbreviationRateMatcher = new AbbreviationRateHashMapCreator();
     private final HashMapSorter hashMapSorter = new HashMapSorter();
     private final MapPrinter mapPrinter = new MapPrinter();
 

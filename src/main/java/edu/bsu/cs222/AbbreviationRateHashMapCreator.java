@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class AbbreviationRateMatcher {
+public class AbbreviationRateHashMapCreator {
 
     public HashMap<String, Float> abbreviationRateHashMapCreation(List<Float> rateList) throws IOException {
         RatesGetter ratesGetter = new RatesGetter();
@@ -37,7 +37,7 @@ public class AbbreviationRateMatcher {
         return Float.parseFloat(formattedString);
     }
 
-    public List<String> abbreviationListCreator() {
+    private List<String> abbreviationListCreator() {
         List<String> abbreviationList = new ArrayList<>();
         abbreviationList.add("AED");
         abbreviationList.add("AFN");
