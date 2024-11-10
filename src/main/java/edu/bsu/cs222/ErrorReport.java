@@ -104,4 +104,8 @@ public class ErrorReport {
         }
         return false;
     }
+
+    public boolean checkInputIsLessEqualToMax(String inputAmount) {
+        return Integer.parseInt(inputAmount) <= 25;
+    }
 }

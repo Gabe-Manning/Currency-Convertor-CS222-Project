@@ -72,4 +72,11 @@ public class ErrorReportTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void checkInputLessEqualToMaxTest() {
+        String input = "12";
+        boolean result = errorReport.checkInputIsLessEqualToMax(input);
+        Assertions.assertTrue(result);
+    }
+
 }

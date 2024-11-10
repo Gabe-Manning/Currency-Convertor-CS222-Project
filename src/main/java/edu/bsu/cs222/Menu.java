@@ -32,6 +32,7 @@ public class Menu {
     public boolean isDateUsable;
     public boolean doesDateHaveData;
     public boolean supportedAmountIntCheck;
+    public boolean amountLessEqualMax;
 
     public void displayMenu() throws IOException {
 
@@ -217,6 +218,11 @@ public class Menu {
         supportedAmountIntCheck = errors.checkInputAmountCanBeInt(numberToBeRanked);
         if (supportedAmountIntCheck) {
             System.out.println("You must input an integer value\n");
+            return;
+        }
+        amountLessEqualMax = errors.checkInputIsLessEqualToMax(numberToBeRanked);
+        if (amountLessEqualMax) {
+            System.out.println("That number is more than the maximum supported amount.");
             return;
         }
         System.out.println("""
