@@ -27,4 +27,6 @@ Warnings involving if statement in Menu class is irrelevant (we don't need to ma
 Warning involving the URL is irrelevant (the URL still works, even if "deprecated").
 If ranking more than a few currencies, the program sometimes does not print out the whole list the first time through,
 you may need to run it twice to get the output you want. We don't know why it does this.
+If the API adds additional currencies to the data, the ranking functions do not work since they are hard-coded. They 
+still will work if they remove them, just not when they add new ones.
 Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.

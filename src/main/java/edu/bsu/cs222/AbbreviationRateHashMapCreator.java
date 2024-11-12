@@ -11,28 +11,31 @@ import java.util.List;
 
 public class AbbreviationRateHashMapCreator {
 
+    RatesGetter ratesGetter = new RatesGetter();
+    APIConnector APIConnector = new APIConnector();
+    JSONToFloat jsonToFloat = new JSONToFloat();
+
     public HashMap<String, Float> abbreviationRateHashMapCreation(List<Float> rateList) throws IOException {
-        RatesGetter ratesGetter = new RatesGetter();
-        APIConnector APIConnector = new APIConnector();
-        JSONToFloat jsonToFloat = new JSONToFloat();
 
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         String allCurrentRates = ratesGetter.getRates(API_connection);
-        List<String> abbreviationList = abbreviationListCreator();
+        List<String> abbreviationList = abbreviationListCreation();
         HashMap<String, Float> abbreviationsWithRates = new HashMap<>();
         for (int i = 0; i < abbreviationList.size(); i++) {
             JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$.." + abbreviationList.get(i));
-            float rateFromAbbreviation = jsonToFloat.jsonArrayToFloat(exchangeRateValue);
-            for (int j = 0; j < rateList.size(); j++) {
-                if (rateFromAbbreviation == rateList.get(j)) {
-                    abbreviationsWithRates.put(abbreviationList.get(i), rateList.get(j));
+            if (!exchangeRateValue.isEmpty()) {
+                float rateFromAbbreviation = jsonToFloat.jsonArrayToFloat(exchangeRateValue);
+                for (int j = 0; j < rateList.size(); j++) {
+                    if (rateFromAbbreviation == rateList.get(j)) {
+                        abbreviationsWithRates.put(abbreviationList.get(i), rateList.get(j));
+                    }
                 }
             }
         }
         return abbreviationsWithRates;
     }
 
-    private List<String> abbreviationListCreator() {
+    private List<String> abbreviationListCreation() {
         List<String> abbreviationList = new ArrayList<>();
         abbreviationList.add("AED");
         abbreviationList.add("AFN");
@@ -66,8 +69,8 @@ public class AbbreviationRateHashMapCreator {
         abbreviationList.add("CHF");
         abbreviationList.add("CLF");
         abbreviationList.add("CLP");
-        abbreviationList.add("CNY");
         abbreviationList.add("CNH");
+        abbreviationList.add("CNY");
         abbreviationList.add("COP");
         abbreviationList.add("CRC");
         abbreviationList.add("CUC");

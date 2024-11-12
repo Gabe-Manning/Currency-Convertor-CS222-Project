@@ -17,7 +17,7 @@ public class Converter {
 
     public String ratesGoneUpOrDown(float differenceInRate) {
         if (differenceInRate >= 0) {
-            return "increases";
-        } else return "decreases";
+            return "increased";
+        } else return "decreased";
     }
 }
