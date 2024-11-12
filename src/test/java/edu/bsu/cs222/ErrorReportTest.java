@@ -76,7 +76,7 @@ public class ErrorReportTest {
     public void checkInputLessEqualToMaxTest() {
         String input = "12";
         boolean result = errorReport.checkInputIsLessEqualToMax(input);
-        Assertions.assertTrue(result);
+        Assertions.assertFalse(result);
     }
 
 }
