@@ -9,13 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListManipulator {
+
     RatesGetter ratesGetter = new RatesGetter();
     APIConnector APIConnector = new APIConnector();
-
-    private Float jsonObjectToFloat(Object array) {
-        String arrayString = String.valueOf(array);
-        return Float.parseFloat(arrayString);
-    }
+    JSONToFloat jsonToFloat = new JSONToFloat();
 
     public List<Float> createRateListForSorting() throws IOException {
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
@@ -24,7 +21,7 @@ public class ListManipulator {
         JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$..rates.*" );
         Object[] JSonArray = exchangeRateValue.toArray();
         for (int i = 0; i < exchangeRateValue.size(); ++i ) {
-            Float JSonFloat = jsonObjectToFloat(JSonArray[i]);
+            Float JSonFloat = jsonToFloat.jsonObjectToFloat(JSonArray[i]);
             rateList.add(JSonFloat);
         }
         return rateList;

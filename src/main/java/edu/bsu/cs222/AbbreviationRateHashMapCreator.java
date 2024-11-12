@@ -14,13 +14,15 @@ public class AbbreviationRateHashMapCreator {
     public HashMap<String, Float> abbreviationRateHashMapCreation(List<Float> rateList) throws IOException {
         RatesGetter ratesGetter = new RatesGetter();
         APIConnector APIConnector = new APIConnector();
+        JSONToFloat jsonToFloat = new JSONToFloat();
+
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         String allCurrentRates = ratesGetter.getRates(API_connection);
         List<String> abbreviationList = abbreviationListCreator();
         HashMap<String, Float> abbreviationsWithRates = new HashMap<>();
         for (int i = 0; i < abbreviationList.size(); i++) {
             JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$.." + abbreviationList.get(i));
-            float rateFromAbbreviation = jsonArrayToFloat(exchangeRateValue);
+            float rateFromAbbreviation = jsonToFloat.jsonArrayToFloat(exchangeRateValue);
             for (int j = 0; j < rateList.size(); j++) {
                 if (rateFromAbbreviation == rateList.get(j)) {
                     abbreviationsWithRates.put(abbreviationList.get(i), rateList.get(j));
@@ -28,13 +30,6 @@ public class AbbreviationRateHashMapCreator {
             }
         }
         return abbreviationsWithRates;
-    }
-
-    private Float jsonArrayToFloat(JSONArray array) {
-
-        String arrayString = String.valueOf(array);
-        String formattedString = arrayString.substring(1, arrayString.length()-1);
-        return Float.parseFloat(formattedString);
     }
 
     private List<String> abbreviationListCreator() {
