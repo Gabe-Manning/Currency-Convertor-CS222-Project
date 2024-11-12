@@ -6,9 +6,11 @@ public class MapPrinter {
 
     public void printMap(Map<String, Float> map)
     {
+        int counter = 0;
         for (Map.Entry<String, Float> entry : map.entrySet())
         {
-            System.out.println("Currency: " + entry.getKey() + " Current Exchange Rate: "+ entry.getValue());
+            counter += 1;
+            System.out.println(counter + ". Currency: " + entry.getKey() + " Current Exchange Rate to EUR: "+ entry.getValue());
         }
     }
 }

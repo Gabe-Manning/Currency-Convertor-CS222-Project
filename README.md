@@ -23,6 +23,8 @@ file you must have a variable called apiKey that is equal to the current in use 
 Warnings/Errors:
 If converting to a currency with a starting amount and the ending monetary value is larger than one billion, then the
 program will round the monetary amount to the nearest integer value when outputting to the console.
-Warning involving if statement in Menu class is irrelevant (we don't need to make it a switch).
+Warnings involving if statement in Menu class is irrelevant (we don't need to make it a switch).
 Warning involving the URL is irrelevant (the URL still works, even if "deprecated").
+If ranking more than a few currencies, the program sometimes does not print out the whole list the first time through,
+you may need to run it twice to get the output you want. We don't know why it does this.
 Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.

@@ -45,7 +45,7 @@ public class Menu {
                     1) Get Exchange Rate and/or Convert Currency Values
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
-                    4) View The Top/Bottom (#) Ranked Currencies
+                    4) View The Strongest/Weakest (#) Ranked Currencies
                     5) Exit""");
 
             String menuSelection = scanner.nextLine();
