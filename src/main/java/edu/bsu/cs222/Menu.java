@@ -43,10 +43,10 @@ public class Menu {
                     (When making selections, input just the number)
                     
                     Please make a selection:
-                    1) Get Exchange Rate and/or Convert Currency Values
+                    1) Get Exchange Rates and/or Convert Monetary Values
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
-                    4) View The Strongest/Weakest (#) Ranked Currencies
+                    4) View The Strongest/Weakest X Number of Currencies
                     5) Exit""");
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
@@ -110,8 +110,8 @@ public class Menu {
                 (When making selections, input just the number)
                 
                 Please make a selection:
-                1) Convert Currencies With A Starting Amount
-                2) View Specific Exchange Rate Between Inputted Currencies
+                1) Convert Currencies With A Starting Monetary Amount
+                2) View the Current Exchange Rate Between Inputted Currencies
                 3) Go Back To Main Menu""");
         String convertSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(convertSelection);
@@ -165,7 +165,7 @@ public class Menu {
             return;
         }
 
-        System.out.println("Input Date in YYYY-MM-DD Format that you want Rate Record from (ex. 2024-03-18):");
+        System.out.println("Input the Date in YYYY-MM-DD Format that you want the Historical Exchange Rate Record from (ex. 2024-03-18):");
         String dateInputted = scanner.nextLine().replace("/", "-");
         emptyCheck = errors.checkEmptyInput(dateInputted);
         if (emptyCheck) {
@@ -227,8 +227,8 @@ public class Menu {
                 (When making selections, input just the number)
                 
                 Please make a selection:
-                1) View Ranking Starting With Strongest Currency
-                2) View Ranking Starting With Weakest Currency
+                1) View Ranking of the Current Strongest Currencies (Strongest at #1)
+                2) View Ranking of the Current Weakest Currencies (Weakest at #1)
                 3) Go Back To Main Menu""");
         String rankingSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(rankingSelection);
