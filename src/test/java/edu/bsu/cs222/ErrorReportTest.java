@@ -2,12 +2,14 @@ package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@SuppressWarnings("deprecation")
+
 public class ErrorReportTest {
+
     ErrorReport errorReport = new ErrorReport();
 
     @Test
@@ -75,7 +77,7 @@ public class ErrorReportTest {
     @Test
     public void checkInputLessEqualToMaxTest() {
         String input = "12";
-        boolean result = errorReport.checkInputIsLessEqualToMax(input);
+        boolean result = errorReport.checkInputIsLessEqualToMaxForRanking(input);
         Assertions.assertFalse(result);
     }
 

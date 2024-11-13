@@ -2,7 +2,6 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ public class ListManipulator {
     public List<Float> createRateListForSorting() throws IOException {
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         String allCurrentRates = ratesGetter.getRates(API_connection);
+
         List<Float> rateList = new ArrayList<>();
         JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$..rates.*" );
         Object[] JSonArray = exchangeRateValue.toArray();
@@ -34,6 +34,7 @@ public class ListManipulator {
         }
         return strongList;
     }
+
     public List<Float> createWeakestRankedList(List<Float> sortedList, int amountToBeRanked){
         List<Float> weakList = new ArrayList<>();
         for(int i = 0; i < amountToBeRanked; i++){

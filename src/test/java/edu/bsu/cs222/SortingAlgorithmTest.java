@@ -2,15 +2,15 @@ package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SortingAlgorithmTest {
+
     SortingAlgorithm algorithm = new SortingAlgorithm();
 
     @Test
-    public void insertionSortTest() throws IOException {
+    public void insertionSortTest() {
         List<Float> testList = new ArrayList<>();
         testList.add(10.96f);
         testList.add(1.23f);
@@ -24,5 +24,4 @@ public class SortingAlgorithmTest {
         testAgainstList.add(11f);
         Assertions.assertEquals(sortedList, testAgainstList);
     }
-
 }

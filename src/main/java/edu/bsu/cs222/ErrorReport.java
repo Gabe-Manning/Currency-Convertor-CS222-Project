@@ -25,11 +25,10 @@ public class ErrorReport {
 
     public boolean checkSupportedCurrency(String currency) throws IOException {
         APIConnector APIConnector = new APIConnector();
-        HttpsURLConnection connection = APIConnector.connectNoDate();
-
         RatesGetter ratesGetter = new RatesGetter();
-        String allCurrentRates = ratesGetter.getRates(connection);
 
+        HttpsURLConnection connection = APIConnector.connectNoDate();
+        String allCurrentRates = ratesGetter.getRates(connection);
         JSONArray checkForSupportedCurrency = JsonPath.read(allCurrentRates, "$.." + currency);
         return checkForSupportedCurrency.isEmpty();
     }
@@ -56,6 +55,7 @@ public class ErrorReport {
 
     public boolean checkDateIsValidForAPI(String dateInput){
         CurrentDateGetter dateGetter = new CurrentDateGetter();
+
         String currentDate = dateGetter.getCurrentDate();
         String [] currentDateArray = currentDate.split("-");
         int yearCurrent = Integer.parseInt(currentDateArray[0]);
@@ -88,6 +88,7 @@ public class ErrorReport {
 
     public boolean doesValidDateContainData(String inputCurrency, String dateInputted) throws IOException {
         RatesParser ratesParser = new RatesParser();
+
         try {
             ratesParser.parseThroughRatesForRateAtSpecificDate(inputCurrency, dateInputted);
         } catch (IllegalArgumentException e) {
@@ -105,7 +106,7 @@ public class ErrorReport {
         return false;
     }
 
-    public boolean checkInputIsLessEqualToMax(String inputAmount) {
+    public boolean checkInputIsLessEqualToMaxForRanking(String inputAmount) {
         return Integer.parseInt(inputAmount) > 25;
     }
 }

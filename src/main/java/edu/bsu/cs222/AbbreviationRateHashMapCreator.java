@@ -2,7 +2,6 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ public class AbbreviationRateHashMapCreator {
     JSONToFloat jsonToFloat = new JSONToFloat();
 
     public HashMap<String, Float> abbreviationRateHashMapCreation(List<Float> rateList) throws IOException {
-
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         String allCurrentRates = ratesGetter.getRates(API_connection);
+
         List<String> abbreviationList = abbreviationListCreation();
         HashMap<String, Float> abbreviationsWithRates = new HashMap<>();
         for (int i = 0; i < abbreviationList.size(); i++) {

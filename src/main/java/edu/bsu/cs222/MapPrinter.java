@@ -4,8 +4,7 @@ import java.util.Map;
 
 public class MapPrinter {
 
-    public void printMap(Map<String, Float> map)
-    {
+    public void printMap(Map<String, Float> map) {
         int counter = 0;
         for (Map.Entry<String, Float> entry : map.entrySet())
         {

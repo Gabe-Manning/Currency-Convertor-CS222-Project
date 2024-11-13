@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+@SuppressWarnings("IfCanBeSwitch")
+
 public class Menu {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -35,7 +37,6 @@ public class Menu {
     public boolean amountLessEqualMax;
 
     public void displayMenu() throws IOException {
-
         while (true) {
             System.out.printf("\n%s MENU %s\n", "*".repeat(9), "*".repeat(9));
             System.out.println("""
@@ -47,7 +48,6 @@ public class Menu {
                     3) View All Current Exchange Rates Compared to EUR
                     4) View The Strongest/Weakest (#) Ranked Currencies
                     5) Exit""");
-
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
                 convertCurrency();
@@ -104,7 +104,6 @@ public class Menu {
             System.out.println("That currency is either not supported by this program, or does not exist.");
             return;
         }
-
         List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(currencyConvertedFrom, currencyConvertedTo);
 
         System.out.println("""
@@ -114,7 +113,6 @@ public class Menu {
                 1) Convert Currencies With A Starting Amount
                 2) View Specific Exchange Rate Between Inputted Currencies
                 3) Go Back To Main Menu""");
-
         String convertSelection = scanner.nextLine();
         emptyCheck = errors.checkEmptyInput(convertSelection);
         if (emptyCheck) {
@@ -220,7 +218,7 @@ public class Menu {
             System.out.println("You must input an integer value\n");
             return;
         }
-        amountLessEqualMax = errors.checkInputIsLessEqualToMax(numberToBeRanked);
+        amountLessEqualMax = errors.checkInputIsLessEqualToMaxForRanking(numberToBeRanked);
         if (amountLessEqualMax) {
             System.out.println("That number is more than the maximum supported amount.");
             return;

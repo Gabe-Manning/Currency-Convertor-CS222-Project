@@ -9,6 +9,8 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
+@SuppressWarnings("deprecation")
+
 public class APIConnector {
 
     Properties properties = new Properties();

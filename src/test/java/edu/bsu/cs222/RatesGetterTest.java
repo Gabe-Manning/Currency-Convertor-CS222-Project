@@ -2,11 +2,11 @@ package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 
 public class RatesGetterTest {
+
     @Test
     public void getRatesTest() throws IOException {
         RatesGetter testRates = new RatesGetter();
