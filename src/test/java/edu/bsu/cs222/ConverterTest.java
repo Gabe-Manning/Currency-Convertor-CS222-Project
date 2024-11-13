@@ -30,6 +30,6 @@ public class ConverterTest {
     public void testRatesGoneUpOrDown() {
         float difference = 0.3F;
         String upOrDown = converter.ratesGoneUpOrDown(difference);
-        Assertions.assertEquals(upOrDown, "increases");
+        Assertions.assertEquals(upOrDown, "increased");
     }
 }

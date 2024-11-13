@@ -18,7 +18,8 @@ Needed build/run instructions:
 This program uses Gradle and accordingly must be run through Gradle.
 To run tests, need to make sure to mark the "Java" folder under the test module as "test resources root".
 To run the program you must have a config.properties file in a resources folder under "main" in "src". In this 
-file you must have a variable called apiKey that is equal to the current in use apiKey in the team project document.
+file you must have a variable called apiKey that is equal to one of the current in use apiKeys in the team project 
+document. If you use a key that is full, the program will throw a 429 error.
 
 Warnings/Errors:
 If converting to a currency with a starting amount and the ending monetary value is larger than one billion, then the
