@@ -26,8 +26,9 @@ Warnings/Errors/Suppressions:
 program will round the monetary amount to the nearest integer value when outputting to the console.
 - There are suppressed warnings involving if statements being converted to switch statements in the Menu class.
 - There are suppressed warnings involving URL deprecation. They are irrelevant and the URL works just fine.
-- If ranking more than a few currencies, the program sometimes does not print out the whole list the first time through,
-you may need to run it twice to get the output you want. We don't know why it does this.
+- When you first attempt to rank currencies after booting up the program it sometimes does not print out the ranking 
+the first time through. You may need to run that command twice to get the output you want. We don't know why it does 
+this, and it works as intended on subsequent uses.
 - If the API adds additional currencies to the data, the ranking functions do not work since they are hard-coded. They 
 still will work if the API removes them, just not when they add new ones. We couldn't figure out a way to parse through
 the JSON data for just the abbreviations, but are looking to find a solution.
