@@ -35,6 +35,7 @@ public class Menu {
     public boolean doesDateHaveData;
     public boolean supportedAmountIntCheck;
     public boolean amountLessEqualMax;
+    public boolean amountGreaterThanZero;
 
     public void displayMenu() throws IOException {
         while (true) {
@@ -221,6 +222,11 @@ public class Menu {
         amountLessEqualMax = errors.checkInputIsLessEqualToMaxForRanking(numberToBeRanked);
         if (amountLessEqualMax) {
             System.out.println("That number is more than the maximum supported amount.");
+            return;
+        }
+        amountGreaterThanZero = errors.checkInputIsGreaterThanZero(numberToBeRanked);
+        if (amountGreaterThanZero) {
+            System.out.println("The input needs to be greater than 0.");
             return;
         }
         System.out.println("""
