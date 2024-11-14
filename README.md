@@ -1,11 +1,11 @@
 Authors:
-Gabe Manning
-Christian Johnson
-Joseph Sobiech
-Cameron Hosler
+- Gabe Manning
+- Christian Johnson
+- Joseph Sobiech
+- Cameron Hosler
 
 Project Summary:
-This project uses the ExchangeRatesAPI to calculate and show currency conversion rates. The Main class runs the Menu 
+This project uses the ExchangeRatesAPI to perform tasks with currency conversion rates. The Main class runs the Menu 
 class, which then displays information and prompts for user input. The user can then choose to perform multiple 
 functions with the program, such as inputting two currencies and getting their current exchange rates, printing all 
 current exchange rates compared to the Euro, getting the historical data of a currency on a specific date compared to 
