@@ -109,4 +109,8 @@ public class ErrorReport {
     public boolean checkInputIsLessEqualToMaxForRanking(String inputAmount) {
         return Integer.parseInt(inputAmount) > 25;
     }
+
+    public boolean checkInputIsGreaterThanZero(String inputAmount) {
+        return Integer.parseInt(inputAmount) < 1;
+    }
 }
