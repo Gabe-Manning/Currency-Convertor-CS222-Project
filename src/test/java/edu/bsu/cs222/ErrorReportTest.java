@@ -81,4 +81,11 @@ public class ErrorReportTest {
         Assertions.assertFalse(result);
     }
 
+    @Test
+    public void checkInputIsGreaterThanZeroTest() {
+        String input = "-1";
+        boolean result = errorReport.checkInputIsGreaterThanZero(input);
+        Assertions.assertTrue(result);
+    }
+
 }
