@@ -25,6 +25,7 @@ public class Menu {
     private final AbbreviationRateHashMapCreator abbreviationRateMatcher = new AbbreviationRateHashMapCreator();
     private final HashMapSorter hashMapSorter = new HashMapSorter();
     private final MapPrinter mapPrinter = new MapPrinter();
+    private final GetSpecificRank rankGetter = new GetSpecificRank();
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -283,15 +284,7 @@ public class Menu {
         float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
 
         List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
-        int currentRanking = 0;
-        String placementTag;
-        if (currentRanking == 1) {
-            placementTag = "st";
-        } else if (currentRanking == 2) {
-            placementTag = "nd";
-        } else {
-            placementTag = "th";
-        }
-        System.out.println(globalRankingCurrency + " is currently the " + currentRanking + placementTag + " strongest currency globally with an exchange rate of " + exchangeRate + ".");
+        int currentRanking = rankGetter.getRank(sortedList, globalRankingCurrency);
+        System.out.println(globalRankingCurrency + " is currently rank " + currentRanking + " globally in terms of strongest currency. It has an exchange rate of " + exchangeRate + " compared to EUR.");
     }
 }
