@@ -41,7 +41,6 @@ public class RatesParser {
         String allCurrentRates = ratesGetter.getRates(API_connection);
 
         JSONArray exchangeRateArray = JsonPath.read(allCurrentRates, "$.." + currency);
-        Float exchangeRateFloat = jsonToFloat.jsonArrayToFloat(exchangeRateArray);
-        return exchangeRateFloat;
+        return jsonToFloat.jsonArrayToFloat(exchangeRateArray);
     }
 }

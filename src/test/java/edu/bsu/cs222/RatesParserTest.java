@@ -20,4 +20,10 @@ public class RatesParserTest {
         Assertions.assertEquals(rate, 1.307716F);
     }
 
+    @Test
+    public void getCurrentRateTest() throws IOException {
+        RatesParser ratesParser = new RatesParser();
+        float rate = ratesParser.getCurrentRate("USD");
+        Assertions.assertNotEquals(rate, 1000000000f);
+    }
 }
