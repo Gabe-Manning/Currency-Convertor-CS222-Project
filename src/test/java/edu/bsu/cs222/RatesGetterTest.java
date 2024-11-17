@@ -9,10 +9,10 @@ public class RatesGetterTest {
 
     @Test
     public void getRatesTest() throws IOException {
-        RatesGetter testRates = new RatesGetter();
+        APIDataToStringGetter testRates = new APIDataToStringGetter();
         APIConnector connector = new APIConnector();
         HttpsURLConnection connection = connector.connectWithDate("2013-03-16");
-        String testResult = testRates.getRates(connection);
+        String testResult = testRates.dataToString(connection);
         Assertions.assertEquals(testResult, """
                  {
                    "success":true,
@@ -187,10 +187,10 @@ public class RatesGetterTest {
 
     @Test
     public void testRatesNotEmpty() throws IOException {
-        RatesGetter testRates = new RatesGetter();
+        APIDataToStringGetter testRates = new APIDataToStringGetter();
         APIConnector connector = new APIConnector();
         HttpsURLConnection connection = connector.connectNoDate();
-        String testResult = testRates.getRates(connection);
+        String testResult = testRates.dataToString(connection);
         Assertions.assertNotNull(testResult);
     }
 }

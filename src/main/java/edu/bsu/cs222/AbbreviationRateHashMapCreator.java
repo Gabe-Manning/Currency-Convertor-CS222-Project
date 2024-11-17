@@ -1,8 +1,6 @@
 package edu.bsu.cs222;
 
-import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,18 +8,15 @@ import java.util.List;
 
 public class AbbreviationRateHashMapCreator {
 
-    RatesGetter ratesGetter = new RatesGetter();
-    APIConnector APIConnector = new APIConnector();
+    APICallForRates APICaller = new APICallForRates();
     JSONToFloat jsonToFloat = new JSONToFloat();
 
     public HashMap<String, Float> abbreviationRateHashMapCreation(List<Float> rateList) throws IOException {
-        HttpsURLConnection API_connection = APIConnector.connectNoDate();
-        String allCurrentRates = ratesGetter.getRates(API_connection);
-
+        String allCurrentRates = APICaller.getStringDataNoDate();
         List<String> abbreviationList = abbreviationListCreation();
         HashMap<String, Float> abbreviationsWithRates = new HashMap<>();
         for (int i = 0; i < abbreviationList.size(); i++) {
-            JSONArray exchangeRateValue = JsonPath.read(allCurrentRates, "$.." + abbreviationList.get(i));
+            JSONArray exchangeRateValue = APICaller.getRateAsJSONArrayWithAllRatesStringArgument(allCurrentRates, abbreviationList.get(i));
             if (!exchangeRateValue.isEmpty()) {
                 float rateFromAbbreviation = jsonToFloat.jsonArrayToFloat(exchangeRateValue);
                 for (int j = 0; j < rateList.size(); j++) {

@@ -16,7 +16,7 @@ public class Menu {
     private final RatesParser ratesParser = new RatesParser();
     private final Converter converter = new Converter();
     private final APIConnector APIConnector = new APIConnector();
-    private final RatesGetter ratesGetter = new RatesGetter();
+    private final APIDataToStringGetter dataToStringGetter = new APIDataToStringGetter();
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
@@ -205,7 +205,7 @@ public class Menu {
 
     private void displayAllRates() throws IOException {
         HttpsURLConnection connectionNoDate = APIConnector.connectNoDate();
-        String allRates = ratesGetter.getRates(connectionNoDate);
+        String allRates = dataToStringGetter.dataToString(connectionNoDate);
         System.out.println(allRates);
     }
 

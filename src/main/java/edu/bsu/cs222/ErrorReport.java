@@ -25,10 +25,10 @@ public class ErrorReport {
 
     public boolean checkSupportedCurrency(String currency) throws IOException {
         APIConnector APIConnector = new APIConnector();
-        RatesGetter ratesGetter = new RatesGetter();
+        APIDataToStringGetter ratesGetter = new APIDataToStringGetter();
 
         HttpsURLConnection connection = APIConnector.connectNoDate();
-        String allCurrentRates = ratesGetter.getRates(connection);
+        String allCurrentRates = ratesGetter.dataToString(connection);
         JSONArray checkForSupportedCurrency = JsonPath.read(allCurrentRates, "$.." + currency);
         return checkForSupportedCurrency.isEmpty();
     }

@@ -1,24 +1,18 @@
 package edu.bsu.cs222;
 
-import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RatesParser {
 
-    RatesGetter ratesGetter = new RatesGetter();
-    APIConnector APIConnector = new APIConnector();
+    APICallForRates APICaller = new APICallForRates();
     JSONToFloat jsonToFloat = new JSONToFloat();
 
     public List<Float> parseThroughRatesForCurrentExchangeRateList(String userInputCurrency, String userOutputCurrency) throws IOException {
-        HttpsURLConnection API_connection = APIConnector.connectNoDate();
-        String allCurrentRates = ratesGetter.getRates(API_connection);
-
-        JSONArray exchangeRateValueConvertingFrom = JsonPath.read(allCurrentRates, "$.." + userInputCurrency);
-        JSONArray exchangeRateConvertingTo = JsonPath.read(allCurrentRates, "$.." + userOutputCurrency);
+        JSONArray exchangeRateValueConvertingFrom = APICaller.getRateAsJSONArrayNoDate(userInputCurrency);
+        JSONArray exchangeRateConvertingTo = APICaller.getRateAsJSONArrayNoDate(userOutputCurrency);
         Float startingRateFloat = jsonToFloat.jsonArrayToFloat(exchangeRateValueConvertingFrom);
         Float endingRateFloat = jsonToFloat.jsonArrayToFloat(exchangeRateConvertingTo);
 
@@ -29,18 +23,12 @@ public class RatesParser {
     }
 
     public float parseThroughRatesForRateAtSpecificDate(String userInputCurrency, String userInputDate) throws IOException {
-        HttpsURLConnection API_connection = APIConnector.connectWithDate(userInputDate);
-        String allRatesOnSpecificDate = ratesGetter.getRates(API_connection);
-
-        JSONArray exchangeRate = JsonPath.read(allRatesOnSpecificDate, "$.." + userInputCurrency);
+        JSONArray exchangeRate = APICaller.getRateAsJSONArrayWithDate(userInputCurrency, userInputDate);
         return jsonToFloat.jsonArrayToFloat(exchangeRate);
     }
 
     public float getCurrentRate(String currency) throws IOException {
-        HttpsURLConnection API_connection = APIConnector.connectNoDate();
-        String allCurrentRates = ratesGetter.getRates(API_connection);
-
-        JSONArray exchangeRateArray = JsonPath.read(allCurrentRates, "$.." + currency);
+        JSONArray exchangeRateArray = APICaller.getRateAsJSONArrayNoDate(currency);
         return jsonToFloat.jsonArrayToFloat(exchangeRateArray);
     }
 }
