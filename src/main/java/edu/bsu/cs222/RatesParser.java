@@ -35,4 +35,13 @@ public class RatesParser {
         JSONArray exchangeRate = JsonPath.read(allRatesOnSpecificDate, "$.." + userInputCurrency);
         return jsonToFloat.jsonArrayToFloat(exchangeRate);
     }
+
+    public float getCurrentRate(String currency) throws IOException {
+        HttpsURLConnection API_connection = APIConnector.connectNoDate();
+        String allCurrentRates = ratesGetter.getRates(API_connection);
+
+        JSONArray exchangeRateArray = JsonPath.read(allCurrentRates, "$.." + currency);
+        Float exchangeRateFloat = jsonToFloat.jsonArrayToFloat(exchangeRateArray);
+        return exchangeRateFloat;
+    }
 }

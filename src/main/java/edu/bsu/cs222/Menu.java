@@ -48,7 +48,8 @@ public class Menu {
                     2) Get Historical Records
                     3) View All Current Exchange Rates Compared to EUR
                     4) View The Strongest/Weakest X Number of Currencies
-                    5) Exit""");
+                    5) Get Global Ranking of a Currency
+                    6) Exit""");
             String menuSelection = scanner.nextLine();
             if (menuSelection.equals("1")){
                 convertCurrency();
@@ -59,6 +60,8 @@ public class Menu {
             } else if (menuSelection.equals("4")) {
                 viewStrongOrWeakCurrencyRankings();
             } else if (menuSelection.equals("5")) {
+                getGlobalRanking();
+            } else if (menuSelection.equals("6")) {
                 System.out.println("Exiting...");
                 break;
             } else if (menuSelection.isEmpty()) {
@@ -257,5 +260,36 @@ public class Menu {
         } else {
             System.out.println("Invalid Input");
         }
+    }
+
+    private void getGlobalRanking() throws IOException {
+        System.out.println("Input 3-Character Currency Abbreviation (ex. USD):");
+        String globalRankingCurrency = scanner.nextLine().toUpperCase();
+        emptyCheck = errors.checkEmptyInput(globalRankingCurrency);
+        if (emptyCheck) {
+            System.out.print("You did not provide an input\n");
+            return;
+        }
+        unparseableCheck = errors.checkForUnparseableCharacters(globalRankingCurrency);
+        if (unparseableCheck) {
+            System.out.println("Your input cannot contain a space or *.");
+            return;
+        }
+        supportedCurrencyCheck = errors.checkSupportedCurrency(globalRankingCurrency);
+        if (supportedCurrencyCheck) {
+            System.out.println("That currency is either not supported by this program, or does not exist.");
+            return;
+        }
+        float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
+        int currentRanking = 0;
+        String placementTag;
+        if (currentRanking == 1) {
+            placementTag = "st";
+        } else if (currentRanking == 2) {
+            placementTag = "nd";
+        } else {
+            placementTag = "th";
+        }
+        System.out.println(globalRankingCurrency + " is currently the " + currentRanking + placementTag + " strongest currency globally with an exchange rate of " + exchangeRate + ".");
     }
 }
