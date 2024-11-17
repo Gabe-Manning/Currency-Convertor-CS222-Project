@@ -281,6 +281,8 @@ public class Menu {
             return;
         }
         float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
+
+        List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
         int currentRanking = 0;
         String placementTag;
         if (currentRanking == 1) {
