@@ -9,9 +9,10 @@ import java.util.List;
 
 public class AbbreviationRateHashMapCreatorTest {
 
+    AbbreviationRateHashMapCreator creator = new AbbreviationRateHashMapCreator();
+
     @Test
     public void hashMapCreationTest() throws IOException {
-        AbbreviationRateHashMapCreator creator = new AbbreviationRateHashMapCreator();
         List<Float> rateList = new ArrayList<>();
         rateList.add(1f);
         HashMap<String, Float> result = creator.abbreviationRateHashMapCreation(rateList);

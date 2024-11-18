@@ -11,15 +11,14 @@ import java.net.URL;
 public class ErrorReportTest {
 
     ErrorReport errorReport = new ErrorReport();
+    APIConnector connector = new APIConnector();
 
     @Test
     public void checkConnectionStatusTest() throws MalformedURLException {
-        APIConnector connector = new APIConnector();
         String apiKey = connector.getAPIKey();
         String urlString = "https://api.exchangeratesapi.io/v1/latest?access_key=" + apiKey + "&format=1";
         URL urlActual = new URL(urlString);
-        ErrorReport errorChecker = new ErrorReport();
-        errorChecker.checkConnectionStatus(urlActual);
+        errorReport.checkConnectionStatus(urlActual);
         Assertions.assertNotNull(urlActual);
     }
     @Test

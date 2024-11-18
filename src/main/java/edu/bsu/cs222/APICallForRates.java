@@ -2,7 +2,6 @@ package edu.bsu.cs222;
 
 import com.jayway.jsonpath.JsonPath;
 import net.minidev.json.JSONArray;
-
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 

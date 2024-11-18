@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 
-public class RatesGetterTest {
+public class APIDataToStringGetterTest {
+
+    APIDataToStringGetter testRates = new APIDataToStringGetter();
+    APIConnector connector = new APIConnector();
 
     @Test
     public void getRatesTest() throws IOException {
-        APIDataToStringGetter testRates = new APIDataToStringGetter();
-        APIConnector connector = new APIConnector();
         HttpsURLConnection connection = connector.connectWithDate("2013-03-16");
         String testResult = testRates.dataToString(connection);
         Assertions.assertEquals(testResult, """
@@ -187,8 +188,6 @@ public class RatesGetterTest {
 
     @Test
     public void testRatesNotEmpty() throws IOException {
-        APIDataToStringGetter testRates = new APIDataToStringGetter();
-        APIConnector connector = new APIConnector();
         HttpsURLConnection connection = connector.connectNoDate();
         String testResult = testRates.dataToString(connection);
         Assertions.assertNotNull(testResult);

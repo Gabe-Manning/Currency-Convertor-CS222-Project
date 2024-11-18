@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 
 public class ErrorPrinterTest {
 
+    ErrorPrinter printer = new ErrorPrinter();
+
     @Test
     public void printConnectionMessageTest() {
         String connectionMessage = ("There was a network error; could not connect to the internet.\n");
-        ErrorPrinter printer = new ErrorPrinter();
         String result = printer.printConnectionMessageError(connectionMessage);
         Assertions.assertNotNull(result);
     }
