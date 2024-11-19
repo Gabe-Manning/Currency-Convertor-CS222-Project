@@ -2,18 +2,15 @@ package edu.bsu.cs222;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 
 public class APIDataToStringGetterTest {
 
-    APIDataToStringGetter testRates = new APIDataToStringGetter();
-    APIConnector connector = new APIConnector();
+    APICallForRates APICaller = new APICallForRates();
 
     @Test
     public void getRatesTest() throws IOException {
-        HttpsURLConnection connection = connector.connectWithDate("2013-03-16");
-        String testResult = testRates.dataToString(connection);
+        String testResult = APICaller.getStringDataWithDate("2013-03-16");
         Assertions.assertEquals(testResult, """
                  {
                    "success":true,
@@ -188,8 +185,7 @@ public class APIDataToStringGetterTest {
 
     @Test
     public void testRatesNotEmpty() throws IOException {
-        HttpsURLConnection connection = connector.connectNoDate();
-        String testResult = testRates.dataToString(connection);
+        String testResult = APICaller.getStringDataNoDate();
         Assertions.assertNotNull(testResult);
     }
 }
