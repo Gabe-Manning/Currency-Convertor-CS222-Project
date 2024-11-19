@@ -1,6 +1,5 @@
 package edu.bsu.cs222;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -15,8 +14,6 @@ public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private final RatesParser ratesParser = new RatesParser();
     private final Converter converter = new Converter();
-    private final APIConnector APIConnector = new APIConnector();
-    private final APIDataToStringGetter dataToStringGetter = new APIDataToStringGetter();
     private final ErrorReport errors = new ErrorReport();
     private final CurrentDateGetter currentDateGetter = new CurrentDateGetter();
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
@@ -26,6 +23,7 @@ public class Menu {
     private final HashMapSorter hashMapSorter = new HashMapSorter();
     private final MapPrinter mapPrinter = new MapPrinter();
     private final GetSpecificRank rankGetter = new GetSpecificRank();
+    private final APICallForRates APICaller = new APICallForRates();
 
     public boolean emptyCheck;
     public boolean unparseableCheck;
@@ -204,8 +202,7 @@ public class Menu {
     }
 
     private void displayAllRates() throws IOException {
-        HttpsURLConnection connectionNoDate = APIConnector.connectNoDate();
-        String allRates = dataToStringGetter.dataToString(connectionNoDate);
+        String allRates = APICaller.getStringDataNoDate();
         System.out.println(allRates);
     }
 
