@@ -23,21 +23,25 @@ public class FrameWork extends JFrame implements ActionListener {
         JPanel topPanel = new JPanel();
         sidePanel.setBackground(Color.GREEN);
         topPanel.setBackground(Color.GREEN);
-        sidePanel.setPreferredSize(new Dimension(200, 400));
-        topPanel.setPreferredSize(new Dimension(400,200));
+        sidePanel.setBounds(0, 0, 200, 900);
+        topPanel.setBounds(0, 0, 2000, 200);
+        TextArea title = new TextArea();
+        title.setBounds(25, 400, 25, 50);
+        title.setText("Currency ConFlipper");
+
 
         GetRatesButton = new JButton();
-        GetRatesButton.setBounds(25, 25, 150, 150);
+        GetRatesButton.setBounds(15, 15, 150, 150);
         GetRatesButton.setText("Get Rates");
         GetRatesButton.addActionListener(this);
 
         convertRatesButton = new JButton();
-        convertRatesButton.setBounds(25, 200, 150, 150);
+        convertRatesButton.setBounds(15, 100, 150, 150);
         convertRatesButton.setText("Convert Currency");
         convertRatesButton.addActionListener(this);
 
         historyButton = new JButton();
-        historyButton.setBounds(25, 375, 150, 150);
+        historyButton.setBounds(25, 75, 150, 150);
         historyButton.setText("History");
         historyButton.addActionListener(this);
 
@@ -54,16 +58,19 @@ public class FrameWork extends JFrame implements ActionListener {
         applicationFrame.setTitle("Currency Converter");
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        applicationFrame.setSize(1000, 800);
+        sidePanel.add(GetRatesButton);
+        sidePanel.add(convertRatesButton);
+        sidePanel.add(historyButton);
+        sidePanel.add(strongestAndWeakestButton);
+        sidePanel.add(globalRankingButton);
+
+
+        applicationFrame.setSize(2000, 2000);
         applicationFrame.setVisible(true);
         applicationFrame.add(label);
-        applicationFrame.add(GetRatesButton);
-        applicationFrame.add(convertRatesButton);
-        applicationFrame.add(historyButton);
-        applicationFrame.add(strongestAndWeakestButton);
-        applicationFrame.add(globalRankingButton);
-        applicationFrame.add(sidePanel, BorderLayout.WEST);
-        applicationFrame.add(topPanel, BorderLayout.NORTH);
+        applicationFrame.add(sidePanel);
+        applicationFrame.add(topPanel);
+        applicationFrame.add(title);
 
     }
 
