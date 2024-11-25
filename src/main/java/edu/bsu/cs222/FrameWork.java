@@ -23,7 +23,7 @@ public class FrameWork extends JFrame implements ActionListener {
 
         JPanel sidePanel = new JPanel();
         JPanel topPanel = new JPanel();
-        sidePanel.setBackground(Color.GREEN);
+        sidePanel.setBackground(Color.BLUE);
         topPanel.setBackground(Color.GREEN);
         sidePanel.setBounds(0, 0, 200, 900);
         topPanel.setBounds(0, 0, 2000, 200);
@@ -54,12 +54,14 @@ public class FrameWork extends JFrame implements ActionListener {
 
         globalRankingButton = new JButton();
         globalRankingButton.setBounds(25, 725, 150, 150);
-        globalRankingButton.setText("Global Ranking");
+        globalRankingButton.setText("Global");
         globalRankingButton.addActionListener(this);
 
         applicationFrame.setTitle("Currency Converter");
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+        sidePanel.setLayout(new GridLayout(5,1,10,10));
         sidePanel.add(GetRatesButton);
         sidePanel.add(convertRatesButton);
         sidePanel.add(historyButton);
@@ -73,6 +75,8 @@ public class FrameWork extends JFrame implements ActionListener {
         applicationFrame.add(sidePanel);
         applicationFrame.add(topPanel);
         applicationFrame.add(title);
+
+
 
     }
 
