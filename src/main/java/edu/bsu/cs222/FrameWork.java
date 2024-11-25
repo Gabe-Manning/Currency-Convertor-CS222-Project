@@ -25,7 +25,7 @@ public class FrameWork extends JFrame implements ActionListener {
         JPanel topPanel = new JPanel();
         sidePanel.setBackground(Color.BLUE);
         topPanel.setBackground(Color.GREEN);
-        sidePanel.setBounds(0, 0, 200, 900);
+        sidePanel.setBounds(0, 0, 200, 1000);
         topPanel.setBounds(0, 0, 2000, 200);
         TextArea title = new TextArea();
         title.setBounds(25, 400, 25, 50);
@@ -61,7 +61,7 @@ public class FrameWork extends JFrame implements ActionListener {
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        sidePanel.setLayout(new GridLayout(5,1,10,10));
+        sidePanel.setLayout(new GridLayout(5,2,50,50));
         sidePanel.add(GetRatesButton);
         sidePanel.add(convertRatesButton);
         sidePanel.add(historyButton);

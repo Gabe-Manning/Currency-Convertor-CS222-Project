@@ -4,7 +4,7 @@ Authors:
 - Joseph Sobiech
 - Cameron Hosler
 
-Project Summary:
+Project Summary: Currency ConFlipper
 - This project uses the ExchangeRatesAPI to perform tasks with currency conversion rates. The ConsoleMain class runs the 
 Menu class, which then displays information and prompts for user input through the console. The user can then choose to 
 perform multiple functions with the program, such as inputting two currencies and getting their current exchange rates, 
