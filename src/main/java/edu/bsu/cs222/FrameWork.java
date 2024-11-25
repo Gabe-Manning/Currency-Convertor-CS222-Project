@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class FrameWork extends JFrame implements ActionListener {
     JButton GetRatesButton;
@@ -13,7 +14,7 @@ public class FrameWork extends JFrame implements ActionListener {
     JButton globalRankingButton;
 
      FrameWork() {
-        ImageIcon image = new ImageIcon("IMG_1702");
+        ImageIcon image = new ImageIcon("IMG_1702.jpeg");
         JLabel label = new JLabel();
         label.setIcon(image);
 
@@ -81,7 +82,23 @@ public class FrameWork extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == GetRatesButton) {
-            System.out.println("Test");
+            try {
+                new GetRatesInNewWindow();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        if (e.getSource() == convertRatesButton) {
+            System.out.println("Convert rates");
+        }
+        if (e.getSource() == historyButton) {
+            System.out.println("rate history");
+        }
+        if (e.getSource() == strongestAndWeakestButton) {
+            System.out.println("strongest to weakest ranking");
+        }
+        if (e.getSource() == globalRankingButton) {
+            System.out.println("Global Ranking");
         }
     }
 }
