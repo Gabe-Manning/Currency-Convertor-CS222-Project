@@ -6,10 +6,10 @@ Authors:
 
 Project Summary:
 - This project uses the ExchangeRatesAPI to perform tasks with currency conversion rates. The ConsoleMain class runs the 
-Menu class, which then displays information and prompts for user input. The user can then choose to perform multiple 
-functions with the program, such as inputting two currencies and getting their current exchange rates, printing all 
-current exchange rates compared to the Euro, getting the historical data of a currency on a specific date compared to 
-the present, converting a starting monetary amount in one currency into a monetary amount of another currency, 
+Menu class, which then displays information and prompts for user input through the console. The user can then choose to 
+perform multiple functions with the program, such as inputting two currencies and getting their current exchange rates, 
+printing all current exchange rates compared to the Euro, getting the historical data of a currency on a specific date 
+compared to the present, converting a starting monetary amount in one currency into a monetary amount of another currency, 
 viewing a current top X ranking of the strongest/weakest currencies compared to the euro, or viewing the current global
 ranking of a currency. There are errors that check for valid connection status, empty input, and supported inputs 
 (currency, dollar amounts, dates, etc). This program uses input from the console and is run using Gradle.
@@ -29,7 +29,9 @@ program will round the monetary amount to the nearest integer value when outputt
 - When you first attempt to rank currencies after booting up the program it sometimes does not print out the ranking 
 the first time through. You may need to run that command twice to get the output you want. We don't know why it does 
 this, and it works as intended on subsequent uses.
-- If the API adds additional currencies to the data, the ranking functions do not work since they are hard-coded. They 
-still will work if the API removes them, just not when they add new ones. We couldn't figure out a way to parse through
-the JSON data for just the abbreviations, but are looking to find a solution.
+- If the API adds additional currencies to the data, the ranking functions do not work since they are hard-coded. You
+would need to go to the AbbreviationRateHashMapCreator class and update abbreviationListCreation to add additional 
+currency abbreviations to be ranked. The program still works as intended if the API removes currencies, just not 
+when they add new ones. We couldn't figure out a way to parse through the JSON data for just the abbreviations, but are 
+looking to find a solution.
 - Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.

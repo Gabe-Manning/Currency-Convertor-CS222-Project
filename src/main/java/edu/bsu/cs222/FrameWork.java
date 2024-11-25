@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class FrameWork extends JFrame implements ActionListener {
+
     JButton GetRatesButton;
     JButton convertRatesButton;
     JButton historyButton;
@@ -32,7 +33,7 @@ public class FrameWork extends JFrame implements ActionListener {
 
 
         GetRatesButton = new JButton();
-        GetRatesButton.setBounds(15, 15, 150, 150);
+        GetRatesButton.setBounds(15, 15, 1000, 1000);
         GetRatesButton.setText("Get Rates");
         GetRatesButton.addActionListener(this);
 
