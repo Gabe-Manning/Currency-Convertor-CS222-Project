@@ -29,7 +29,7 @@ public class FrameWork extends JFrame implements ActionListener {
         startingPanel.setBackground(Color.RED);
         sidePanel.setBounds(0, 0, 200, 1000);
         topPanel.setBounds(0, 0, 2000, 200);
-        startingPanel.setBounds(500, 500, 2000, 2000);
+        startingPanel.setBounds(200, 200, 500, 500);
         TextArea windowTitle = new TextArea();
         windowTitle.setBounds(25, 400, 25, 50);
 
@@ -50,12 +50,12 @@ public class FrameWork extends JFrame implements ActionListener {
 
         strongestAndWeakestButton = new JButton();
         strongestAndWeakestButton.setBounds(25, 550, 150, 150);
-        strongestAndWeakestButton.setText("Strongest/Weakest");
+        strongestAndWeakestButton.setText("Strongest/Weakest Ranking");
         strongestAndWeakestButton.addActionListener(this);
 
         globalRankingButton = new JButton();
         globalRankingButton.setBounds(25, 725, 150, 150);
-        globalRankingButton.setText("Global");
+        globalRankingButton.setText("Global Ranking");
         globalRankingButton.addActionListener(this);
 
         applicationFrame.setTitle("Currency ConFlipper");
@@ -71,22 +71,23 @@ public class FrameWork extends JFrame implements ActionListener {
         JLabel titleLabel = new JLabel("Currency ConFlipper");
         titleLabel.setFont(new Font("Comic Sans", Font.BOLD, 100));
         topPanel.add(titleLabel);
-        add(topPanel,BorderLayout.CENTER);
+        add(topPanel, BorderLayout.CENTER);
 
-        TextArea startingText = new TextArea("""
-                Welcome to Currency ConFlipper!
-                
+        JLabel startingText = new JLabel("""
+                Welcome to Currency ConFlipper!\n
                 This program has different functions that can be switched between by clicking on the appropriate buttons
-                on the left side of the application. "Get All Current Rates" displays all currency abbreviations and their
-                rates compared to the euro. "Convert Currency" allows you to get the exchange rate between two currencies
-                and convert a starting monetary amount to another currency. "History" allows you to get the exchange rate 
+                on the left side of the application.\n "Get All Current Rates" displays all currency abbreviations and their
+                rates compared to the euro.\n "Convert Currency" allows you to get the exchange rate between two currencies
+                and convert a starting monetary amount to another currency.\n "History" allows you to get the exchange rate  
                 compared to the euro of a currency on a specific date (The earliest date the API supports is 1999-01-01) 
-                and shows how much it's rate has increased/decreased by since that day. "Strongest/Weakest Ranking" gets
-                the current top 1-25 strongest or weakest currencies ranked. "Global Ranking" gets the ranking of a 
+                and shows how much it's rate has increased/decreased by since that day.\n "Strongest/Weakest Ranking" gets
+                the current top 1-25 strongest or weakest currencies ranked.\n "Global Ranking" gets the ranking of a 
                 currency.
                 """);
-        startingText.setFont(new Font("Comic Sans", Font.BOLD, 10));
+        startingText.setFont(new Font("Comic Sans", Font.BOLD, 20));
+        startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
         startingPanel.add(startingText);
+        add(startingPanel, BorderLayout.CENTER);
 
         applicationFrame.setSize(2000, 2000);
         applicationFrame.setVisible(true);
