@@ -29,6 +29,11 @@ public class APICallForRates {
         return JsonPath.read(allCurrentRates, "$..rates.*");
     }
 
+    public JSONArray getAllCurrentRatesAndAbbreviationsWithoutFluff() throws IOException {
+        String allCurrentRates = getStringDataNoDate();
+        return JsonPath.read(allCurrentRates, "$..rates");
+    }
+
     public String getStringDataNoDate() throws IOException {
         HttpsURLConnection API_connection = APIConnector.connectNoDate();
         return dataToStringGetter.dataToString(API_connection);
