@@ -87,4 +87,11 @@ public class ErrorReportTest {
         Assertions.assertTrue(result);
     }
 
+    @Test
+    public void check429ErrorTest() {
+        int code = 429;
+        String message = errorReport.check429Error(code);
+        Assertions.assertNotNull(message);
+    }
+
 }

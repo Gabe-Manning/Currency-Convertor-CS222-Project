@@ -13,4 +13,11 @@ public class ErrorPrinterTest {
         String result = printer.printConnectionMessageError(connectionMessage);
         Assertions.assertNotNull(result);
     }
+
+    @Test
+    public void print429MessageTest() {
+        String error429Message = ("Your API Key is full, change your key to use the program.");
+        String result = printer.print429Error(error429Message);
+        Assertions.assertNotNull(result);
+    }
 }

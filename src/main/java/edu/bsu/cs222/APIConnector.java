@@ -20,6 +20,8 @@ public class APIConnector {
     String APIKey;
     URL API_URL;
     String connectionStatusMessage;
+    int responseCode;
+    String APIUsageMessage;
 
     public HttpsURLConnection connectNoDate() {
         APIKey = getAPIKey();
@@ -34,6 +36,7 @@ public class APIConnector {
         HttpsURLConnection API_connection;
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
+            check429Error(API_connection);
             return API_connection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -53,6 +56,7 @@ public class APIConnector {
         HttpsURLConnection API_connection;
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
+            check429Error(API_connection);
             return API_connection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -66,6 +70,12 @@ public class APIConnector {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void check429Error(HttpsURLConnection connection) throws IOException {
+        responseCode = connection.getResponseCode();
+        APIUsageMessage = errorReport.check429Error(responseCode);
+        errorPrinter.print429Error(APIUsageMessage);
     }
 }
 

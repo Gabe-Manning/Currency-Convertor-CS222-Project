@@ -113,4 +113,10 @@ public class ErrorReport {
     public boolean checkInputIsGreaterThanZero(String inputAmount) {
         return Integer.parseInt(inputAmount) < 1;
     }
+
+    public String check429Error(int responseCode) {
+        if (responseCode == 429) {
+            return "Your API Key is full, change your key to use the program.";
+        } else return "";
+    }
 }
