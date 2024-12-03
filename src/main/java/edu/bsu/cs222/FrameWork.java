@@ -9,12 +9,7 @@ import java.io.IOException;
 public class FrameWork extends JFrame implements ActionListener {
 
     APICallForRates APICallForRates = new APICallForRates();
-    JButton GetRatesButton;
     JButton welcomeButton;
-    JButton convertRatesButton;
-    JButton historyButton;
-    JButton strongestAndWeakestButton;
-    JButton globalRankingButton;
 
      FrameWork() throws IOException {
         ImageIcon image = new ImageIcon("IMG_1702.jpeg");
@@ -30,69 +25,42 @@ public class FrameWork extends JFrame implements ActionListener {
         topPanel.setBackground(Color.LIGHT_GRAY);
         startingPanel.setBackground(Color.GRAY);
         sidePanel.setBounds(0, 0, 200, 1000);
-        topPanel.setBounds(0, 0, 2000, 200);
+        topPanel.setBounds(200, 0, 2000, 200);
         startingPanel.setBounds(200, 200, 500, 500);
         TextArea allRatesText = new TextArea();
 
         String allRates = String.valueOf(APICallForRates.getAllCurrentRatesAndAbbreviationsWithoutFluff());
         allRatesText.setText(allRates.replace(":", ": ").replace("[", "").replace("{", "").replace("]", "").replace("}", "").replace(",", "\n"));
-        allRatesText.setBounds(0, 200, 200, 725);
-
-        GetRatesButton = new JButton();
-        GetRatesButton.setBounds(15, 15, 1000, 1000);
-        GetRatesButton.setText("Get All Current Rates");
-        GetRatesButton.addActionListener(this);
+        allRatesText.setBounds(0, 0, 200, 815);
 
         welcomeButton = new JButton();
         welcomeButton.setBounds(0, 0, 200, 200);
         welcomeButton.setText("Welcome!");
         welcomeButton.addActionListener(this);
 
-        convertRatesButton = new JButton();
-        convertRatesButton.setBounds(15, 100, 150, 150);
-        convertRatesButton.setText("Convert Currency");
-        convertRatesButton.addActionListener(this);
-
-        historyButton = new JButton();
-        historyButton.setBounds(25, 75, 150, 150);
-        historyButton.setText("History");
-        historyButton.addActionListener(this);
-
-        strongestAndWeakestButton = new JButton();
-        strongestAndWeakestButton.setBounds(25, 550, 150, 150);
-        strongestAndWeakestButton.setText("Strongest/Weakest Ranking");
-        strongestAndWeakestButton.addActionListener(this);
-
-        globalRankingButton = new JButton();
-        globalRankingButton.setBounds(25, 725, 150, 150);
-        globalRankingButton.setText("Global Ranking");
-        globalRankingButton.addActionListener(this);
-
         applicationFrame.setTitle("Currency ConFlipper");
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
         JLabel titleLabel = new JLabel("Currency ConFlipper");
         titleLabel.setFont(new Font("Comic Sans", Font.BOLD, 30));
         topPanel.add(titleLabel);
+        welcomeButton.setLayout(new GridLayout(1, 5, 200, 200));
         topPanel.add(welcomeButton);
 
-        JLabel startingText = new JLabel("""
-                Welcome to Currency ConFlipper!\n
-                This program has different functions that can be switched between by clicking on the appropriate buttons
-                on the left side of the application.\n "Get All Current Rates" displays all currency abbreviations and their
-                rates compared to the euro.\n "Convert Currency" allows you to get the exchange rate between two currencies
-                and convert a starting monetary amount to another currency.\n "History" allows you to get the exchange rate  
-                compared to the euro of a currency on a specific date (The earliest date the API supports is 1999-01-01) 
-                and shows how much it's rate has increased/decreased by since that day.\n "Strongest/Weakest Ranking" gets
-                the current top 1-25 strongest or weakest currencies ranked.\n "Global Ranking" gets the ranking of a 
-                currency.
-                """);
-        startingText.setFont(new Font("Comic Sans", Font.BOLD, 20));
-        startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
-        startingPanel.add(startingText);
-        add(startingPanel, BorderLayout.CENTER);
+         JMenuBar menuBar = new JMenuBar();
+         JMenu convert = new JMenu("Convert");
+         JMenu records = new JMenu("Records");
+         JMenu strongestWeakest = new JMenu("Strongest/Weakest");
+         JMenu globalRanking = new JMenu("Global Ranking");
+         applicationFrame.setJMenuBar(menuBar);
 
+         menuBar.add(convert);
+         menuBar.add(records);
+         menuBar.add(strongestWeakest);
+         menuBar.add(globalRanking);
+
+         startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
+        add(startingPanel, BorderLayout.CENTER);
         applicationFrame.setSize(2000, 2000);
         applicationFrame.setVisible(true);
         applicationFrame.add(label);
@@ -103,16 +71,8 @@ public class FrameWork extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == GetRatesButton) {
-            try {
-                new GetRatesInNewWindow();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
         if (e.getSource() == welcomeButton) {
-            TextArea welcomeText = new TextArea();
-            welcomeText.setText("""
+            String introText = ("""
                 Welcome to Currency ConFlipper!\n
                 This program has different functions that can be switched between by clicking on the appropriate buttons
                 on the left side of the application.\n "Get All Current Rates" displays all currency abbreviations and their
@@ -120,20 +80,9 @@ public class FrameWork extends JFrame implements ActionListener {
                 and convert a starting monetary amount to another currency.\n "History" allows you to get the exchange rate  
                 compared to the euro of a currency on a specific date (The earliest date the API supports is 1999-01-01) 
                 and shows how much it's rate has increased/decreased by since that day.\n "Strongest/Weakest Ranking" gets
-                the current top 1-25 strongest or weakest currencies ranked.\n "Global Ranking" gets the ranking of a 
-                currency.
+                the current top 1-25 strongest or weakest currencies ranked.\n "Global Ranking" gets the ranking of a currency.
                 """);
-            System.out.println("Convert rates");
-
-        }
-        if (e.getSource() == historyButton) {
-            System.out.println("rate history");
-        }
-        if (e.getSource() == strongestAndWeakestButton) {
-            System.out.println("strongest to weakest ranking");
-        }
-        if (e.getSource() == globalRankingButton) {
-            System.out.println("Global Ranking");
+            JOptionPane.showInternalMessageDialog(null, introText);
         }
     }
 }
