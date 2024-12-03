@@ -8,35 +8,45 @@ import java.io.IOException;
 
 public class FrameWork extends JFrame implements ActionListener {
 
+    APICallForRates APICallForRates = new APICallForRates();
     JButton GetRatesButton;
+    JButton welcomeButton;
     JButton convertRatesButton;
     JButton historyButton;
     JButton strongestAndWeakestButton;
     JButton globalRankingButton;
 
-     FrameWork() {
+     FrameWork() throws IOException {
         ImageIcon image = new ImageIcon("IMG_1702.jpeg");
         JLabel label = new JLabel();
         label.setIcon(image);
 
         JFrame applicationFrame = new JFrame();
-
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        applicationFrame.setSize(screenSize.width, screenSize.height);
         JPanel sidePanel = new JPanel();
         JPanel topPanel = new JPanel();
         JPanel startingPanel = new JPanel();
-        sidePanel.setBackground(Color.BLUE);
-        topPanel.setBackground(Color.GREEN);
-        startingPanel.setBackground(Color.RED);
+        topPanel.setBackground(Color.LIGHT_GRAY);
+        startingPanel.setBackground(Color.GRAY);
         sidePanel.setBounds(0, 0, 200, 1000);
         topPanel.setBounds(0, 0, 2000, 200);
         startingPanel.setBounds(200, 200, 500, 500);
-        TextArea windowTitle = new TextArea();
-        windowTitle.setBounds(25, 400, 25, 50);
+        TextArea allRatesText = new TextArea();
+
+        String allRates = String.valueOf(APICallForRates.getAllCurrentRatesAndAbbreviationsWithoutFluff());
+        allRatesText.setText(allRates.replace(":", ": ").replace("[", "").replace("{", "").replace("]", "").replace("}", "").replace(",", "\n"));
+        allRatesText.setBounds(0, 200, 200, 725);
 
         GetRatesButton = new JButton();
         GetRatesButton.setBounds(15, 15, 1000, 1000);
         GetRatesButton.setText("Get All Current Rates");
         GetRatesButton.addActionListener(this);
+
+        welcomeButton = new JButton();
+        welcomeButton.setBounds(0, 0, 200, 200);
+        welcomeButton.setText("Welcome!");
+        welcomeButton.addActionListener(this);
 
         convertRatesButton = new JButton();
         convertRatesButton.setBounds(15, 100, 150, 150);
@@ -61,17 +71,11 @@ public class FrameWork extends JFrame implements ActionListener {
         applicationFrame.setTitle("Currency ConFlipper");
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        sidePanel.setLayout(new GridLayout(5,2,50,50));
-        sidePanel.add(GetRatesButton);
-        sidePanel.add(convertRatesButton);
-        sidePanel.add(historyButton);
-        sidePanel.add(strongestAndWeakestButton);
-        sidePanel.add(globalRankingButton);
 
         JLabel titleLabel = new JLabel("Currency ConFlipper");
-        titleLabel.setFont(new Font("Comic Sans", Font.BOLD, 100));
+        titleLabel.setFont(new Font("Comic Sans", Font.BOLD, 30));
         topPanel.add(titleLabel);
-        add(topPanel, BorderLayout.CENTER);
+        topPanel.add(welcomeButton);
 
         JLabel startingText = new JLabel("""
                 Welcome to Currency ConFlipper!\n
@@ -92,9 +96,8 @@ public class FrameWork extends JFrame implements ActionListener {
         applicationFrame.setSize(2000, 2000);
         applicationFrame.setVisible(true);
         applicationFrame.add(label);
-        applicationFrame.add(sidePanel);
         applicationFrame.add(topPanel);
-        applicationFrame.add(windowTitle);
+        applicationFrame.add(allRatesText);
         applicationFrame.add(startingPanel);
     }
 
@@ -107,8 +110,21 @@ public class FrameWork extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
-        if (e.getSource() == convertRatesButton) {
+        if (e.getSource() == welcomeButton) {
+            TextArea welcomeText = new TextArea();
+            welcomeText.setText("""
+                Welcome to Currency ConFlipper!\n
+                This program has different functions that can be switched between by clicking on the appropriate buttons
+                on the left side of the application.\n "Get All Current Rates" displays all currency abbreviations and their
+                rates compared to the euro.\n "Convert Currency" allows you to get the exchange rate between two currencies
+                and convert a starting monetary amount to another currency.\n "History" allows you to get the exchange rate  
+                compared to the euro of a currency on a specific date (The earliest date the API supports is 1999-01-01) 
+                and shows how much it's rate has increased/decreased by since that day.\n "Strongest/Weakest Ranking" gets
+                the current top 1-25 strongest or weakest currencies ranked.\n "Global Ranking" gets the ranking of a 
+                currency.
+                """);
             System.out.println("Convert rates");
+
         }
         if (e.getSource() == historyButton) {
             System.out.println("rate history");
