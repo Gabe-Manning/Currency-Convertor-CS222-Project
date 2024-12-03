@@ -12,10 +12,11 @@ printing all current exchange rates compared to the Euro, getting the historical
 compared to the present, converting a starting monetary amount in one currency into a monetary amount of another currency, 
 viewing a current top X ranking of the strongest/weakest currencies compared to the euro, or viewing the current global
 ranking of a currency. There are errors that check for valid connection status, empty input, and supported inputs 
-(currency, dollar amounts, dates, etc). This program uses input from the console and is run using Gradle.
+(currency, dollar amounts, dates, etc). This program uses input from the console and is run using Gradle. The program can
+also be run using a GUI, running from the InterfaceMain class. 
 
 Needed build/run instructions:
-- This program uses Gradle and accordingly must be run through Gradle.
+- This program uses Gradle and accordingly must be run using Gradle.
 - To run tests, you need to make sure to mark the "Java" folder under the test module as "test resources root".
 - To run the program you must have a config.properties file in a resources folder under "main" in "src". In this 
 file you must have a variable called apiKey that is equal to one of the current in use apiKeys in the team project 
@@ -35,3 +36,8 @@ currency abbreviations to be ranked. The program still works as intended if the 
 when they add new ones. We couldn't figure out a way to parse through the JSON data for just the abbreviations, but are 
 looking to find a solution.
 - Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.
+- If all of our keys are maxed out, you will need to create one of your own. They are free and easily accessible through
+the provided link below.
+
+API:
+- ExchangeRatesAPI (https://exchangeratesapi.io) 
