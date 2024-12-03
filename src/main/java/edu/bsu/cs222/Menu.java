@@ -40,7 +40,7 @@ public class Menu {
         while (true) {
             System.out.printf("\n%s MENU %s\n", "*".repeat(9), "*".repeat(9));
             System.out.println("""
-                    (When making selections, input just the number)
+                    (When making selections, input just the number on the line below)
                     
                     Please make a selection:
                     1) Get Exchange Rates and/or Convert Monetary Values
@@ -110,7 +110,7 @@ public class Menu {
         List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(currencyConvertedFrom, currencyConvertedTo);
 
         System.out.println("""
-                (When making selections, input just the number)
+                (When making selections, input just the number on the line below)
                 
                 Please make a selection:
                 1) Convert Currencies With A Starting Monetary Amount
@@ -231,7 +231,7 @@ public class Menu {
             return;
         }
         System.out.println("""
-                (When making selections, input just the number)
+                (When making selections, input just the number on the line below)
                 
                 Please make a selection:
                 1) View Ranking of the Current Strongest Currencies (Strongest at #1)

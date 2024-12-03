@@ -7,6 +7,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class APIConnectorTest {
 
     APIConnector connector = new APIConnector();
+    ErrorReport errors = new ErrorReport();
 
     @Test
     public void getConnectedNoDateTest() {
@@ -20,5 +21,19 @@ public class APIConnectorTest {
         Assertions.assertNotNull(connection);
     }
 
+    @Test
+    public void checkConnectionErrorTest() {
+        HttpsURLConnection connection = connector.connectNoDate();
+        String test = "There was a network error; could not connect to the internet.";
+        String result = errors.checkConnectionStatus(connection.getURL());
+        Assertions.assertNotEquals(test, result);
+    }
 
+    @Test
+    public void check429ErrorTest() {
+        int code = 429;
+        String test = "Your API Key is full, change your key to use the program.";
+        String result = errors.check429Status(code);
+        Assertions.assertEquals(test, result);
+    }
 }

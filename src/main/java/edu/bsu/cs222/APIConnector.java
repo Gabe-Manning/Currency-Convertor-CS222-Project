@@ -20,6 +20,7 @@ public class APIConnector {
     String APIKey;
     URL API_URL;
     String connectionStatusMessage;
+    HttpsURLConnection API_connection;
     int responseCode;
     String APIUsageMessage;
 
@@ -30,10 +31,11 @@ public class APIConnector {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        connectionStatusMessage = errorReport.checkConnectionStatus(API_URL);
-        errorPrinter.printConnectionMessageError(connectionStatusMessage);
-
-        HttpsURLConnection API_connection;
+        try {
+            checkConnectionError(API_URL);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
             check429Error(API_connection);
@@ -42,6 +44,7 @@ public class APIConnector {
             throw new RuntimeException(e);
         }
     }
+
     public HttpsURLConnection connectWithDate(String inputtedDate) {
         APIKey = getAPIKey();
         try {
@@ -50,10 +53,11 @@ public class APIConnector {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        connectionStatusMessage = errorReport.checkConnectionStatus(API_URL);
-        errorPrinter.printConnectionMessageError(connectionStatusMessage);
-
-        HttpsURLConnection API_connection;
+        try {
+            checkConnectionError(API_URL);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         try {
             API_connection = (HttpsURLConnection) API_URL.openConnection();
             check429Error(API_connection);
@@ -74,8 +78,13 @@ public class APIConnector {
 
     public void check429Error(HttpsURLConnection connection) throws IOException {
         responseCode = connection.getResponseCode();
-        APIUsageMessage = errorReport.check429Error(responseCode);
+        APIUsageMessage = errorReport.check429Status(responseCode);
         errorPrinter.print429Error(APIUsageMessage);
+    }
+
+    public void checkConnectionError(URL url) throws IOException {
+        connectionStatusMessage = errorReport.checkConnectionStatus(url);
+        errorPrinter.printConnectionMessageError(connectionStatusMessage);
     }
 }
 

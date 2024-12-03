@@ -14,7 +14,7 @@ public class ErrorReport {
         try {
             url.openConnection().connect();
         } catch (Exception NetworkError) {
-            return "There was a network error; could not connect to the internet.\n";
+            return "There was a network error; could not connect to the internet.";
         }
         return "";
     }
@@ -114,7 +114,7 @@ public class ErrorReport {
         return Integer.parseInt(inputAmount) < 1;
     }
 
-    public String check429Error(int responseCode) {
+    public String check429Status(int responseCode) {
         if (responseCode == 429) {
             return "Your API Key is full, change your key to use the program.";
         } else return "";

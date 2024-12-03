@@ -9,7 +9,7 @@ public class ErrorPrinterTest {
 
     @Test
     public void printConnectionMessageTest() {
-        String connectionMessage = ("There was a network error; could not connect to the internet.\n");
+        String connectionMessage = ("There was a network error; could not connect to the internet.");
         String result = printer.printConnectionMessageError(connectionMessage);
         Assertions.assertNotNull(result);
     }

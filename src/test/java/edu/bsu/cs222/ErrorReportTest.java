@@ -90,7 +90,7 @@ public class ErrorReportTest {
     @Test
     public void check429ErrorTest() {
         int code = 429;
-        String message = errorReport.check429Error(code);
+        String message = errorReport.check429Status(code);
         Assertions.assertNotNull(message);
     }
 
