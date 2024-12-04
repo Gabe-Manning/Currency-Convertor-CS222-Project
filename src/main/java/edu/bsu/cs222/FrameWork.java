@@ -13,13 +13,13 @@ public class FrameWork extends JFrame implements ActionListener {
     JMenuItem welcomeButton;
     JMenuItem convertAmount;
     JMenuItem covertInputCurrency;
+    JMenuItem strongestCurrencies;
+    JMenuItem weakestCurrencies;
     JComboBox comboBox;
     //JMenu ;
+    final ImageIcon image = new ImageIcon("IMG_1702.jpeg");
 
      FrameWork() throws IOException {
-        ImageIcon image = new ImageIcon("IMG_1702.jpeg");
-        JLabel label = new JLabel();
-        label.setIcon(image);
 
         JFrame applicationFrame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -36,8 +36,6 @@ public class FrameWork extends JFrame implements ActionListener {
         String allRates = String.valueOf(APICallForRates.getAllCurrentRatesAndAbbreviationsWithoutFluff());
         allRatesText.setText(allRates.replace(":", ": ").replace("[", "").replace("{", "").replace("]", "").replace("}", "").replace(",", "\n"));
         allRatesText.setBounds(0, 0, 200, 815);
-
-
 
 
         applicationFrame.setTitle("Currency ConFlipper");
@@ -61,22 +59,29 @@ public class FrameWork extends JFrame implements ActionListener {
          convertAmount = new JMenuItem("Covert Amount");
          covertInputCurrency = new JMenuItem("Covert Currency");
          welcomeButton = new JMenuItem("Welcome");
+         strongestCurrencies = new JMenuItem("Strongest Currencies");
+         weakestCurrencies = new JMenuItem("Weakest Currencies");
 
 
          welcome.add(welcomeButton);
          convert.add(convertAmount);
          convert.add(covertInputCurrency);
+         strongestWeakest.add(strongestCurrencies);
+         strongestWeakest.add(weakestCurrencies);
 
 
          welcomeButton.addActionListener(this);
          convertAmount.addActionListener(this);
+         covertInputCurrency.addActionListener(this);
+         strongestCurrencies.addActionListener(this);
+         weakestCurrencies.addActionListener(this);
+
          startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
-        add(startingPanel, BorderLayout.CENTER);
-        applicationFrame.setSize(2000, 2000);
-        applicationFrame.setVisible(true);
-        applicationFrame.add(label);
-        applicationFrame.add(allRatesText);
-        applicationFrame.add(startingPanel);
+         add(startingPanel, BorderLayout.CENTER);
+         applicationFrame.setSize(2000, 2000);
+         applicationFrame.setVisible(true);
+         applicationFrame.add(allRatesText);
+         applicationFrame.add(startingPanel);
     }
 
     @Override
@@ -95,8 +100,16 @@ public class FrameWork extends JFrame implements ActionListener {
             JOptionPane.showInternalMessageDialog(null, introText);
         }
         if (e.getSource() == convertAmount) {
+            multiInputWindow.convertWithMonetaryAmount();
+        }
+        if (e.getSource() == covertInputCurrency) {
             multiInputWindow.TwoInputWindow();
-
+        }
+        if (e.getSource() == strongestCurrencies) {
+            multiInputWindow.strongestCurrenciesRanking();
+        }
+        if (e.getSource() == weakestCurrencies) {
+            //multiInputWindow.strongestCurrenciesRanking(); Possibly use method for both; depends on when we write the result.
         }
     }
 }
