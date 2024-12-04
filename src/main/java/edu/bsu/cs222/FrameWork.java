@@ -104,13 +104,25 @@ public class FrameWork extends JFrame implements ActionListener {
             multiInputWindow.convertWithMonetaryAmount();
         }
         if (e.getSource() == covertInputCurrency) {
-            multiInputWindow.TwoInputWindow();
+            try {
+                multiInputWindow.TwoInputWindow();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == strongestCurrencies) {
-            multiInputWindow.strongestCurrenciesRanking();
+            try {
+                multiInputWindow.strongestCurrenciesRanking();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == weakestCurrencies) {
-            //multiInputWindow.strongestCurrenciesRanking(); Possibly use method for both; depends on when we write the result.
+            try {
+                multiInputWindow.weakestCurrenciesRanking();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
