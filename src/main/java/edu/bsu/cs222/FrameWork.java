@@ -16,6 +16,7 @@ public class FrameWork extends JFrame implements ActionListener {
     JMenuItem covertInputCurrency;
     JMenuItem strongestCurrencies;
     JMenuItem weakestCurrencies;
+    JMenuItem globalRankings;
     JComboBox comboBox;
     //JMenu ;
     final ImageIcon image = new ImageIcon("IMG_1702.jpeg");
@@ -76,6 +77,7 @@ public class FrameWork extends JFrame implements ActionListener {
          strongestCurrencies = new JMenuItem("Strongest Currencies");
          weakestCurrencies = new JMenuItem("Weakest Currencies");
          recordDropDown = new JMenuItem("View Historical Records");
+         globalRankings = new JMenuItem("View Global Ranking");
 
 
          welcome.add(welcomeButton);
@@ -84,6 +86,7 @@ public class FrameWork extends JFrame implements ActionListener {
          strongestWeakest.add(strongestCurrencies);
          strongestWeakest.add(weakestCurrencies);
          records.add(recordDropDown);
+         globalRanking.add(globalRankings);
 
 
          welcomeButton.addActionListener(this);
@@ -92,6 +95,8 @@ public class FrameWork extends JFrame implements ActionListener {
          strongestCurrencies.addActionListener(this);
          weakestCurrencies.addActionListener(this);
          recordDropDown.addActionListener(this);
+         globalRankings.addActionListener(this);
+
 
          startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
          add(startingPanel, BorderLayout.CENTER);
@@ -138,6 +143,13 @@ public class FrameWork extends JFrame implements ActionListener {
         if (e.getSource() == recordDropDown) {
             try {
                 multiInputWindow.printRecordsInBox();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        if (e.getSource() == globalRankings) {
+            try {
+                multiInputWindow.viewGlobalRankings();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

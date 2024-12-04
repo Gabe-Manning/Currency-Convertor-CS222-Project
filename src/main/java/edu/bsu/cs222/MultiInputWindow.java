@@ -17,6 +17,7 @@ public class MultiInputWindow {
     HashMapSorter hashMapSorter = new HashMapSorter();
     InterfaceStringBuilder interfaceStringBuilder = new InterfaceStringBuilder();
     CurrentDateGetter currentDateGetter = new CurrentDateGetter();
+    GetSpecificRank rankGetter = new GetSpecificRank();
 
     private final DecimalFormat decimalFormat = new DecimalFormat("#");
     public void convertWithMonetaryAmount() throws IOException {
@@ -132,6 +133,25 @@ public class MultiInputWindow {
                         "\nThe exchange rate for " + historyCurrency + " to EUR has " + upOrDown + " by " + differenceInRates +
                         " since " + field;
                 JOptionPane.showMessageDialog(null, dateResult);
+            }
+        }
+        public void viewGlobalRankings() throws IOException {
+            JPanel myPanel = new JPanel();
+            JTextField currency = new JTextField(5);
+            myPanel.add(new JLabel("Enter Currency Abbreviation:"));
+            myPanel.add(currency);
+
+
+            int result = JOptionPane.showConfirmDialog(null, myPanel,
+                    "Enter The stuff I told you to Enter", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String globalRankingCurrency = currency.getText();
+                float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
+
+                List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
+                int currentRanking = rankGetter.getRank(sortedList, globalRankingCurrency);
+                String ranking = globalRankingCurrency + " is currently rank " + currentRanking + " globally in terms of strongest currency. It has an exchange rate of " + exchangeRate + " compared to EUR.";
+                JOptionPane.showMessageDialog(null, ranking);
             }
         }
     }
