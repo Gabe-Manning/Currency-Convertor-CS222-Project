@@ -10,6 +10,7 @@ public class FrameWork extends JFrame implements ActionListener {
 
     APICallForRates APICallForRates = new APICallForRates();
     MultiInputWindow multiInputWindow = new MultiInputWindow();
+    JMenuItem recordDropDown;
     JMenuItem welcomeButton;
     JMenuItem convertAmount;
     JMenuItem covertInputCurrency;
@@ -18,6 +19,17 @@ public class FrameWork extends JFrame implements ActionListener {
     JComboBox comboBox;
     //JMenu ;
     final ImageIcon image = new ImageIcon("IMG_1702.jpeg");
+    String introText = ("""
+                Welcome to Currency ConFlipper!\n
+                This program has different functions that can be switched between by clicking on the appropriate button at the top of the application. 
+                On the left side of the application are the current exchange rates compared to the euro for all supported currencies. 
+                "Convert" allows you to get the exchange rate between two currencies and/or convert a starting monetary amount to another currency. 
+                "Records" allows you to get the exchange rate compared to the euro of a currency on a specific date \n(The earliest date the program supports is 1999-01-01) and shows how much it's rate has increased/decreased by since that day. 
+                "Strongest/Weakest" gets the current top 1-25 strongest or weakest currencies ranked. 
+                "Global Ranking" gets the global ranking of a currency compared to all other supported currencies.\n
+                If at any point you need to see this message again, you can press "Welcome!" to display it.
+                We hope you find this program useful! - the developers
+                """);
 
      FrameWork() throws IOException {
 
@@ -35,10 +47,12 @@ public class FrameWork extends JFrame implements ActionListener {
 
         String allRates = String.valueOf(APICallForRates.getAllCurrentRatesAndAbbreviationsWithoutFluff());
         allRatesText.setText(allRates.replace(":", ": ").replace("[", "").replace("{", "").replace("]", "").replace("}", "").replace(",", "\n"));
-        allRatesText.setBounds(0, 0, 200, 815);
+         allRatesText.setSize(200, screenSize.height-100);
+         allRatesText.setLocation(0, 0);
 
 
-        applicationFrame.setTitle("Currency ConFlipper");
+
+         applicationFrame.setTitle("Currency ConFlipper");
         applicationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -61,6 +75,7 @@ public class FrameWork extends JFrame implements ActionListener {
          welcomeButton = new JMenuItem("Welcome");
          strongestCurrencies = new JMenuItem("Strongest Currencies");
          weakestCurrencies = new JMenuItem("Weakest Currencies");
+         recordDropDown = new JMenuItem("View Historical Records");
 
 
          welcome.add(welcomeButton);
@@ -68,6 +83,7 @@ public class FrameWork extends JFrame implements ActionListener {
          convert.add(covertInputCurrency);
          strongestWeakest.add(strongestCurrencies);
          strongestWeakest.add(weakestCurrencies);
+         records.add(recordDropDown);
 
 
          welcomeButton.addActionListener(this);
@@ -75,6 +91,7 @@ public class FrameWork extends JFrame implements ActionListener {
          covertInputCurrency.addActionListener(this);
          strongestCurrencies.addActionListener(this);
          weakestCurrencies.addActionListener(this);
+         recordDropDown.addActionListener(this);
 
          startingPanel.setLayout(new GridLayout(1, 1, 200, 100));
          add(startingPanel, BorderLayout.CENTER);
@@ -82,26 +99,20 @@ public class FrameWork extends JFrame implements ActionListener {
          applicationFrame.setVisible(true);
          applicationFrame.add(allRatesText);
          applicationFrame.add(startingPanel);
+         JOptionPane.showInternalMessageDialog(null, introText);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == welcomeButton) {
-            String introText = ("""
-                Welcome to Currency ConFlipper!\n
-                This program has different functions that can be switched between by clicking on the appropriate button at the top of the application. 
-                On the left side of the application are the current exchange rates compared to the euro for all supported currencies. 
-                "Convert" allows you to get the exchange rate between two currencies and/or convert a starting monetary amount to another currency. 
-                "Records" allows you to get the exchange rate compared to the euro of a currency on a specific date (The earliest date the program supports is 1999-01-01) and shows how much it's rate has increased/decreased by since that day. 
-                "Strongest/Weakest" gets the current top 1-25 strongest or weakest currencies ranked. 
-                "Global Ranking" gets the global ranking of a currency compared to all other supported currencies.\n
-                If at any point you need to see this message again, you can press "Welcome!" to display it.
-                We hope you find this program useful! - the developers
-                """);
             JOptionPane.showInternalMessageDialog(null, introText);
         }
         if (e.getSource() == convertAmount) {
-            multiInputWindow.convertWithMonetaryAmount();
+            try {
+                multiInputWindow.convertWithMonetaryAmount();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == covertInputCurrency) {
             try {
@@ -120,6 +131,13 @@ public class FrameWork extends JFrame implements ActionListener {
         if (e.getSource() == weakestCurrencies) {
             try {
                 multiInputWindow.weakestCurrenciesRanking();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        if (e.getSource() == recordDropDown) {
+            try {
+                multiInputWindow.printRecordsInBox();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

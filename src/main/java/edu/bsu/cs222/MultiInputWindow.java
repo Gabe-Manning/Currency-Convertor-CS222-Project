@@ -2,6 +2,7 @@ package edu.bsu.cs222;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,10 @@ public class MultiInputWindow {
     AbbreviationRateHashMapCreator abbreviationRateMatcher = new AbbreviationRateHashMapCreator();
     HashMapSorter hashMapSorter = new HashMapSorter();
     InterfaceStringBuilder interfaceStringBuilder = new InterfaceStringBuilder();
-    public void convertWithMonetaryAmount() {
+    CurrentDateGetter currentDateGetter = new CurrentDateGetter();
+
+    private final DecimalFormat decimalFormat = new DecimalFormat("#");
+    public void convertWithMonetaryAmount() throws IOException {
         JPanel myPanel = new JPanel();
         JTextField xField = new JTextField(5);
         JTextField yField = new JTextField(5);
@@ -33,9 +37,15 @@ public class MultiInputWindow {
         int result = JOptionPane.showConfirmDialog(null, myPanel,
                 "Please Enter The Abbreviations and Amount", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            System.out.println("Abbreviation 1: " + xField.getText());
-            System.out.println("Abbreviation 2: " + yField.getText());
-            System.out.println("Amount: " + zField.getText());
+            String stringX = xField.getText();
+            String stringY = yField.getText();
+            float dollarAmount = Float.parseFloat(zField.getText());
+            List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(stringX, stringY);
+            decimalFormat.setMaximumFractionDigits(2);
+
+            String converted = "Converting from " + stringX + " to " + stringY + " with " + decimalFormat.format(dollarAmount) +
+                    " gives you " + decimalFormat.format(converter.convertUsingCurrenciesAndAmount(rateList, dollarAmount)) + " in " + stringY;
+            JOptionPane.showMessageDialog(null, converted);
         }
     }
     public void TwoInputWindow() throws IOException {
@@ -94,6 +104,34 @@ public class MultiInputWindow {
                 Map<String, Float> sortedWeakMap = hashMapSorter.sortHashMapByValue(false, weakMap);
                 String weakString = interfaceStringBuilder.buildString(sortedWeakMap);
                 JOptionPane.showMessageDialog(null, weakString);
+            }
+        }
+        public void printRecordsInBox() throws IOException {
+            JPanel myPanel = new JPanel();
+            JTextField currency = new JTextField(5);
+            JTextField dateInputted = new JTextField(5);
+            myPanel.add(new JLabel("Enter Currency Abbreviation:"));
+            myPanel.add(currency);
+            myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+            myPanel.add(new JLabel("Enter Date in YYYY-MM-DD Format:"));
+            myPanel.add(dateInputted);
+
+            int result = JOptionPane.showConfirmDialog(null, myPanel,
+                    "Enter The stuff I told you to Enter", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String dateInputFormat = dateInputted.getText();
+                String historyCurrency = currency.getText();
+                String field = dateInputFormat.replace("/", "-");
+                float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, field);
+
+                String currentDate = currentDateGetter.getCurrentDate();
+                float currentRateOfHistoryCurrency = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
+                float differenceInRates = currentRateOfHistoryCurrency - rateOnDateInputted;
+                String upOrDown = converter.ratesGoneUpOrDown(differenceInRates);
+                String dateResult = "The exchange rate to EUR on " + field + " for " + historyCurrency + " was " + rateOnDateInputted +
+                        "\nThe exchange rate for " + historyCurrency + " to EUR has " + upOrDown + " by " + differenceInRates +
+                        " since " + field;
+                JOptionPane.showMessageDialog(null, dateResult);
             }
         }
     }
