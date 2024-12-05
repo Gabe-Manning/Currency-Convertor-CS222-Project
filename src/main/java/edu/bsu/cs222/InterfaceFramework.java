@@ -18,7 +18,6 @@ public class InterfaceFramework extends JFrame implements ActionListener {
     JMenuItem strongestCurrenciesButton;
     JMenuItem weakestCurrenciesButton;
     JMenuItem globalRankingsButton;
-    //final ImageIcon image = new ImageIcon("IMG_1702.jpeg");
     String introText = ("""
                 Welcome to Currency ConFlipper!
                 
@@ -35,6 +34,9 @@ public class InterfaceFramework extends JFrame implements ActionListener {
                 """);
 
     public void createInterfaceFramework() throws IOException {
+
+        ImageIcon icon = new ImageIcon("C:\\Users\\jdani\\CS222\\Final-Johnson-Manning-Hosler-Sobiech\\src\\main\\resources\\funnyBackground\\logo.jpg");
+        Image image = icon.getImage();
 
         JFrame applicationFrame = new JFrame();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -88,6 +90,8 @@ public class InterfaceFramework extends JFrame implements ActionListener {
         weakestCurrenciesButton.addActionListener(this);
         globalRankingsButton.addActionListener(this);
 
+        BackgroundClass panel = new BackgroundClass(image);
+        mainPanel.add(panel);
         mainPanel.setLayout(new GridLayout(1, 1, 200, 100));
         add(mainPanel, BorderLayout.CENTER);
         applicationFrame.setVisible(true);

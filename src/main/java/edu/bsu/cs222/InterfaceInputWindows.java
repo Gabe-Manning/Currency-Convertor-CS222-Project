@@ -32,7 +32,9 @@ public class InterfaceInputWindows {
     public boolean amountLessEqualMax;
     public boolean amountGreaterThanZero;
 
+
     public void convertWithMonetaryAmount() throws IOException {
+
         JPanel inputPanel = new JPanel();
         JTextField convertingFromField = new JTextField(5);
         JTextField convertingToField = new JTextField(5);
