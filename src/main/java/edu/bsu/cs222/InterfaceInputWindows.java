@@ -37,8 +37,8 @@ public class InterfaceInputWindows {
 
         int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations and Monetary Amount", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            String convertingFromInput = convertingFromField.getText();
-            String convertingToInput = convertingToField.getText();
+            String convertingFromInput = convertingFromField.getText().toUpperCase();
+            String convertingToInput = convertingToField.getText().toUpperCase();
             float dollarAmount = Float.parseFloat(amountField.getText());
             List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
             decimalFormat.setMaximumFractionDigits(2);
@@ -60,8 +60,8 @@ public class InterfaceInputWindows {
 
         int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            String convertingFromInput = convertingFromField.getText();
-            String convertingToInput = convertingToField.getText();
+            String convertingFromInput = convertingFromField.getText().toUpperCase();
+            String convertingToInput = convertingToField.getText().toUpperCase();
             List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
             String output = "The exchange rate between " + convertingFromInput + " and " + convertingToInput + " is " +
                     converter.convertUsingOnlyCurrencies(rateList) + " " + convertingToInput + " per " + convertingFromInput;
@@ -82,7 +82,7 @@ public class InterfaceInputWindows {
         int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation and Date You Want Records From", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             String dateInput = dateInputtedField.getText();
-            String historyCurrency = currencyField.getText();
+            String historyCurrency = currencyField.getText().toUpperCase();
             String dateInputFormatted = dateInput.replace("/", "-");
             float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputFormatted);
 
@@ -140,7 +140,7 @@ public class InterfaceInputWindows {
 
             int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                String globalRankingCurrency = currencyField.getText();
+                String globalRankingCurrency = currencyField.getText().toUpperCase();
                 float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
                 int currentRanking = rankGetter.getRank(sortedList, globalRankingCurrency);
