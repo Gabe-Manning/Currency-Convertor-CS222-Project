@@ -50,7 +50,7 @@ public class InterfaceInputWindows {
         if (result == JOptionPane.OK_OPTION) {
             String convertingFromInput = convertingFromField.getText().toUpperCase();
             String convertingToInput = convertingToField.getText().toUpperCase();
-            float dollarAmount = Float.parseFloat((amountField.getText()));
+            String amountString = amountField.getText();
             List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
 
             emptyCheck = errorReport.checkEmptyInput(convertingFromInput);
@@ -83,17 +83,17 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
-            emptyCheck = errorReport.checkEmptyInput(String.valueOf(dollarAmount));
+            emptyCheck = errorReport.checkEmptyInput(String.valueOf(amountString));
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
                 return;
             }
-            supportedAmountFloatCheck = errorReport.checkInputAmountCanBeFloat(String.valueOf(dollarAmount));
+            supportedAmountFloatCheck = errorReport.checkInputAmountCanBeFloat(String.valueOf(amountString));
             if (supportedAmountFloatCheck) {
                 JOptionPane.showMessageDialog(null,"That input is not supported.");
                 return;
             }
-
+            float dollarAmount = Float.parseFloat(amountString);
             decimalFormat.setMaximumFractionDigits(2);
             String output = "Converting from " + convertingFromInput + " to " + convertingToInput + " with " + decimalFormat.format(dollarAmount) +
                     " gives you " + decimalFormat.format(converter.convertUsingCurrenciesAndAmount(rateList, dollarAmount)) + " in " + convertingToInput;
