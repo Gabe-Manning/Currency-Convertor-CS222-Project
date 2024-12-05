@@ -209,23 +209,23 @@ public class Menu {
     private void viewStrongOrWeakCurrencyRankings() throws IOException {
         List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
         System.out.println("How many currencies would you like to see ranked? The maximum you can rank is 25.");
-        String numberToBeRanked = scanner.nextLine();
-        emptyCheck = errors.checkEmptyInput(numberToBeRanked);
+        String numberToBeRankedString = scanner.nextLine();
+        emptyCheck = errors.checkEmptyInput(numberToBeRankedString);
         if (emptyCheck) {
             System.out.print("You did not provide an input\n");
             return;
         }
-        supportedAmountIntCheck = errors.checkInputAmountCanBeInt(numberToBeRanked);
+        supportedAmountIntCheck = errors.checkInputAmountCanBeInt(numberToBeRankedString);
         if (supportedAmountIntCheck) {
             System.out.println("You must input an integer value\n");
             return;
         }
-        amountLessEqualMax = errors.checkInputIsLessEqualToMaxForRanking(numberToBeRanked);
+        amountLessEqualMax = errors.checkInputIsLessEqualToMaxForRanking(numberToBeRankedString);
         if (amountLessEqualMax) {
             System.out.println("That number is more than the maximum supported amount.");
             return;
         }
-        amountGreaterThanZero = errors.checkInputIsGreaterThanZero(numberToBeRanked);
+        amountGreaterThanZero = errors.checkInputIsGreaterThanZero(numberToBeRankedString);
         if (amountGreaterThanZero) {
             System.out.println("The input needs to be greater than 0.");
             return;
@@ -243,16 +243,19 @@ public class Menu {
             System.out.print("You did not provide an input\n");
             return;
         }
+        int numberToBeRanked = Integer.parseInt(numberToBeRankedString);
         if (rankingSelection.equals("1")){
-            List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, numberToBeRanked);
             HashMap<String, Float> strongMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(strongList);
             Map<String, Float> sortedStrongMap = hashMapSorter.sortHashMapByValue(true, strongMap);
-            mapPrinter.printMap(sortedStrongMap);
+            Map<String, Float> exactSortedStrongMap = hashMapSorter.makeMapExactSize(sortedStrongMap, numberToBeRanked);
+            mapPrinter.printMap(exactSortedStrongMap);
         } else if (rankingSelection.equals("2")) {
-            List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(numberToBeRanked));
+            List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(numberToBeRankedString));
             HashMap<String, Float> weakMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(weakList);
             Map<String, Float> sortedWeakMap = hashMapSorter.sortHashMapByValue(false, weakMap);
-            mapPrinter.printMap(sortedWeakMap);
+            Map<String, Float> exactSortedWeakMap = hashMapSorter.makeMapExactSize(sortedWeakMap, numberToBeRanked);
+            mapPrinter.printMap(exactSortedWeakMap);
         } else if (rankingSelection.equals("3")) {
             System.out.println("Going back...");
         } else {

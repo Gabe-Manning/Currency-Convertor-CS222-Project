@@ -22,4 +22,18 @@ public class HashMapSorter {
         }
         return sortedMap;
     }
+
+    public Map<String, Float> makeMapExactSize(Map<String, Float> inputMap, int numberToBeRanked) {
+        List<Map.Entry<String, Float>> list = new LinkedList<>(inputMap.entrySet());
+        Map<String, Float> exactMap = new LinkedHashMap<>();
+        int counter = 0;
+        for (Map.Entry<String, Float> entry : list) {
+            if (counter == numberToBeRanked) {
+                return exactMap;
+            }
+            exactMap.put(entry.getKey(), entry.getValue());
+            counter += 1;
+        }
+        return exactMap;
+    }
 }

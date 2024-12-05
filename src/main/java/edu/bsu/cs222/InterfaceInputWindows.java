@@ -247,7 +247,8 @@ public class InterfaceInputWindows {
                 List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, numberToBeRanked);
                 HashMap<String, Float> strongMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(strongList);
                 Map<String, Float> sortedStrongMap = hashMapSorter.sortHashMapByValue(true, strongMap);
-                String strongString = interfaceStringBuilder.buildString(sortedStrongMap);
+                Map<String, Float> exactSortedStrongMap = hashMapSorter.makeMapExactSize(sortedStrongMap, numberToBeRanked);
+                String strongString = interfaceStringBuilder.buildString(exactSortedStrongMap);
                 JOptionPane.showMessageDialog(null, strongString);
             }
         }
@@ -286,7 +287,8 @@ public class InterfaceInputWindows {
                 List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(String.valueOf(numberToBeRanked)));
                 HashMap<String, Float> weakMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(weakList);
                 Map<String, Float> sortedWeakMap = hashMapSorter.sortHashMapByValue(false, weakMap);
-                String weakString = interfaceStringBuilder.buildString(sortedWeakMap);
+                Map<String, Float> exactSortedWeakMap = hashMapSorter.makeMapExactSize(sortedWeakMap, numberToBeRanked);
+                String weakString = interfaceStringBuilder.buildString(exactSortedWeakMap);
                 JOptionPane.showMessageDialog(null, weakString);
             }
         }
