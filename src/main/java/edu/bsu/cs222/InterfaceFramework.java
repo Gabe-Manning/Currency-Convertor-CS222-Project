@@ -20,13 +20,16 @@ public class InterfaceFramework extends JFrame implements ActionListener {
     JMenuItem globalRankingsButton;
     //final ImageIcon image = new ImageIcon("IMG_1702.jpeg");
     String introText = ("""
-                Welcome to Currency ConFlipper!\n
-                This program has different functions that can be switched between by clicking on the appropriate button at the top of the application. 
-                On the left side of the application are the current exchange rates compared to the euro for all supported currencies. 
-                "Convert" allows you to get the exchange rate between two currencies and/or convert a starting monetary amount to another currency. 
-                "Records" allows you to get the exchange rate compared to the euro of a currency on a specific date \n(The earliest date the program supports is 1999-01-01) and shows how much it's rate has increased/decreased by since that day. 
-                "Strongest/Weakest" gets the current top 1-25 strongest or weakest currencies ranked. 
-                "Global Ranking" gets the global ranking of a currency compared to all other supported currencies.\n
+                Welcome to Currency ConFlipper!
+                
+                This program has different functions that can be switched between by clicking on the appropriate button at the top of the application.
+                On the left side of the application are the current exchange rates compared to the euro for all supported currencies.
+                "Convert" allows you to get the exchange rate between two currencies and/or convert a starting monetary amount to another currency.
+                "Records" allows you to get the exchange rate compared to the euro of a currency on a specific date
+                (The earliest date the program supports is 1999-01-01) and shows how much it's rate has increased/decreased by since that day.
+                "Strongest/Weakest" gets the current top 1-25 strongest or weakest currencies ranked.
+                "Global Ranking" gets the global ranking of a currency compared to all other supported currencies.
+                
                 If at any point you need to see this message again, you can press "Welcome" to display it.
                 We hope you find this program useful! - the developers
                 """);
@@ -39,8 +42,6 @@ public class InterfaceFramework extends JFrame implements ActionListener {
         JPanel mainPanel = new JPanel();
         mainPanel.setBackground(Color.GRAY);
         mainPanel.setBounds(200, 200, 500, 500);
-        //JPanel sidePanel = new JPanel();
-        //sidePanel.setBounds(0, 0, 200, 1000);
 
         TextArea allRatesText = new TextArea();
         String allRates = String.valueOf(APICallForRates.getAllCurrentRatesAndAbbreviationsWithoutFluff());
@@ -91,7 +92,6 @@ public class InterfaceFramework extends JFrame implements ActionListener {
         applicationFrame.setVisible(true);
         applicationFrame.add(allRatesText);
         applicationFrame.add(mainPanel);
-        //applicationFrame.add(sidePanel);
 
         JOptionPane.showInternalMessageDialog(null, introText);
     }

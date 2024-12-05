@@ -6,14 +6,14 @@ Authors:
 
 Project Summary: Currency ConFlipper
 - This project uses the ExchangeRatesAPI to perform tasks with currency conversion rates. The ConsoleMain class runs the 
-Menu class, which then displays information and prompts for user input through the console. The user can then choose to 
-perform multiple functions with the program, such as inputting two currencies and getting their current exchange rates, 
-printing all current exchange rates compared to the Euro, getting the historical data of a currency on a specific date 
-compared to the present, converting a starting monetary amount in one currency into a monetary amount of another currency, 
-viewing a current top X ranking of the strongest/weakest currencies compared to the euro, or viewing the current global
-ranking of a currency. There are errors that check for valid connection status, empty input, and supported inputs 
-(currency, dollar amounts, dates, etc). This program uses input from the console and is run using Gradle. The program can
-also be run using a GUI, running from the InterfaceMain class. 
+Menu class and the InterfaceMain class runs the InterfaceFramework class, which then displays information and prompts for 
+user input through the console or GUI respectively. The user can then choose to perform multiple functions with the program, 
+such as inputting two currencies and getting their current exchange rates, printing all current exchange rates compared 
+to the Euro, getting the historical data of a currency on a specific date compared to the present, converting a starting 
+monetary amount in one currency into a monetary amount of another currency, viewing a current top X ranking of the 
+strongest/weakest currencies compared to the euro, or viewing the current global ranking of a currency. There are errors 
+that check for valid connection status, empty input, and supported inputs (currency, dollar amounts, dates, etc). This 
+program is run using Gradle. 
 
 Needed build/run instructions:
 - This program uses Gradle and accordingly must be run using Gradle.
@@ -21,6 +21,7 @@ Needed build/run instructions:
 - To run the program you must have a config.properties file in a resources folder under "main" in "src". In this 
 file you must have a variable called apiKey that is equal to one of the current in use apiKeys in the team project 
 document. If you use a key that is at use capacity the program will throw a 429 error and you must another key.
+- The program can be run in ConsoleMain through the console or InterfaceMain through the GUI
 
 Warnings/Errors/Suppressions:
 - If converting to a currency with a starting amount and the ending monetary value is larger than one billion, then the
@@ -33,8 +34,7 @@ this, and it works as intended on subsequent uses.
 - If the API adds additional currencies to the data, the ranking functions do not work since they are hard-coded. You
 would need to go to the AbbreviationRateHashMapCreator class and update abbreviationListCreation to add additional 
 currency abbreviations to be ranked. The program still works as intended if the API removes currencies, just not 
-when they add new ones. We couldn't figure out a way to parse through the JSON data for just the abbreviations, but are 
-looking to find a solution.
+when they add new ones. We couldn't figure out a way to parse through the JSON data for just the abbreviations.
 - Tests must be run using Gradle, not with IntelliJ, otherwise they do not run. Has something to do with directories.
 - If all of our keys are maxed out, you will need to create one of your own. They are free and easily accessible through
 the provided link below.
