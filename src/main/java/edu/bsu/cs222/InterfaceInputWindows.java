@@ -164,11 +164,9 @@ public class InterfaceInputWindows {
 
         int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation and Date You Want Records From", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            String dateInput = dateInputtedField.getText();
             String historyCurrency = currencyField.getText().toUpperCase();
+            String dateInput = dateInputtedField.getText();
             String dateInputFormatted = dateInput.replace("/", "-");
-            float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputFormatted);
-
             emptyCheck = errorReport.checkEmptyInput(historyCurrency);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -204,7 +202,7 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"The inputted currency does not have data on that date.");
                 return;
             }
-
+            float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputFormatted);
             String currentDate = currentDateGetter.getCurrentDate();
             float currentRateOfHistoryCurrency = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
             float differenceInRates = currentRateOfHistoryCurrency - rateOnDateInputted;
@@ -223,29 +221,30 @@ public class InterfaceInputWindows {
 
             int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Strongest Currencies", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                int numberToBeRanked = Integer.parseInt(strongField.getText());
-                emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRanked));
+                String numberToBeRankedString = strongField.getText();
+                emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRankedString));
                 if (emptyCheck) {
                     JOptionPane.showMessageDialog(null,"You did not provide an input\n");
                     return;
                 }
-                supportedAmountIntCheck = errorReport.checkInputAmountCanBeInt(String.valueOf(numberToBeRanked));
+                supportedAmountIntCheck = errorReport.checkInputAmountCanBeInt(String.valueOf(numberToBeRankedString));
                 if (supportedAmountIntCheck) {
                     JOptionPane.showMessageDialog(null,"You must input an integer value\n");
                     return;
                 }
-                amountLessEqualMax = errorReport.checkInputIsLessEqualToMaxForRanking(String.valueOf(numberToBeRanked));
+                amountLessEqualMax = errorReport.checkInputIsLessEqualToMaxForRanking(String.valueOf(numberToBeRankedString));
                 if (amountLessEqualMax) {
                     JOptionPane.showMessageDialog(null,"That number is more than the maximum supported amount.");
                     return;
                 }
-                amountGreaterThanZero = errorReport.checkInputIsGreaterThanZero(String.valueOf(numberToBeRanked));
+                amountGreaterThanZero = errorReport.checkInputIsGreaterThanZero(String.valueOf(numberToBeRankedString));
                 if (amountGreaterThanZero) {
                     JOptionPane.showMessageDialog(null,"The input needs to be greater than 0.");
                     return;
                 }
+                int numberToBeRanked = Integer.parseInt(numberToBeRankedString);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
-                List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, Integer.parseInt(String.valueOf(numberToBeRanked)));
+                List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, numberToBeRanked);
                 HashMap<String, Float> strongMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(strongList);
                 Map<String, Float> sortedStrongMap = hashMapSorter.sortHashMapByValue(true, strongMap);
                 String strongString = interfaceStringBuilder.buildString(sortedStrongMap);
@@ -261,27 +260,28 @@ public class InterfaceInputWindows {
 
             int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Weakest Currencies", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-                int numberToBeRanked = Integer.parseInt(weakField.getText());
-                emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRanked));
+                String numberToBeRankedString = weakField.getText();
+                emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRankedString));
                 if (emptyCheck) {
                     JOptionPane.showMessageDialog(null,"You did not provide an input\n");
                     return;
                 }
-                supportedAmountIntCheck = errorReport.checkInputAmountCanBeInt(String.valueOf(numberToBeRanked));
+                supportedAmountIntCheck = errorReport.checkInputAmountCanBeInt(String.valueOf(numberToBeRankedString));
                 if (supportedAmountIntCheck) {
                     JOptionPane.showMessageDialog(null,"You must input an integer value\n");
                     return;
                 }
-                amountLessEqualMax = errorReport.checkInputIsLessEqualToMaxForRanking(String.valueOf(numberToBeRanked));
+                amountLessEqualMax = errorReport.checkInputIsLessEqualToMaxForRanking(String.valueOf(numberToBeRankedString));
                 if (amountLessEqualMax) {
                     JOptionPane.showMessageDialog(null,"That number is more than the maximum supported amount.");
                     return;
                 }
-                amountGreaterThanZero = errorReport.checkInputIsGreaterThanZero(String.valueOf(numberToBeRanked));
+                amountGreaterThanZero = errorReport.checkInputIsGreaterThanZero(String.valueOf(numberToBeRankedString));
                 if (amountGreaterThanZero) {
                     JOptionPane.showMessageDialog(null,"The input needs to be greater than 0.");
                     return;
                 }
+                int numberToBeRanked = Integer.parseInt(numberToBeRankedString);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
                 List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(String.valueOf(numberToBeRanked)));
                 HashMap<String, Float> weakMap = abbreviationRateMatcher.abbreviationRateHashMapCreation(weakList);
