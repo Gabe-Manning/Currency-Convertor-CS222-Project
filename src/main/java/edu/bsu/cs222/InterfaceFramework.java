@@ -64,6 +64,7 @@ public class InterfaceFramework extends JFrame implements ActionListener {
         menuBar.add(recordsMenu);
         menuBar.add(strongestWeakestMenu);
         menuBar.add(globalRankingMenu);
+
         welcomeButton = new JMenuItem("Welcome");
         convertAmountButton = new JMenuItem("Convert with Starting Amount");
         convertNoAmountButton = new JMenuItem("Convert for Rate Only");

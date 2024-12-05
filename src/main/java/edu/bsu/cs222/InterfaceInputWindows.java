@@ -46,13 +46,9 @@ public class InterfaceInputWindows {
         inputPanel.add(new JLabel("Starting Monetary Amount:"));
         inputPanel.add(amountField);
 
-        int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations and Monetary Amount", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
+        int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations and Monetary Amount", JOptionPane.OK_CANCEL_OPTION);
+        if (panelOption == JOptionPane.OK_OPTION) {
             String convertingFromInput = convertingFromField.getText().toUpperCase();
-            String convertingToInput = convertingToField.getText().toUpperCase();
-            String amountString = amountField.getText();
-            List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
-
             emptyCheck = errorReport.checkEmptyInput(convertingFromInput);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -68,6 +64,8 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
+
+            String convertingToInput = convertingToField.getText().toUpperCase();
             emptyCheck = errorReport.checkEmptyInput(convertingToInput);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -83,6 +81,8 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
+
+            String amountString = amountField.getText();
             emptyCheck = errorReport.checkEmptyInput(String.valueOf(amountString));
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -93,8 +93,10 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That input is not supported.");
                 return;
             }
+
             float dollarAmount = Float.parseFloat(amountString);
             decimalFormat.setMaximumFractionDigits(2);
+            List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
             String output = "Converting from " + convertingFromInput + " to " + convertingToInput + " with " + decimalFormat.format(dollarAmount) +
                     " gives you " + decimalFormat.format(converter.convertUsingCurrenciesAndAmount(rateList, dollarAmount)) + " in " + convertingToInput;
             JOptionPane.showMessageDialog(null, output);
@@ -111,10 +113,9 @@ public class InterfaceInputWindows {
         inputPanel.add(new JLabel("Currency To:"));
         inputPanel.add(convertingToField);
 
-        int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
+        int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter The Currency Abbreviations", JOptionPane.OK_CANCEL_OPTION);
+        if (panelOption == JOptionPane.OK_OPTION) {
             String convertingFromInput = convertingFromField.getText().toUpperCase();
-            String convertingToInput = convertingToField.getText().toUpperCase();
             emptyCheck = errorReport.checkEmptyInput(convertingFromInput);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -130,6 +131,8 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
+
+            String convertingToInput = convertingToField.getText().toUpperCase();
             emptyCheck = errorReport.checkEmptyInput(convertingToInput);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -145,6 +148,7 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
+
             List<Float> rateList = ratesParser.parseThroughRatesForCurrentExchangeRateList(convertingFromInput, convertingToInput);
             String output = "The exchange rate between " + convertingFromInput + " and " + convertingToInput + " is " +
                     converter.convertUsingOnlyCurrencies(rateList) + " " + convertingToInput + " per " + convertingFromInput;
@@ -162,11 +166,9 @@ public class InterfaceInputWindows {
         inputPanel.add(new JLabel("Enter Date in YYYY-MM-DD Format:"));
         inputPanel.add(dateInputtedField);
 
-        int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation and Date You Want Records From", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
+        int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation and Date You Want Records From", JOptionPane.OK_CANCEL_OPTION);
+        if (panelOption == JOptionPane.OK_OPTION) {
             String historyCurrency = currencyField.getText().toUpperCase();
-            String dateInput = dateInputtedField.getText();
-            String dateInputFormatted = dateInput.replace("/", "-");
             emptyCheck = errorReport.checkEmptyInput(historyCurrency);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -182,6 +184,9 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                 return;
             }
+
+            String dateInput = dateInputtedField.getText();
+            String dateInputFormatted = dateInput.replace("/", "-");
             emptyCheck = errorReport.checkEmptyInput(dateInputFormatted);
             if (emptyCheck) {
                 JOptionPane.showMessageDialog(null,"You did not provide an input\n");
@@ -202,6 +207,7 @@ public class InterfaceInputWindows {
                 JOptionPane.showMessageDialog(null,"The inputted currency does not have data on that date.");
                 return;
             }
+
             float rateOnDateInputted = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, dateInputFormatted);
             String currentDate = currentDateGetter.getCurrentDate();
             float currentRateOfHistoryCurrency = ratesParser.parseThroughRatesForRateAtSpecificDate(historyCurrency, currentDate);
@@ -219,8 +225,8 @@ public class InterfaceInputWindows {
             inputPanel.add(new JLabel("Number of Currencies to be Ranked:"));
             inputPanel.add(strongField);
 
-            int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Strongest Currencies", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
+            int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Strongest Currencies", JOptionPane.OK_CANCEL_OPTION);
+            if (panelOption == JOptionPane.OK_OPTION) {
                 String numberToBeRankedString = strongField.getText();
                 emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRankedString));
                 if (emptyCheck) {
@@ -242,6 +248,7 @@ public class InterfaceInputWindows {
                     JOptionPane.showMessageDialog(null,"The input needs to be greater than 0.");
                     return;
                 }
+
                 int numberToBeRanked = Integer.parseInt(numberToBeRankedString);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
                 List<Float> strongList = listManipulator.createStrongestRankedList(sortedList, numberToBeRanked);
@@ -259,8 +266,8 @@ public class InterfaceInputWindows {
             inputPanel.add(new JLabel("Number of Currencies to be Ranked:"));
             inputPanel.add(weakField);
 
-            int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Weakest Currencies", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
+            int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter Preferred Number of Weakest Currencies", JOptionPane.OK_CANCEL_OPTION);
+            if (panelOption == JOptionPane.OK_OPTION) {
                 String numberToBeRankedString = weakField.getText();
                 emptyCheck = errorReport.checkEmptyInput(String.valueOf(numberToBeRankedString));
                 if (emptyCheck) {
@@ -282,6 +289,7 @@ public class InterfaceInputWindows {
                     JOptionPane.showMessageDialog(null,"The input needs to be greater than 0.");
                     return;
                 }
+
                 int numberToBeRanked = Integer.parseInt(numberToBeRankedString);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
                 List<Float> weakList = listManipulator.createWeakestRankedList(sortedList, Integer.parseInt(String.valueOf(numberToBeRanked)));
@@ -299,8 +307,8 @@ public class InterfaceInputWindows {
             inputPanel.add(new JLabel("Enter Currency Abbreviation:"));
             inputPanel.add(currencyField);
 
-            int result = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
+            int panelOption = JOptionPane.showConfirmDialog(null, inputPanel, "Please Enter the Currency Abbreviation", JOptionPane.OK_CANCEL_OPTION);
+            if (panelOption == JOptionPane.OK_OPTION) {
                 String globalRankingCurrency = currencyField.getText().toUpperCase();
                 emptyCheck = errorReport.checkEmptyInput(globalRankingCurrency);
                 if (emptyCheck) {
@@ -317,6 +325,7 @@ public class InterfaceInputWindows {
                     JOptionPane.showMessageDialog(null,"That currency is either not supported by this program, or does not exist.");
                     return;
                 }
+
                 float exchangeRate = ratesParser.getCurrentRate(globalRankingCurrency);
                 List<Float> sortedList = sortingAlgorithm.insertionSort(listManipulator.createRateListForSorting());
                 int currentRanking = rankGetter.getRank(sortedList, globalRankingCurrency);
@@ -325,4 +334,3 @@ public class InterfaceInputWindows {
             }
         }
     }
-
