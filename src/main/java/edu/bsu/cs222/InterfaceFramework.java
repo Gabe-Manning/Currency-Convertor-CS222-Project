@@ -35,7 +35,7 @@ public class InterfaceFramework extends JFrame implements ActionListener {
 
     public void createInterfaceFramework() throws IOException {
 
-        ImageIcon icon = new ImageIcon("logo.jpg");
+        ImageIcon icon = new ImageIcon("CS222 Logo.jpg");
         Image image = icon.getImage();
 
         JFrame applicationFrame = new JFrame();
